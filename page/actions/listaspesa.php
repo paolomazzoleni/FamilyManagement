@@ -10,6 +10,11 @@
           border: 1px solid black;
       }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <h1>LISTE DELLA SPESA</h1>
@@ -58,31 +63,31 @@
       echo "<br><br>----------------------------------------<br><br>";
   
       //menu visualizzazione
-      echo "<b>MENU VISUALIZZAZIONE</b>";
-      echo "<form action=\"visualizza.php\" method=\"post\">";
-      echo "<input type=\"text\" name=\"vis_id\" placeholder=\"ID\"><br>";
-      echo "<input type=\"submit\" value=\"visualizza\" name=\"vis\">";
-      echo "</form>";
+      echo "<b>MENU VISUALIZZAZIONE</b>
+            <form action='visualizza.php' method='post'>
+            <input type='text' name='vis_id' placeholder='ID'><br>
+            <input type='submit' value='visualizza' name='vis'>
+            </form>";
       echo "<br><br>----------------------------------------<br><br>";
       
       //inserimento
-      echo "<b>MENU INSERIMENTO</b>";
-      echo "<form method=\"post\">";
-      echo "<input type=\"date\" name=\"ins_date\" required><br>";
-      echo "<input type=\"text\" name=\"ins_luo\" placeholder=\"Luogo\" required><br>";
-      echo "<input type=\"submit\" value=\"inserisci\" name=\"ins\">";
-      echo "</form>";
-      
+      echo "<b>MENU INSERIMENTO</b>
+            <form method='post'>
+            <input type='date' name='ins_date' required><br>
+            <input type='text' name='ins_luo' placeholder='Luogo' required><br>
+            <input type='submit' value='inserisci' name='ins'>
+            </form>";
       echo "<br><br>----------------------------------------<br><br>";
   
       //menu cancellazione
-      echo "<b>MENU CANCELLAZIONE</b>";
-      echo "<form method=\"post\">";
-      echo "<input type=\"text\" name=\"del_id\" placeholder=\"ID\"><br>";
-      echo "<input type=\"submit\" value=\"elimina\" name=\"del\">";
-      echo "</form>";
+      echo "<b>MENU CANCELLAZIONE</b>
+            <form method='post'>
+            <input type='text' name='del_id' placeholder='ID'><br>
+            <input type='submit' value='elimina' name='del'>
+            </form>";
+      echo "<br><br>----------------------------------------<br><br>";
       
-      echo "<form method=\"post\" action=\"../menu_fam.php\"><input type=\"submit\" value=\"torna indietro\"></form>";
+      echo "<form method='post' action='../menu_fam.php'><input type='submit' value='torna indietro'></form>";
     ?>
   </body>
 </html>

@@ -10,6 +10,11 @@
           border: 1px solid black;
       }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <?php
@@ -62,28 +67,28 @@
         echo "<br><br>----------------------------------------<br><br>";
 
         //menu inserimento
-        echo "<b>MENU INSERIMENTO</b>";
-        echo "<form method=\"post\">";
-        echo "<input type=\"text\" name=\"ins_desc\" placeholder=\"Descrizione\"><br>";
-        echo "<input type=\"number\" name=\"ins_qua\" placeholder=\"Quantità\"><br>";
-        echo "<input type=\"submit\" value=\"inserisci\" name=\"ins\">";
-        echo "</form>";
+        echo "<b>MENU INSERIMENTO</b>
+              <form method='post'>
+              <input type='text' name='ins_desc' placeholder='Descrizione'><br>
+              <input type='number' name='ins_qua' placeholder='Quantità'><br>
+              <input type='submit' value='inserisci' name=\"ins\">
+              </form>";
 
         echo "<br><br>----------------------------------------<br><br>";
 
         //menu cancellazione
-        echo "<b>MENU CANCELLAZIONE</b>";
-        echo "<form method=\"post\">";
-        echo "<input type=\"text\" name=\"del_id\" placeholder=\"ID\"><br>";
-        echo "<input type=\"submit\" value=\"elimina\" name=\"del\">";
-        echo "</form>";
+        echo "<b>MENU CANCELLAZIONE</b>
+              <form method='post'>
+              <input type='text' name='del_id' placeholder='ID'><br>
+              <input type='submit' value='elimina' name='del'>
+              </form>";
       }
       //Se NON esiste lista spesa con id richiesto
       else {
         echo "Errore: hai inserito un id non valido o la lista della spesa con questo id non esiste ancora.<br><br>";
       }
       
-      echo "<form method=\"post\" action=\"./listaspesa.php\"><input type=\"submit\" value=\"torna indietro\"></form>";
+      echo "<form method='post' action='./listaspesa.php'><input type='submit' value='torna indietro'></form>";
     ?>
   </body>
 </html>

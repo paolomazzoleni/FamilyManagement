@@ -21,6 +21,11 @@
           border: 1px solid black;
       }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
     <h1>SPESE GENERALI</h1>
@@ -60,24 +65,23 @@
       echo "<br><br>----------------------------------------<br><br>";
   
       //menu inserimento
-      echo "<b>MENU INSERIMENTO</b>";
-      echo "<form method=\"post\">";
-      echo "Data scadenza<br><input type=\"date\" name=\"data_s\" required><br>";
-      echo "<input type=\"text\" name=\"ins_desc\" placeholder=\"Descrizione\" required><br>";
-      echo "<input type=\"number\" step=\"0.1\" name=\"ins_costo\" placeholder=\"Costo\" required><br>";
-      echo "<input type=\"submit\" value=\"inserisci\" name=\"insert\">";
-      echo "</form>";
-
+      echo "<b>MENU INSERIMENTO</b>
+            <form method=\"post\">
+            Data scadenza<br><input type='date' name='data_s' required><br>
+            <input type='text' name='ins_desc' placeholder='Descrizione' required><br>
+            <input type='submit' value='inserisci' name='insert'>
+            </form>";
       echo "<br><br>----------------------------------------<br><br>";
 
       //menu cancellazione
-      echo "<b>MENU CANCELLAZIONE</b>";
-      echo "<form action=\"./spesgeneral.php\" method=\"post\">";
-      echo "<input type=\"text\" name=\"del_id\" placeholder=\"ID\"><br>";
-      echo "<input type=\"submit\" value=\"Cancella\" name=\"delete\">";
-      echo "</form>";
+      echo "<b>MENU CANCELLAZIONE</b>
+            <form action='./spesgeneral.php' method='post'>
+            <input type='text' name='del_id' placeholder='ID'><br>
+            <input type='submit' value='Cancella' name='delete'>
+            </form>";
+      echo "<br><br>----------------------------------------<br><br>";
       
-      echo "<form method=\"post\" action=\"../menu_fam.php\"><input type=\"submit\" value=\"torna indietro\"></form>";
+      echo "<form method='post' action='../menu_fam.php'><input type='submit' value='torna indietro'></form>";
     ?>
   </body>
 </html>
