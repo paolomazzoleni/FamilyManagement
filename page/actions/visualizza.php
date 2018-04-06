@@ -16,7 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
+  <body style='background-color:#9ECCFF;'>
     <?php
       echo "<h1>LISTA DELLA SPESA - ID: ".$_REQUEST['vis_id']."</h1>";
       session_start();

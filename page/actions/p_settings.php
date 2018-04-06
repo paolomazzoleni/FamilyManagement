@@ -1,24 +1,29 @@
+<?php
+  $_SESSION['curpage'] = 'pset';
+  session_start();
+  $servername = "localhost";
+  $username = "familymanagement@localhost";
+  $password = "";
+  $dbname = "my_familymanagement";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }    
+?>
+
 <html>
   <head>
-    <title>Impostazioni personali</title>
+    <title>Impostazioni personali | FM</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
+  <body style='background-color:#9ECCFF;'>
     <?php
- 	  session_start();
-      $servername = "localhost";
-      $username = "familymanagement@localhost";
-      $password = "";
-      $dbname = "my_familymanagement";
-      $conn = new mysqli($servername, $username, $password, $dbname);
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-      }    
-
+      require '../_navbar.php';   
+    
       //se è richiesto cambio password
       if(isset($_REQUEST['cpass'])){
         $sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
@@ -63,8 +68,6 @@
               Conferma la nuova password: <input name='n2_password' type='password' required><br>
               <input type='submit' value='cambia password' name='cpass'>
               </form>";
-      
-        echo "<form method='post' action='../menu_fam.php'><input type='submit' value='torna indietro'></form>";
       }
     ?>
   </body>

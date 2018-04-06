@@ -12,7 +12,7 @@
 ?>
 <html class="w-100 h-100">
   <head>
-    <title>Registrazione | Famiglia</title>
+    <title>Registrazione | FM</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -39,7 +39,7 @@
         }
         else{
           echo "
-            <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#75B7FF;'>
+            <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
               <div class='align-self-center text-center' style='width: 18rem !important;'>
                 <h2 class='mb-2' style='color:black;'>Errore - Utente già registrato con questa email</h2>
                 <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
@@ -49,13 +49,13 @@
       }
       else{
         echo "
-          <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#75B7FF;'>
-            <div class='mt-5 text-center'>
+          <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+            <div class='mt-5 text-center' style='background-color:white;padding:10px;border-radius:25px;'>
               <h1 class='mb-2' style='color:black;'>REGISTRAZIONE</h1>
 	   		  <form action='./reg.php' method='post'>
                 <div class='form-group'>
                   <label>Email address</label>
-                  <input type='email' class='form-control' name='regemail' required id='regemail' aria-describedby='emailHelp' placeholder='Enter email'>
+                  <input type='email' class='form-control' name='regemail' required id='regemail' aria-describedby='emailHelp' placeholder='Email'>
                 </div>
                 <div class='form-group'>
                   <label>Password</label>

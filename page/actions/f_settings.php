@@ -1,3 +1,15 @@
+<?php
+  $_SESSION['curpage'] = 'fset';
+  session_start();
+  $servername = "localhost";
+  $username = "familymanagement@localhost";
+  $password = "";
+  $dbname = "my_familymanagement";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+?>
 <html>
   <head>
     <title>Impostazioni familiari</title>
@@ -16,19 +28,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
-    <h1>IMPOSTAZIONI</h1>
+  <body style='background-color:#9ECCFF;'>
     <?php
-      session_start();
-      $servername = "localhost";
-      $username = "familymanagement@localhost";
-      $password = "";
-      $dbname = "my_familymanagement";
-      $conn = new mysqli($servername, $username, $password, $dbname);
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-      }
-
+      require '../_navbar.php';
+    
       if(isset($_REQUEST['delete_u'])){
         $sql = "UPDATE utente SET codice_fam=NULL WHERE email='".$_REQUEST['del_email']."'";
         if ($conn->query($sql) === FALSE){
@@ -126,8 +129,6 @@
       		<form action='./f_settings.php' method='post'>
             <input type='submit' value='Elimina' name='delete_f'>
             </form>";
-
-      echo "<form method='post' action='../menu_fam.php'><input type='submit' value='torna indietro'></form>";
     ?>
   </body>
 </html>

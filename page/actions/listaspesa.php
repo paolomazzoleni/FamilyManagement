@@ -1,3 +1,15 @@
+<?php
+  session_start();
+  $_SESSION['curpage'] = 'lstsps';
+  $servername = "localhost";
+  $username = "familymanagement@localhost";
+  $password = "";
+  $dbname = "my_familymanagement";
+  $conn = new mysqli($servername, $username, $password, $dbname);
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+?>
 <html>
   <head>
     <title>Lista spese | Famiglia</title>
@@ -16,18 +28,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
-    <h1>LISTE DELLA SPESA</h1>
+  <body style='background-color:#9ECCFF;'>
     <?php
-      session_start();
-      $servername = "localhost";
-      $username = "familymanagement@localhost";
-      $password = "";
-      $dbname = "my_familymanagement";
-      $conn = new mysqli($servername, $username, $password, $dbname);
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-      }
+      require '../_navbar.php';
+      
       //se è settata sessione spesa
       if(isset($_SESSION['spesa'])){
         unset($_SESSION['spesa']);
@@ -86,8 +90,6 @@
             <input type='submit' value='elimina' name='del'>
             </form>";
       echo "<br><br>----------------------------------------<br><br>";
-      
-      echo "<form method='post' action='../menu_fam.php'><input type='submit' value='torna indietro'></form>";
     ?>
   </body>
 </html>

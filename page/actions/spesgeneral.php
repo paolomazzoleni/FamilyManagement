@@ -1,5 +1,6 @@
 <?php
   session_start();
+  $_SESSION['curpage'] = 'spsgen';
   $servername = "localhost";
   $username = "familymanagement@localhost";
   $password = "";
@@ -27,9 +28,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
-  <body>
-    <h1>SPESE GENERALI</h1>
+  <body style='background-color:#9ECCFF;'>
     <?php
+      require '../_navbar.php';
       if(isset($_REQUEST['delete'])){
         $sql = "DELETE FROM spesgen WHERE id_spesa_gen='".$_REQUEST['del_id']."'";
         if ($conn->query($sql) === FALSE) {
@@ -80,8 +81,6 @@
             <input type='submit' value='Cancella' name='delete'>
             </form>";
       echo "<br><br>----------------------------------------<br><br>";
-      
-      echo "<form method='post' action='../menu_fam.php'><input type='submit' value='torna indietro'></form>";
     ?>
   </body>
 </html>
