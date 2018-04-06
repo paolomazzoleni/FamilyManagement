@@ -48,7 +48,7 @@
                 }
               }
               else{
-                $errore=0; //password diverse
+                $errore=2; //password diverse
               }
             }
             else{
@@ -79,7 +79,7 @@
                 <div class='form-group'>
                   <label>Conferma password</label>
                   <input type='password' class='form-control' name='n2_password' placeholder='Conferma password' required>";
-                  if($errore==0){
+                  if($errore==2){
                     echo "<small class='form-text p-2 mb-2 bg-warning text-dark'>La password di conferma non è corretta</small>";
                     $errore=-1;
                   }
