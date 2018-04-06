@@ -39,16 +39,20 @@
         $matches = array();
         $i=0;
         foreach ($xml->channel->item as $item) {
+            //cerco l'immagine nella descrizione grazie ad una regex
             $array = explode (" ",$item->description);
             $img = $array[1];
 			preg_match("/(http|https).*\.(jpg|JPG)/",$img,$matches,PREG_OFFSET_CAPTURE);
-               
+            //se non c'è l'immagine dell'articolo
+            if(empty($matches[0][0]))
+              $matches[0][0] = "http://familymanagement.altervista.org/img/news.jpg";
+
         	if($i==0||$i==3||$i==6)
               echo "<div class='card-deck'>";
             
             echo "
-              <div class='card' style='max-height: 550px !important;'>
-                <img class='card-img-top' src='".$matches[0][0]."'>
+              <div class='card'>
+                <img class='card-img-top' src='".$matches[0][0]."' onerror='this.src='http://www.starcoppe.it/images/grafica-immagine-b.jpg';'>
                 <div class='card-body'>
                   <p class='card-text'>".$item->title."</p>
                   <a target='_blank' href='".$item->link."' class='btn btn-primary'>Leggi la notizia</a>

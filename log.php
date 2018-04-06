@@ -104,7 +104,7 @@
                  <form method='post' action='./index.php'><input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
               </form>
              </div>
-           </div>";        
+           </div>";
       }
     ?>
   </body>

@@ -48,37 +48,41 @@
         }
       }
       else{
-        echo "
-          <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-            <div class='mt-5 text-center' style='background-color:white;padding:10px;border-radius:25px;'>
+        echo
+         "<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+            <div class='align-self-center text-center' style='width: 26rem !important;background-color:white;padding:10px;border-radius:25px;'>
               <h1 class='mb-2' style='color:black;'>REGISTRAZIONE</h1>
-	   		  <form action='./reg.php' method='post'>
-                <div class='form-group'>
-                  <label>Email address</label>
-                  <input type='email' class='form-control' name='regemail' required id='regemail' aria-describedby='emailHelp' placeholder='Email'>
+              <form action='./reg.php' method='post'> 
+                <div class='form-row'>
+                  <div class='form-group col-md-6'>
+                    <label>Nome</label>
+                    <input type='text' class='form-control' placeholder='Nome' name='regname' required>
+                  </div>
+                  <div class='form-group col-md-6'>
+                    <label>Cognome</label>
+                    <input type='text' class='form-control' placeholder='Cognome' name='regsurname' required>
+                  </div>
                 </div>
                 <div class='form-group'>
-                  <label>Password</label>
-                  <input type='password' class='form-control' id='regpassword' placeholder='Password' name='regpassword' required>
-                </div>
-                <div class='form-group'>
-                  <label>Conferma password</label>
-                  <input type='password' class='form-control' id='regpassword2' placeholder='Conferma password' name='regpassword2' required>
-                </div>
-                <div class='form-group'>
-                  <label>Nome</label>
-                  <input type='text' class='form-control' placeholder='Nome' name='regname' required>
-                </div>
-                <div class='form-group'>
-                  <label>Cognome</label>
-                  <input type='text' class='form-control' placeholder='Cognome' name='regsurname' required>
-                </div>
-                <div class='form-group'>
-                  <label>Data</label>
+                  <label>Data di nascita</label>
                   <input type='date' class='form-control' name='regdate' required>
                 </div>
+                <div class='form-group'>
+                  <label>Indirizzo email</label>
+                  <input type='email' class='form-control' name='regemail' required id='regemail' aria-describedby='emailHelp' placeholder='Email'>
+                </div>
+                <div class='form-row'>
+                  <div class='form-group col-md-6'>
+                    <label>Password</label>
+                    <input type='password' class='form-control' placeholder='Password' name='regpassword' required>
+                  </div>
+                  <div class='form-group col-md-6'>
+                    <label>Conferma password</label>
+                    <input type='password' class='form-control' placeholder='Conferma password' name='regpassword2' required>
+                  </div>
+                </div>
                 <input type='submit' class='btn btn-primary btn-lg btn-block' value='register' name='register'></form>
-                <form method='post' action='./index.php'><input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
+                <form method='post' action='./index.php'><input class='mt-4 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
               </form>
             </div>
           </div>";

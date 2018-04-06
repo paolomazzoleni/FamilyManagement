@@ -45,12 +45,7 @@
               $_SESSION['fam']=$row['codice_fam'];
               header('Location: ./page/user.php');
             }
-            else
-              echo "Errore - cookie non valido";
         } 
-        else {
-            echo "Errore: cookie non valido";
-        }
       }
     ?>
     

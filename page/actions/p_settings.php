@@ -23,7 +23,7 @@
   <body style='background-color:#9ECCFF;'>
     <?php
       require '../_navbar.php';   
-    
+      
       //se è richiesto cambio password
       if(isset($_REQUEST['cpass'])){
         $sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
@@ -48,27 +48,44 @@
                 }
               }
               else{
-                echo "Errore - conferma password errata
-                     <form method='post' action='./p_settings.php'><input type='submit' value='torna indietro'></form>";
+                $errore=0; //password diverse
               }
             }
             else{
-              echo "Errore - password vecchia errata
-              		<form method='post' action='./p_settings.php'><input type='submit' value='torna indietro'></form>";
+              $errore=1; //password attuale errata
             }
         }
       }
       
       //stampa menù
-      else{
-        echo "<b>Cambio password</b>
+      echo 
+       "<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+          <div class='align-self-center text-center' style='width: 18rem !important;'>
+            <h3 class='mb-2' style='color:black;'>CAMBIO PASSWORD</h3>
               <form action='./p_settings.php' method='post'>
-              Inserisci la vecchia password: <input name='o_password' type='password' required><br>
-              Inserisci la nuova password: <input name='n1_password' type='password' required><br>
-              Conferma la nuova password: <input name='n2_password' type='password' required><br>
-              <input type='submit' value='cambia password' name='cpass'>
-              </form>";
-      }
+                <div class='form-group'>
+                  <label>Password attuale</label>
+                  <input type='password' class='form-control' name='o_password' placeholder='Password attuale' required>";
+                  if($errore==1){
+                    echo "<small class='form-text p-2 mb-2 bg-danger text-white'>Hai inserito una password errata</small>";
+                  }
+      echo 
+               "</div>
+                <div class='form-group'>
+                  <label>Nuova password</label>
+                  <input type='password' class='form-control' name='n1_password' placeholder='Nuova password' required>
+                </div>
+                <div class='form-group'>
+                  <label>Conferma password</label>
+                  <input type='password' class='form-control' name='n2_password' placeholder='Conferma password' required>";
+                  if($errore==0){
+                    echo "<small class='form-text p-2 mb-2 bg-warning text-dark'>La password di conferma non è corretta</small>";
+                  }
+      echo     "</div>
+                <input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='cambia password' name='cpass'></form>
+              </form>
+          </div>
+        </div>";
     ?>
   </body>
 </html>
