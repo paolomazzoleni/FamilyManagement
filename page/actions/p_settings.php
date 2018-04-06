@@ -68,6 +68,7 @@
                   <input type='password' class='form-control' name='o_password' placeholder='Password attuale' required>";
                   if($errore==1){
                     echo "<small class='form-text p-2 mb-2 bg-danger text-white'>Hai inserito una password errata</small>";
+                    $errore=-1;
                   }
       echo 
                "</div>
@@ -80,6 +81,7 @@
                   <input type='password' class='form-control' name='n2_password' placeholder='Conferma password' required>";
                   if($errore==0){
                     echo "<small class='form-text p-2 mb-2 bg-warning text-dark'>La password di conferma non è corretta</small>";
+                    $errore=-1;
                   }
       echo     "</div>
                 <input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='cambia password' name='cpass'></form>
