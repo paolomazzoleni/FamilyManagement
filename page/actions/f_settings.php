@@ -99,7 +99,7 @@
               <div class='card mt-3'>
                 <div class='card-body'>
                   <h5 class='card-title'>Cambia nome</h5>
-                  <form>
+                  <form method='post'>
                     <div class='form-group'>
                       <input type='text' class='form-control' name='mod_name' placeholder='Nuovo nome' required>
                     </div>
@@ -112,7 +112,7 @@
               <div class='card mt-3'>
                 <div class='card-body'>
                   <h5 class='card-title'>Cambia residenza</h5>
-                  <form>
+                  <form method='post'>
                     <div class='form-group'>
                       <input type='text' class='form-control' name='mod_res' placeholder='Nuova residenza' required>
                     </div>

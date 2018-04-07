@@ -54,33 +54,67 @@
       $result = $conn->query($sql);
       if ($result->num_rows > 0){
         echo "<table>";
-        echo "<tr><th>ID</th><th>DATA INSERIMENTO</th><th>DATA SCADENZA</th><th>DESCRIZIONE</th><th>COSTO</th></tr>";
+        echo "<tr><th>#</th><th>DATA INSERIMENTO</th><th>DATA SCADENZA</th><th>DESCRIZIONE</th><th>COSTO</th></tr>";
         while($row = $result->fetch_assoc()) {
           echo "<tr><td>".$row['id_spesa_gen']."</td><td>".$row['data_ins']."</td><td>".$row['data_scad']."</td><td>".$row['descrizione']."</td><td>".$row['costo']."</td>";
         }
         echo "</table>";
       }
       else{
-          echo "Ancora nessuna spesa generale settata.";
+          echo "
+            <div class='container-fluid mt-3'>
+              <div class='row'>
+                <div class='col'></div>
+                <div class='col'>
+                  <h2 align='center'>Nessuna spesa ancora settata</h2>
+                  <p align='center'>Utilizza il menù sottostante per inserire la prima</p>
+                </div>
+                <div class='col'></div>
+              </div>
+            </div>
+          ";
       }
-      echo "<br><br>----------------------------------------<br><br>";
   
-      //menu inserimento
-      echo "<b>MENU INSERIMENTO</b>
-            <form method=\"post\">
-            Data scadenza<br><input type='date' name='data_s' required><br>
-            <input type='text' name='ins_desc' placeholder='Descrizione' required><br>
-            <input type='submit' value='inserisci' name='insert'>
-            </form>";
-      echo "<br><br>----------------------------------------<br><br>";
-
-      //menu cancellazione
-      echo "<b>MENU CANCELLAZIONE</b>
-            <form action='./spesgeneral.php' method='post'>
-            <input type='text' name='del_id' placeholder='ID'><br>
-            <input type='submit' value='Cancella' name='delete'>
-            </form>";
-      echo "<br><br>----------------------------------------<br><br>";
+      echo "
+        <div class='container-fluid' style='text-align:center;'>
+          <div class='row'>
+            <div class='col-sm-6'>
+              <div class='card mt-3'>
+                <div class='card-body'>
+                  <h5 class='card-title'>Aggiungi spesa</h5>
+                  <form method='post'>
+                    <div class='form-group'>
+                      <label>Data di scadenza</label>
+                      <input type='date' class='form-control' name='data_s' required>
+                    </div>
+                    <div class='form-group'>
+                      <label>Descrizione</label>
+                      <input type='text' class='form-control' name='ins_desc' placeholder='Descrizione' required>
+                    </div>
+                    <div class='form-group'>
+                      <label>Costo</label>
+                      <input type='number' class='form-control' name='ins_costo' step='0.01' placeholder='Costo' required>
+                    </div>
+                    <input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='insert'>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class='col-sm-6'>
+              <div class='card mt-3'>
+                <div class='card-body'>
+                  <h5 class='card-title'>Elimina spesa</h5>
+                  <form method='post'>
+                    <div class='form-group'>
+                      <input type='number' class='form-control' name='del_id' placeholder='#' required>
+                    </div>
+                    <input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='delete'>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>";
     ?>
   </body>
 </html>

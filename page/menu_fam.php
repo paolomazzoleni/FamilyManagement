@@ -28,8 +28,8 @@
       $row = $result->fetch_assoc();
 
       echo 
-        "<div class='mt-3 mb-3' align='center' style='background-color:#DDDDDD;'>
-          <p class='mt-3 mb-3' style='font-size: large;'> <b>Benvenuto ".$row['nome']."</b><br>
+        "<div class='mt-3' align='center' style='background-color:#DDDDDD;'>
+          <p style='font-size: large;'> <b>Benvenuto ".$row['nome']."</b><br>
           eccoti alcune delle principali notizie odierne</p>
         </div>";
         
@@ -38,6 +38,7 @@
         
         $matches = array();
         $i=0;
+        echo "<div class='container-fluid mb-3'>";
         foreach ($xml->channel->item as $item) {
             //cerco l'immagine nella descrizione grazie ad una regex
             $array = explode (" ",$item->description);
@@ -46,9 +47,26 @@
             //se non c'è l'immagine dell'articolo
             if(empty($matches[0][0]))
               $matches[0][0] = "http://familymanagement.altervista.org/img/news.jpg";
-
-        	if($i==0||$i==3||$i==6)
+			  
+              if($i==0||$i==4){
+                echo "<div class='row'>";
+              }
+              
+              echo "<div class='col mt-3'><div class='card' style='width: 18rem;height:400px;'>
+                <img class='card-img-top' src='".$matches[0][0]."'>
+                <div class='card-body'>
+                  <p class='card-text'>".$item->title."</p>
+                  <a target='_blank' href='".$item->link."' class='btn btn-primary'>Leggi l'articolo</a>
+                </div>
+              </div></div>";
+              
+              if($i==3||$i==7){
+                echo "</div>";
+              }
+            
+        	/*if($i==0||$i==3||$i==6){
               echo "<div class='card-deck'>";
+            }
             
             echo "
               <div class='card'>
@@ -58,13 +76,16 @@
                   <a target='_blank' href='".$item->link."' class='btn btn-primary'>Leggi la notizia</a>
                 </div>
               </div>";
-            if($i==2||$i==5||$i==8)
+              
+            if($i==2||$i==5||$i==8){
               echo "</div><br>";
+            }*/
             
             $i++;
-            if($i==9)
+            if($i==8)
               break;
         }
+        echo "</div>";
 	?> 
   </body>
 </html>
