@@ -76,59 +76,109 @@
       }
 
       //stampa informazioni + possibilità di cambiare nome e residenza
-      echo "<b>INFORMAZIONI</b><br>";
       $sql = "SELECT * FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
       $result = $conn->query($sql);
       $row = $result->fetch_assoc();
-      echo "- codice: ".$row['codice_fam']."<br>- nome: ".$row["nome"]."<br>- residenza: " . $row["residenza"];
-      
-      echo "<br><br>Vuoi cambiare il nome?<br>Inseriscilo qui sotto e clicca il pulsante<br>
-            <form action='./f_settings.php' method='post'>
-            <input type='text' placeholder='Nome' name='mod_name'>
-            <input type='submit' value='Modifica' name='mod_n'>
-            </form>";
-      
-      echo "<br>Vuoi cambiare la residenza?<br>Inseriscila qui sotto e clicca il pulsante<br>
-            <form action='./f_settings.php' method='post'>
-            <input type='text' placeholder='Nome' name='mod_res'>
-            <input type='submit' value='Modifica' name='mod_r'>
-            </form>";
-            
-      echo "<br>--------------------------------------------------";
+      echo "
+        <div class='container-fluid mt-3'>
+          <div class='row'>
+            <div class='col'>
+              <ul class='list-group' style='text-align:center;'>
+                <li class='list-group-item active'>Informazioni</li>
+                <li class='list-group-item'>Nome: <b>".$row['nome']."</b></li>
+                <li class='list-group-item'>Residenza: <b>".$row['residenza']."</b></li>
+                <li class='list-group-item'>Codice: <b>".$row['codice_fam']."</b></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class='container-fluid' style='text-align:center;'>
+          <div class='row'>
+            <div class='col-sm-6'>
+              <div class='card mt-3'>
+                <div class='card-body'>
+                  <h5 class='card-title'>Cambia nome</h5>
+                  <form>
+                    <div class='form-group'>
+                      <input type='text' class='form-control' name='mod_name' placeholder='Nuovo nome' required>
+                    </div>
+                    <input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='mod_n'>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class='col-sm-6'>
+              <div class='card mt-3'>
+                <div class='card-body'>
+                  <h5 class='card-title'>Cambia residenza</h5>
+                  <form>
+                    <div class='form-group'>
+                      <input type='text' class='form-control' name='mod_res' placeholder='Nuova residenza' required>
+                    </div>
+                    <input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='mod_r'>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>";
 
-      //stampa componenti + possibilità di eliminare
-      echo "<br><br><b>COMPONENTI</b><br>";
       $sql = "SELECT * FROM utente WHERE codice_fam='".$_SESSION['fam']."'";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
-        echo "<table><tr><th>EMAIL</th><th>NOME</th><th>COGNOME</th><th>DATA DI NASCITA</TH></tr>";
+        echo "
+          <div class='container-fluid mt-5'>
+            <div class='table-responsive-md'>
+              <table class='table' style='color:black;'>
+                <thead class='thead-dark'>
+                  <tr>
+                    <th scope='col'>EMAIL</th>
+                    <th scope='col'>NOME</th>
+                    <th scope='col'>COGNOME</th>
+                    <th scope='col'>DATA DI NASCITA</th>
+                  </tr>
+                </thead>
+                <tbody>";
         while($row = $result->fetch_assoc()){
-          echo "<tr><td>".$row['email']."</td><td>".$row["nome"]."</td><td>".$row["cognome"]."</td><td>".$row["data_nascita"]."</td></tr>";
+          echo "
+            <tr style='background-color:#FFFFFF;'>
+              <td>".$row['email']."</td>
+              <td>".$row["nome"]."</td>
+              <td>".$row["cognome"]."</td>
+              <td>".$row["data_nascita"]."</td>
+            </tr>";
         }
-        echo "</table>";
-        
-        echo "<br><br>Vuoi togliere qualcuno dal gruppo?<br>Inserisci l'email qui sotto e clicca il pulsante<br>
-        	  <form action='./f_settings.php\" method=\"post\">
-              <input type='email' placeholder='Email' name='del_email'>
-              <input type='submit' value='cancella' name='delete_u'>
-              </form>";
-      } 
-      else{
-        echo "0 results";
+        echo "
+                </tbody>
+              </table>
+            </div>
+          </div>";
       }
-      echo "<br>--------------------------------------------------";
-      //elimina famiglia
-      echo "<br><br><b>ESCI DAL GRUPPO</b><br>
-      		<form action='./f_settings.php' method='post'>
-            <input type='submit' value='Esci' name='exit'>
-            </form>";
-      echo "<br>--------------------------------------------------";
-      
-      //elimina famiglia
-      echo "<br><br><b>ELIMINA GRUPPO</b><br>
-      		<form action='./f_settings.php' method='post'>
-            <input type='submit' value='Elimina' name='delete_f'>
-            </form>";
+	  
+      echo "
+        <div class='container-fluid'>
+          <div class='row'>
+            <div class='col'>
+              <div class='card mt-3'>
+                <div class='card-body'>
+                  <form>
+                    <input type='submit' class='btn btn-danger btn-block' value='Esci dal gruppo' name='exit'>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class='col'>
+              <div class='card mt-3 mb-3'>
+                <div class='card-body'>
+                  <form>
+                    <input type='submit' class='btn btn-danger btn-block' value='Elimina gruppo' name='delete_f'>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>";
     ?>
   </body>
 </html>
