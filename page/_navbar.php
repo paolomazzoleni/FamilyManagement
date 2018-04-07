@@ -54,18 +54,14 @@
     echo 
       "<li class='nav-item active'>
          <a class='nav-link' href='http://familymanagement.altervista.org/page/actions/listaspesa.php'>Liste spesa</a>
-       </li>";
+       </li></ul>";
   }
   else{
     echo 
       "<li class='nav-item'>
           <a class='nav-link' href='http://familymanagement.altervista.org/page/actions/listaspesa.php'>Liste spesa</a>
-       </li>";
-  }
-  echo 
-      "<li class='nav-item'>
-          <a onclick='alert(\"(0)Fix RSS cards size,(0)Grafica altre pagine,(5)OpenWeatherMap,(2)SQL Injection,(2)Controlli client registrazione\")' class='nav-link'>To Do</a>
        </li></ul>";
+  }
 
   echo "
       <form class='form-inline my-2 my-lg-0 mr-2' action='http://familymanagement.altervista.org/page/actions/f_settings.php'>
