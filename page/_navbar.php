@@ -54,7 +54,7 @@
     echo 
       "<li class='nav-item active'>
          <a class='nav-link' href='http://familymanagement.altervista.org/page/actions/listaspesa.php'>Liste spesa</a>
-       </li></ul>";
+       </li>";
   }
   else{
     echo 
