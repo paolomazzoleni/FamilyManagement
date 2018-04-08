@@ -53,12 +53,30 @@
       $sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."'";
       $result = $conn->query($sql);
       if ($result->num_rows > 0){
-        echo "<table>";
-        echo "<tr><th>#</th><th>DATA INSERIMENTO</th><th>DATA SCADENZA</th><th>DESCRIZIONE</th><th>COSTO</th></tr>";
+        echo "
+          <div class='container-fluid mt-5'>
+            <div class='table-responsive-md'>
+              <table class='table' style='color:black;'>
+                <thead class='thead-dark'>
+                  <tr>
+                    <th scope='col'>#</th>
+                    <th scope='col'>DATA INSERIMENTO</th>
+                    <th scope='col'>DATA SCADENZA</th>
+                    <th scope='col'>DESCRIZIONE</th>
+                    <th scope='col'>COSTO</th>
+                  </tr>
+                </thead>
+                <tbody>";
+        
         while($row = $result->fetch_assoc()) {
-          echo "<tr><td>".$row['id_spesa_gen']."</td><td>".$row['data_ins']."</td><td>".$row['data_scad']."</td><td>".$row['descrizione']."</td><td>".$row['costo']."</td>";
+          echo "<tr style='background-color:#FFFFFF;'><td>".$row['id_spesa_gen']."</td><td>".$row['data_ins']."</td><td>".$row['data_scad']."</td><td>".$row['descrizione']."</td><td>".$row['costo']."</td>";
         }
-        echo "</table>";
+        
+        echo "
+                </tbody>
+              </table>
+            </div>
+          </div>";
       }
       else{
           echo "
