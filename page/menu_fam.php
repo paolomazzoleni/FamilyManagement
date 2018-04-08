@@ -52,7 +52,7 @@
                 echo "<div class='row'>";
               }
               
-              echo "<div class='col mt-3'><div class='card' style='width: 18rem;height:400px;'>
+              echo "<div align='center' class='col mt-3'><div class='card' style='width: 18rem;height:400px;'>
                 <img class='card-img-top' src='".$matches[0][0]."'>
                 <div class='card-body'>
                   <p class='card-text'>".$item->title."</p>
