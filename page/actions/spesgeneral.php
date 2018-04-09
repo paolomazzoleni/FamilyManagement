@@ -119,7 +119,7 @@
               </div>
             </div>
             <div class='col-sm-6'>
-              <div class='card mt-3'>
+              <div class='card mt-3 mb-3'>
                 <div class='card-body'>
                   <h5 class='card-title'>Elimina spesa</h5>
                   <form method='post'>
