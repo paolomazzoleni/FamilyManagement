@@ -49,17 +49,14 @@
       //controllo password
       var pw1 = document.getElementById("regpassword").value;
       var pw2 = document.getElementById("regpassword2").value; 
-      if(pw1==pw2 && pw1!="" && pw2!=""){
-        document.getElementById("reg").submit();
+      if(pw1=="" || pw2==""){
+        alert("Errore nelle password, controlla di avere compilato i campi");return;
       }
-      else if(pw1==""||pw2==""){
-        alert("Errore nelle password, ne hai lasciata una non completata");
-        return;
+      else if(pw1!=pw2){
+        alert("Errore: le due password non corrispondono");return;
       }
-      else{
-        alert("Errore: le due password non corrispondono");
-        return;
-      }
+      //Se è tutto giusto
+      document.getElementById("reg").submit();
     }
   </script>
   <body class="w-100 h-100 d-flex justify-content-center">
