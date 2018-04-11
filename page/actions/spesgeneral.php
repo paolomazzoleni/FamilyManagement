@@ -28,6 +28,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+    function controllo(){
+      //controllo campo descrizione che non sia vuoto
+      x = document.getElementById("ins_desc").value;
+      if (x == "") {
+          alert("Errore: non hai compilato il campo descrizione");return;
+      }
+      //controllo campo costo che non sia vuoto
+      x = document.getElementById("ins_costo").value;
+      if (x == "") {
+          alert("Errore: non hai compilato il campo costo");return;
+      }
+      //controllo campo data che non sia vuoto
+      x = document.getElementById("data_s").value;
+      var date_d = new Date(x);
+      var today = new Date();
+      if (x == "") {
+        alert("Errore: non hai compilato il campo data di scadenza");return;
+      }
+      else if(date_d<=today){
+        alert("Errore: hai inserito una data di scadenza invalida");return;
+      }
+      //Se è tutto giusto
+      document.getElementById("ins").submit();
+    }
+  </script>
   <body style='background-color:#9ECCFF;'>
     <?php
       require '../_navbar.php';
@@ -38,7 +64,7 @@
         }
       }
       
-      if(isset($_REQUEST['insert'])){
+      if(isset($_REQUEST['ins_desc'])){
       	$sql = "SELECT CURDATE()";
         $result = $conn->query($sql);
         $row = $result->fetch_assoc();
@@ -100,20 +126,20 @@
               <div class='card mt-3'>
                 <div class='card-body'>
                   <h5 class='card-title'>Aggiungi spesa</h5>
-                  <form method='post'>
+                  <form method='post' id='ins'>
                     <div class='form-group'>
                       <label>Data di scadenza</label>
-                      <input type='date' class='form-control' name='data_s' required>
+                      <input type='date' class='form-control' name='data_s' id='data_s'>
                     </div>
                     <div class='form-group'>
                       <label>Descrizione</label>
-                      <input type='text' class='form-control' name='ins_desc' placeholder='Descrizione' required>
+                      <input type='text' class='form-control' name='ins_desc' placeholder='Descrizione' id='ins_desc'>
                     </div>
                     <div class='form-group'>
                       <label>Costo</label>
-                      <input type='number' class='form-control' name='ins_costo' step='0.01' placeholder='Costo' required>
+                      <input type='number' class='form-control' name='ins_costo' step='0.01' placeholder='Costo' id='ins_costo'>
                     </div>
-                    <input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='insert'>
+                    <input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='insert' onclick='controllo()'>
                   </form>
                 </div>
               </div>
