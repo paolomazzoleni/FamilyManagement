@@ -19,10 +19,53 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+    function controlloreg(){
+      //controllo campo email che non sia vuoto
+      var x = document.getElementById("regemail").value;
+      if (x == "") {
+          alert("Errore: non hai compilato il campo email"); return;
+      }
+      //controllo campo nome che non sia vuoto
+      x = document.getElementById("regname").value;
+      if (x == "") {
+          alert("Errore: non hai compilato il campo nome");return;
+      }
+      //controllo campo cognome che non sia vuoto
+      x = document.getElementById("regsurname").value;
+      if (x == "") {
+          alert("Errore: non hai compilato il campo cognome");return;
+      }
+      //controllo campo data che non sia vuoto
+      x = document.getElementById("regdate").value;
+      var date_d = new Date(x);
+      var today = new Date();
+      if (x == "") {
+        alert("Errore: non hai compilato il campo data");return;
+      }
+      else if(date_d>today){
+        alert("Errore: hai inserito una data di nascita invalida");return;
+      }
+      //controllo password
+      var pw1 = document.getElementById("regpassword").value;
+      var pw2 = document.getElementById("regpassword2").value; 
+      if(pw1==pw2 && pw1!="" && pw2!=""){
+        document.getElementById("reg").submit();
+      }
+      else if(pw1==""||pw2==""){
+        alert("Errore nelle password, ne hai lasciata una non completata");
+        return;
+      }
+      else{
+        alert("Errore: le due password non corrispondono");
+        return;
+      }
+    }
+  </script>
   <body class="w-100 h-100 d-flex justify-content-center">
     <?php
       //effettua registrazione
-      if(isset($_REQUEST['register'])){
+      if(isset($_REQUEST['regemail'])){
         $sql = "SELECT * FROM utente WHERE email='".$_REQUEST['regemail']."'";
         $result = $conn->query($sql);
 
@@ -52,10 +95,10 @@
          "<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
             <div class='mt-5 text-center'>
               <h1 class='mb-2' style='color:black;'>REGISTRAZIONE</h1>
-	   		  <form action='./reg.php' method='post'>
+	   		  <form action='./reg.php' method='post' id='reg'>
                 <div class='form-group'>
                   <label>Email address</label>
-                  <input type='email' class='form-control' name='regemail' required id='regemail' aria-describedby='emailHelp' placeholder='Email'>
+                  <input type='email' class='form-control' id='regemail' name='regemail' aria-describedby='emailHelp' placeholder='Email'>
                 </div>
                 <div class='form-group'>
                   <label>Password</label>
@@ -67,17 +110,17 @@
                 </div>
                 <div class='form-group'>
                   <label>Nome</label>
-                  <input type='text' class='form-control' placeholder='Nome' name='regname' required>
+                  <input type='text' class='form-control' id='regname' placeholder='Nome' name='regname' required>
                 </div>
                 <div class='form-group'>
                   <label>Cognome</label>
-                  <input type='text' class='form-control' placeholder='Cognome' name='regsurname' required>
+                  <input type='text' class='form-control' id='regsurname' placeholder='Cognome' name='regsurname' required>
                 </div>
                 <div class='form-group'>
                   <label>Data di nascita</label>
-                  <input type='date' class='form-control' name='regdate' required>
+                  <input type='date' class='form-control' name='regdate' id='regdate'>
                 </div>
-                <input type='submit' class='btn btn-primary btn-lg btn-block' value='register' name='register'></form>
+                <input type='button' onclick='controlloreg()' class='btn btn-primary btn-lg btn-block' value='register' name='register' id='register'></form>
                 <form method='post' action='./index.php'><input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
               </form>
             </div>
