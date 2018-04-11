@@ -34,7 +34,7 @@
           }
         }
         else{
- 		  echo "<p style='color:red;'>Il codice che hai inserito non è valido</p><br>";
+          $errore=1;
       	}
       }
       
@@ -75,45 +75,55 @@
       
       //se utente non ancora registrato
       else if(isset($_SESSION['user'])){
-        echo "<h1 class='mt-3 mb-3' style='text-align:center;background-color:#CEE5FF;padding:5px;'>Benvenuto!</h1>
-          <div class='container' style='text-align:center;'>
+        echo "<h1 class='mt-3 mb-3' style='text-align:center;background-color:#CEE5FF;padding:5px;'>Benvenuto!</h1>";
+        echo "
+          <div class='container-fluid'>
             <div class='row'>
               <div class='col'>
-                <h2 class='mt-5' style='color:black;'>Unisciti ad una famiglia</h2>
-                <form action='./user.php' method='post'>
-                  <div class='form-group'>
-                    <label>Codice famiglia</label>
-                    <input type='text' maxlength='7' class='form-control' name='codice_fam' required aria-describedby='emailHelp' placeholder='Codice'>
+                <div class='card mt-3' style='height:325px;'>
+                  <div class='card-body'>
+                      <h2 class='mt-5' style='color:black;'>Unisciti ad una famiglia</h2>
+                      <form action='./user.php' method='post'>
+                        <div class='form-group'>
+                          <label>Codice famiglia</label>
+                          <input type='text' maxlength='7' class='form-control' name='codice_fam' required aria-describedby='emailHelp' placeholder='Codice'>";
+        if($errore==1){
+          $errore=2;
+          echo "<small><em>Errore: il codice precedentemente inserito non è valido</em></small>";
+        }
+        echo "          </div>
+                        <input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='join' name='join'>
+                      </form>
                   </div>
-                  <input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='join' name='join'>
-                </form>
-			  </div>
-              
-              <div class='col'>
-               <h2 class='mt-2' style='color:black;'>Crea una famiglia</h2>
-                <form action='./user.php' method='post'>
-                  <div class='form-group'>
-                    <label>Codice famiglia</label>
-                    <input type='text' maxlength='100' class='form-control' name='nome' required aria-describedby='emailHelp' placeholder='Nome'>
-                  </div>
-                  <div class='form-group'>
-                    <label>Residenza</label>
-                    <input type='text' maxlength='100' class='form-control' name='residenza' required aria-describedby='emailHelp' placeholder='Residenza'>
-                  </div>
-                  <input type='submit' class='mt-3 btn btn-primary btn-lg btn-block' value='create' name='create'>
-                </form>
-			  </div>
-            </div>
-          </div>
-          <div class='container'>
-            <div class='row'>
-              <div class='col'></div>
-              <div class='col'>
-                <form action='../index.php' method='post'>
-                  <input type='submit' class='mt-4 btn btn-secondary btn-lg btn-block' value='logout' name='logout'>
-                </form>
+                </div>
               </div>
-              <div class='col'></div>
+              <div class='col'>
+                <div class='card mt-3 mb-3' style='height:325px;'>
+                  <div class='card-body'>
+                      <h2 class='mt-2' style='color:black;'>Crea una famiglia</h2>
+                      <form action='./user.php' method='post'>
+                        <div class='form-group'>
+                          <label>Codice famiglia</label>
+                          <input type='text' maxlength='100' class='form-control' name='nome' required aria-describedby='emailHelp' placeholder='Nome'>
+                        </div>
+                        <div class='form-group'>
+                          <label>Residenza</label>
+                          <input type='text' maxlength='100' class='form-control' name='residenza' required aria-describedby='emailHelp' placeholder='Residenza'>
+                        </div>
+                        <input type='submit' class='mt-3 btn btn-primary btn-lg btn-block' value='create' name='create'>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='row'>
+                <div class='col'></div>
+                <div class='col'>
+                  <form action='../index.php' method='post'>
+                    <input type='submit' class='mt-4 btn btn-secondary btn-lg btn-block' value='logout' name='logout'>
+                  </form>
+                </div>
+                <div class='col'></div> 
             </div>
           </div>";
       }
