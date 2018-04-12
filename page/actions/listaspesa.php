@@ -28,6 +28,27 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
+  <script>
+    function controlla(){
+      //controllo campo descrizione che non sia vuoto
+      x = document.getElementById("ins_luo").value;
+      if (x == "") {
+          alert("Errore: non hai compilato il campo luogo");return;
+      }
+      //controllo campo data che non sia vuoto
+      x = document.getElementById("ins_date").value;
+      var date_d = new Date(x);
+      var today = new Date();
+      if (x == "") {
+        alert("Errore: non hai compilato il campo data di scadenza");return;
+      }
+      else if(date_d<today){
+        alert("Errore: hai inserito una data di scadenza invalida");return;
+      }
+      //Se è tutto giusto
+      document.getElementById("ins").submit();
+    }
+  </script>
   <body style='background-color:#9ECCFF;'>
     <?php
       require '../_navbar.php';
@@ -37,7 +58,7 @@
         unset($_SESSION['spesa']);
       }
       //se è richiesto INSERIMENTO
-      if(isset($_REQUEST['ins'])){
+      if(isset($_REQUEST['ins_date'])){
         $sql = "INSERT INTO listaspesa (data,luogo,codice_fam) VALUES ('".$_REQUEST['ins_date']."','".$_REQUEST['ins_luo']."','".$_SESSION['fam']."')";
 
         if ($conn->query($sql) === FALSE) {
@@ -76,10 +97,10 @@
       
       //inserimento
       echo "<b>MENU INSERIMENTO</b>
-            <form method='post'>
-            <input type='date' name='ins_date' required><br>
-            <input type='text' name='ins_luo' placeholder='Luogo' required><br>
-            <input type='submit' value='inserisci' name='ins'>
+            <form method='post' id='ins'>
+            <input type='date' name='ins_date' id='ins_date'><br>
+            <input type='text' name='ins_luo' id='ins_luo' placeholder='Luogo'><br>
+            <input type='button' value='inserisci' onclick='controlla()' name='ins'>
             </form>";
       echo "<br><br>----------------------------------------<br><br>";
   
