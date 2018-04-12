@@ -23,52 +23,73 @@
     <?php
       //effettua login
       if(isset($_REQUEST['login'])){
-        $sql = "SELECT * FROM utente WHERE email='".$_REQUEST['logemail']."'";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0){
-          $row = $result->fetch_assoc();
-          $psw1 = $row['password'];
-          $psw2 = $_REQUEST['logpassword'];
-          //se login corretto
-          if(password_verify($psw2,$psw1)){
-            //session['user'] è la mail dell'utente che servirà dopo
-            $_SESSION['user'] = $_REQUEST['logemail'];
-            //se è ancora registrato ad una famiglia setta session['fam'] a codice famiglia
-            if($row['codice_fam']!=NULL){
-              $_SESSION['fam']=$row['codice_fam'];
-            }
-            //generazione token cookie
-            if(isset($_REQUEST['ricordami'])){
-              $var=true;
-              while($var==true){
-                $rand = rand(0,10000000000000000);
-                $sql = "SELECT * FROM utente WHERE cookie = '".$rand."'";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) 
-                  $var = true;
-                else
-                  $var = false;
-              }
-              //scrittura numero cookie nel database
-              $sql = "UPDATE utente SET cookie='".$rand."' WHERE email='".$_SESSION['user']."'";
-              if ($conn->query($sql) === FALSE) {
-                  echo "Error updating record: " . $conn->error;
-              }
-              else{
-                setcookie("USER",$_SESSION['user'],time() + (86400 * 30), "/");
-			    setcookie("TOKEN",$rand,time() + (86400 * 30), "/");
-              } 
-            }
-            header('Location: ./page/user.php');
-          }
-          else{
-            echo "
-              <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-                <div class='align-self-center text-center' style='width: 18rem !important;'>
-                  <h2 class='mb-2' style='color:black;'>Errore - Password errata</h2>
-                  <form method='post' action='./log.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_log' value='torna indietro'></form>
-                </div>
-              </div>";
+        if($_REQUEST['logemail']=="" || $_REQUEST['logpassword']==""){
+		  if($_REQUEST['logemail']==""){
+		    echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - non hai compilato il campo email</h2>
+				  <form method='post' action='./log.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_log' value='torna indietro'></form>
+				</div>
+			  </div>";
+		  }
+		  else{
+		    echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - non hai compilato il campo password</h2>
+				  <form method='post' action='./log.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_log' value='torna indietro'></form>
+				</div>
+			  </div>";
+		  }
+		}
+		else{
+			$sql = "SELECT * FROM utente WHERE email='".$_REQUEST['logemail']."'";
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0){
+			  $row = $result->fetch_assoc();
+			  $psw1 = $row['password'];
+			  $psw2 = $_REQUEST['logpassword'];
+			  //se login corretto
+			  if(password_verify($psw2,$psw1)){
+				//session['user'] è la mail dell'utente che servirà dopo
+				$_SESSION['user'] = $_REQUEST['logemail'];
+				//se è ancora registrato ad una famiglia setta session['fam'] a codice famiglia
+				if($row['codice_fam']!=NULL){
+				  $_SESSION['fam']=$row['codice_fam'];
+				}
+				//generazione token cookie
+				if(isset($_REQUEST['ricordami'])){
+				  $var=true;
+				  while($var==true){
+					$rand = rand(0,10000000000000000);
+					$sql = "SELECT * FROM utente WHERE cookie = '".$rand."'";
+					$result = $conn->query($sql);
+					if ($result->num_rows > 0) 
+					  $var = true;
+					else
+					  $var = false;
+				  }
+				  //scrittura numero cookie nel database
+				  $sql = "UPDATE utente SET cookie='".$rand."' WHERE email='".$_SESSION['user']."'";
+				  if ($conn->query($sql) === FALSE) {
+					  echo "Error updating record: " . $conn->error;
+				  }
+				  else{
+					setcookie("USER",$_SESSION['user'],time() + (86400 * 30), "/");
+					setcookie("TOKEN",$rand,time() + (86400 * 30), "/");
+				  } 
+				}
+				header('Location: ./page/user.php');
+			  }
+			  else{
+				echo "
+				  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+					<div class='align-self-center text-center' style='width: 18rem !important;'>
+					  <h2 class='mb-2' style='color:black;'>Errore - Password errata</h2>
+					  <form method='post' action='./log.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_log' value='torna indietro'></form>
+					</div>
+				  </div>";
           }
         }
         else{
@@ -80,6 +101,7 @@
   			  </div>
             </div>";
         }
+		}
       }
       //menù login
       else{
@@ -90,11 +112,11 @@
                <form action='./log.php' method='post'> 
                  <div class='form-group'>
                    <label>Indirizzo email</label>
-                   <input type='email' class='form-control' id='logemail' name='logemail' required aria-describedby='emailHelp' placeholder='Email'>
+                   <input type='email' class='form-control' name='logemail' placeholder='Email' required>
                  </div>
                  <div class='form-group'>
                    <label>Password</label>
-                   <input type='password' class='form-control' id='exampleInputPassword1' name='logpassword' required placeholder='Password'>
+                   <input type='password' class='form-control' name='logpassword' placeholder='Password' required>
                  </div>
                  <div class='form-check'>
                   <input type='checkbox' class='form-check-input' name='ricordami'>
@@ -108,4 +130,4 @@
       }
     ?>
   </body>
-</html>
+</html>
