@@ -33,7 +33,8 @@
           eccoti alcune delle principali notizie odierne</p>
         </div>";
         
-        $feed_url='http://xml2.corriereobjects.it/rss/homepage.xml';     
+        //$feed_url='http://xml2.corriereobjects.it/rss/homepage.xml';
+        $feed_url='http://www.liberoquotidiano.it/rss.jsp?sezione=1'; 
         $xml = simplexml_load_file($feed_url);
         
         $matches = array();
@@ -63,23 +64,6 @@
               if($i==3||$i==7){
                 echo "</div>";
               }
-            
-        	/*if($i==0||$i==3||$i==6){
-              echo "<div class='card-deck'>";
-            }
-            
-            echo "
-              <div class='card'>
-                <img class='card-img-top' src='".$matches[0][0]."' onerror='this.src='http://www.starcoppe.it/images/grafica-immagine-b.jpg';'>
-                <div class='card-body'>
-                  <p class='card-text'>".$item->title."</p>
-                  <a target='_blank' href='".$item->link."' class='btn btn-primary'>Leggi la notizia</a>
-                </div>
-              </div>";
-              
-            if($i==2||$i==5||$i==8){
-              echo "</div><br>";
-            }*/
             
             $i++;
             if($i==8)
