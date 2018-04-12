@@ -30,7 +30,7 @@
   </head>
   <script>
     function controlla(){
-      //controllo campo descrizione che non sia vuoto
+      //controllo campo luogo che non sia vuoto
       x = document.getElementById("ins_luo").value;
       if (x == "") {
           alert("Errore: non hai compilato il campo luogo");return;
@@ -40,10 +40,10 @@
       var date_d = new Date(x);
       var today = new Date();
       if (x == ""){
-        alert("Errore: non hai compilato il campo data di scadenza");return;
+        alert("Errore: non hai compilato il campo data");return;
       }
       else if(date_d<today){
-        alert("Errore: hai inserito una data");return;
+        alert("Errore: hai inserito una data non valida");return;
       }
       //Se è tutto giusto
       document.getElementById("ins").submit();
@@ -52,11 +52,6 @@
   <body style='background-color:#9ECCFF;'>
     <?php
       require '../_navbar.php';
-      
-      //se è settata sessione spesa
-      if(isset($_SESSION['spesa'])){
-        unset($_SESSION['spesa']);
-      }
       //se è richiesto INSERIMENTO
       if(isset($_REQUEST['ins_date'])){
         $sql = "INSERT INTO listaspesa (data,luogo,codice_fam) VALUES ('".$_REQUEST['ins_date']."','".$_REQUEST['ins_luo']."','".$_SESSION['fam']."')";
@@ -77,9 +72,7 @@
       if ($result->num_rows > 0){
 	      $i=0;
           echo "
-		  <h4>Sono presenti delle spese</h4>
-		  <div id='accordion'>
-		  ";
+		  <div id='accordion' class='container-fluid mt-3'>";
           while($row = $result->fetch_assoc()){
 		    echo "
 			<div class='card'>
@@ -110,7 +103,8 @@
 							echo "<br>Questa lista della spesa non ha ancora prodotti";
 						}
 			echo 
-			" </div></div>
+			" 	    </div>
+			    </div>
 			</div>";
 			$i++;
           }
@@ -130,24 +124,43 @@
             </div>
           ";
       }
-      echo "<br><br>----------------------------------------<br><br>";
-
-      //inserimento
-      echo "<b>MENU INSERIMENTO</b>
-            <form method='post' id='ins'>
-            <input type='date' name='ins_date' id='ins_date'><br>
-            <input type='text' name='ins_luo' id='ins_luo' placeholder='Luogo'><br>
-            <input type='button' value='inserisci' onclick='controlla()' name='ins'>
-            </form>";
-      echo "<br><br>----------------------------------------<br><br>";
-
-      //menu cancellazione
-      echo "<b>MENU CANCELLAZIONE</b>
-            <form method='post'>
-            <input type='text' name='del_id' placeholder='ID'><br>
-            <input type='submit' value='elimina' name='del'>
-            </form>";
-      echo "<br><br>----------------------------------------<br><br>";
+      
+	  echo "
+        <div class='container-fluid' style='text-align:center;'>
+          <div class='row'>
+            <div class='col'>
+              <div class='card mt-3' style='height:315px;'>
+                <div class='card-body'>
+                  <h5 class='card-title'>Aggiungi lista della spesa</h5>
+                  <form method='post' id='ins'>
+                    <div class='form-group'>
+                      <label>Data</label>
+                      <input type='date' class='form-control' name='ins_date' id='ins_date'>
+                    </div>
+                    <div class='form-group'>
+                      <label>Luogo</label>
+                      <input type='text' class='form-control' name='ins_luo' id='ins_luo' placeholder='Luogo'>
+                    </div>
+                    <input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='ins' onclick='controlla()'>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class='col'>
+              <div class='card mt-3 mb-3' style='height:315px;'>
+                <div class='card-body mt-3'>
+                  <h5 class='card-title mt-5'>Elimina lista della spesa</h5>
+                  <form method='post'>
+                    <div class='form-group'>
+                      <input type='number' class='form-control' name='del_id' placeholder='#' required>
+                    </div>
+                    <input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='del'>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>";
     ?>
   </body>
-</html>
+</html>
