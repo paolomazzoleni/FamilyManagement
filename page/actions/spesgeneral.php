@@ -123,7 +123,7 @@
         <div class='container-fluid' style='text-align:center;'>
           <div class='row'>
             <div class='col-sm-6'>
-              <div class='card mt-3'>
+              <div class='card mt-3' style='height:400px;'>
                 <div class='card-body'>
                   <h5 class='card-title'>Aggiungi spesa</h5>
                   <form method='post' id='ins'>
@@ -145,9 +145,9 @@
               </div>
             </div>
             <div class='col-sm-6'>
-              <div class='card mt-3 mb-3'>
-                <div class='card-body'>
-                  <h5 class='card-title'>Elimina spesa</h5>
+              <div class='card mt-3 mb-3' style='height:400px;'>
+                <div class='card-body mt-5'>
+                  <h5 class='card-title mt-5'>Elimina spesa</h5>
                   <form method='post'>
                     <div class='form-group'>
                       <input type='number' class='form-control' name='del_id' placeholder='#' required>
