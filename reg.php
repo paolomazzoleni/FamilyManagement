@@ -103,6 +103,16 @@
 				</div>
 			  </div>";
 		}
+		//controllo validazione email
+		else if(!filter_var($_REQUEST['regemail'],FILTER_VALIDATE_EMAIL)){
+		  echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - email non valida</h2>
+				  <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
+				</div>
+			  </div>";
+		}
 		//se è tutto corretto
 	    else{
 			$sql = "SELECT * FROM utente WHERE email='".$_REQUEST['regemail']."'";
@@ -168,4 +178,4 @@
       }
     ?>
   </body>
-</html>
+</html>
