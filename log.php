@@ -128,12 +128,12 @@
                  <div class='form-group'>
                    <label>Password</label>
                    <input type='password' class='form-control' name='logpassword' placeholder='Password' required>
-                 </div>
-                 <div class='form-check'>
+                 </div>";
+                 /*<div class='form-check'>
                   <input type='checkbox' class='form-check-input' name='ricordami'>
                   <label class='form-check-label'>Ricordami</label>
-                 </div>
-                 <input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='login' name='login'></form>
+                 </div>*/
+                 echo "<input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='login' name='login'></form>
                  <form method='post' action='./index.php'><input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
               </form>
              </div>
