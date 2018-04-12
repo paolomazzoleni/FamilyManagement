@@ -63,29 +63,72 @@
     <?php
       //effettua registrazione
       if(isset($_REQUEST['regemail'])){
-        $sql = "SELECT * FROM utente WHERE email='".$_REQUEST['regemail']."'";
-        $result = $conn->query($sql);
+	    //Se uno dei campi non è compilato
+		if($_REQUEST['regemail']==""||$_REQUEST['regpassword']==""||$_REQUEST['regpassword2']==""||$_REQUEST['regname']==""||$_REQUEST['regsurname']==""||$_REQUEST['regdate']==""){
+		  if($_REQUEST['regemail']==""){
+		    echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - non hai compilato il campo email</h2>
+				  <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
+				</div>
+			  </div>";
+		  }
+		  else if($_REQUEST['regpassword']==""||$_REQUEST['regpassword2']==""){
+		    echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - non hai compilato il campo password o conferma di password</h2>
+				  <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
+				</div>
+			  </div>";
+		  }
+		  else if($_REQUEST['regname']==""||$_REQUEST['regsurname']==""||$_REQUEST['regdate']==""){
+		    echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - non hai compilato tutti i campi personali</h2>
+				  <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
+				</div>
+			  </div>";
+		  }
+		}
+		//controllo uguaglianza password
+		else if($_REQUEST['regpassword']!=$_REQUEST['regpassword2']){
+		  echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - la password di conferma &egrave; errata</h2>
+				  <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
+				</div>
+			  </div>";
+		}
+		//se è tutto corretto
+	    else{
+			$sql = "SELECT * FROM utente WHERE email='".$_REQUEST['regemail']."'";
+			$result = $conn->query($sql);
 
-        if ($result->num_rows == 0) {
-          $password = $_REQUEST['regpassword'];
-          $hpsw = password_hash($password,PASSWORD_DEFAULT);
-          $sql = "INSERT INTO utente (email,password,nome,cognome,data_nascita) VALUES ('".$_REQUEST['regemail']."','".$hpsw."','".$_REQUEST['regname']."','".$_REQUEST['regsurname']."','".$_REQUEST['regdate']."')";
-          if ($conn->query($sql) === FALSE)
-            echo "Error: " . $sql . "<br>" . $conn->error;
-          else{
-            mail($_REQUEST['regemail'],"Famiglia - Registrazione","You registered as:\nemail - ".$_REQUEST['regemail']."\npassword - ".$_REQUEST['regpassword']."");
-            header('Location: ./index.php');
-          }
-        }
-        else{
-          echo "
-            <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-              <div class='align-self-center text-center' style='width: 18rem !important;'>
-                <h2 class='mb-2' style='color:black;'>Errore - Utente già registrato con questa email</h2>
-                <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
-              </div>
-            </div>";
-        }
+			if ($result->num_rows == 0) {
+			  $password = $_REQUEST['regpassword'];
+			  $hpsw = password_hash($password,PASSWORD_DEFAULT);
+			  $sql = "INSERT INTO utente (email,password,nome,cognome,data_nascita) VALUES ('".$_REQUEST['regemail']."','".$hpsw."','".$_REQUEST['regname']."','".$_REQUEST['regsurname']."','".$_REQUEST['regdate']."')";
+			  if ($conn->query($sql) === FALSE)
+				echo "Error: " . $sql . "<br>" . $conn->error;
+			  else{
+				mail($_REQUEST['regemail'],"Famiglia - Registrazione","You registered as:\nemail - ".$_REQUEST['regemail']."\npassword - ".$_REQUEST['regpassword']."");
+				header('Location: ./index.php');
+			  }
+			}
+			else{
+			  echo "
+				<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+				  <div class='align-self-center text-center' style='width: 18rem !important;'>
+					<h2 class='mb-2' style='color:black;'>Errore - Utente già registrato con questa email</h2>
+					<form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
+				  </div>
+				</div>";
+			}
+		}
       }
       else{
         echo
