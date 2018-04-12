@@ -23,7 +23,8 @@
     <?php
       //effettua login
       if(isset($_REQUEST['login'])){
-        if($_REQUEST['logemail']=="" || $_REQUEST['logpassword']==""){
+        //controllo se email e password sono vuoti
+		if($_REQUEST['logemail']=="" || $_REQUEST['logpassword']==""){
 		  if($_REQUEST['logemail']==""){
 		    echo "
 			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
@@ -32,7 +33,7 @@
 				  <form method='post' action='./log.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_log' value='torna indietro'></form>
 				</div>
 			  </div>";
-		  }
+		    }
 		  else{
 		    echo "
 			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
@@ -41,7 +42,17 @@
 				  <form method='post' action='./log.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_log' value='torna indietro'></form>
 				</div>
 			  </div>";
-		  }
+		    }
+		}
+		//controllo se l'email è effettivamente un'email tramite una regex
+		else if(!filter_var($_REQUEST['logemail'], FILTER_VALIDATE_EMAIL)){
+		    echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - email non valida</h2>
+				  <form method='post' action='./log.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_log' value='torna indietro'></form>
+				</div>
+			  </div>";
 		}
 		else{
 			$sql = "SELECT * FROM utente WHERE email='".$_REQUEST['logemail']."'";
