@@ -63,34 +63,39 @@
 			  $psw2 = $_REQUEST['logpassword'];
 			  //se login corretto
 			  if(password_verify($psw2,$psw1)){
-				//session['user'] è la mail dell'utente che servirà dopo
 				$_SESSION['user'] = $_REQUEST['logemail'];
-				//se è ancora registrato ad una famiglia setta session['fam'] a codice famiglia
+				//se è registrato ad una famiglia setta session['fam'] a codice famiglia
 				if($row['codice_fam']!=NULL){
 				  $_SESSION['fam']=$row['codice_fam'];
 				}
 				//generazione token cookie
 				if(isset($_REQUEST['ricordami'])){
 				  $var=true;
+                  //generazione session id
 				  while($var==true){
-					$rand = rand(0,10000000000000000);
-					$sql = "SELECT * FROM utente WHERE cookie = '".$rand."'";
+					$sid = rand(5000000000000000000,10000000000000000000);
+                    
+					$sql = "SELECT * FROM cookie WHERE sessionid = '".$sid."'";
 					$result = $conn->query($sql);
 					if ($result->num_rows > 0) 
 					  $var = true;
 					else
 					  $var = false;
 				  }
+
+                  $token = rand(5000000000000000000,10000000000000000000);
+                  
 				  //scrittura numero cookie nel database
-				  $sql = "UPDATE utente SET cookie='".$rand."' WHERE email='".$_SESSION['user']."'";
-				  if ($conn->query($sql) === FALSE) {
-					  echo "Error updating record: " . $conn->error;
-				  }
-				  else{
-					setcookie("USER",$_SESSION['user'],time() + (86400 * 30), "/");
-					setcookie("TOKEN",$rand,time() + (86400 * 30), "/");
-				  } 
+                  $sql = "INSERT INTO cookie (sessionid,token,email) VALUES ('".$sid."','".$token."','".$_SESSION['user']."')";
+                  if ($conn->query($sql) === FALSE) {
+                      echo "Error: " . $sql . "<br>" . $conn->error;
+                  }
+                  else{
+                    setcookie("SID",$sid,time() + (86400 * 30), "/");
+					setcookie("TOKEN",$token,time() + (86400 * 30), "/");
+                  }
 				}
+                
 				header('Location: ./page/user.php');
 			  }
 			  else{
@@ -128,12 +133,12 @@
                  <div class='form-group'>
                    <label>Password</label>
                    <input type='password' class='form-control' name='logpassword' placeholder='Password' required>
-                 </div>";
-                 /*<div class='form-check'>
+                 </div>
+                 <div class='form-check'>
                   <input type='checkbox' class='form-check-input' name='ricordami'>
                   <label class='form-check-label'>Ricordami</label>
-                 </div>*/
-                 echo "<input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='login' name='login'></form>
+                 </div>
+                 <input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='login' name='login'></form>
                  <form method='post' action='./index.php'><input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
               </form>
              </div>
