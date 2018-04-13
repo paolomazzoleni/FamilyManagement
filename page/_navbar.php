@@ -70,7 +70,7 @@
       <form class='form-inline my-2 my-lg-0 mr-2' action='http://familymanagement.altervista.org/page/actions/p_settings.php'>
         <button class='btn btn-primary my-2 my-sm-0' type='submit'>Personal settings</button>
       </form>
-      <form class='form-inline my-2 my-lg-0' action='http://familymanagement.altervista.org/'>
+      <form class='form-inline my-2 my-lg-0' action='http://familymanagement.altervista.org/' method='post'>
         <button class='btn btn-primary my-2 my-sm-0' type='submit' name='logout'>Logout</button>
       </form>
     </div>
