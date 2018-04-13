@@ -129,9 +129,24 @@
 				$sql = "SELECT * FROM prodotto WHERE id_spesa='".$row['id_spesa']."'";
 				$result1 = $conn->query($sql);
 				if ($result1->num_rows > 0) {
-					echo "Prodotti<ul>";
+					echo "Prodotti<ul class='list-group'>";
 					while($row1 = $result1->fetch_assoc()) {
-						echo "<li>#".$row1['id_prod']." - ".$row1['descrizione']." (x".$row1['quantita'].")</li>";
+						echo "<li class='list-group-item'>#".$row1['id_prod']." - ".$row1['descrizione']." (x".$row1['quantita'].")</li>";
+						/*echo "
+							<form class='form-inline mt-3' action='./listaspesa.php?prod=".$row1['id_prod']."' method='post'>
+								<div class='input-group'>
+									<div class='input-group-prepend'>
+										<div class='input-group-text'>
+											#".$row1['descrizione']."
+										</div>
+										<div class='input-group-append'>
+											<input type='submit' value='comprato' name='delprod'>
+										</div>
+									</div>
+								</div>
+							</form>
+						";*/
+						//echo "#".$row1['id_prod']." - ".$row1['descrizione']." (x".$row1['quantita'].")";
 					}
 					echo "</ul>";
 					echo "
@@ -237,4 +252,4 @@
 		";
     ?>
   </body>
-</html>
+</html>
