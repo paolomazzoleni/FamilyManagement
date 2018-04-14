@@ -83,7 +83,7 @@
 					$row = $result->fetch_assoc();
 					$nuova_q=$row['quantita']+$quantita;
 					$sql = "UPDATE prodotto SET quantita='".$nuova_q."' WHERE descrizione='".$prodotto."' AND id_spesa='".$_REQUEST['id_spesa']."'";
-					if ($conn->query($sql) === FALSE) {
+					if ($conn->query($sql) === FALSE){
 						echo "Error updating record: " . $conn->error;
 					}
 				}
@@ -96,7 +96,13 @@
 				}
 			}
 		}
-		
+		//controllo se settato cancellazione prodotto
+		if(isset($_REQUEST['canc'])){
+			$sql = "DELETE FROM prodotto WHERE id_prod='".$_REQUEST['p']."'";
+			if ($conn->query($sql) === FALSE) {
+				echo "Error deleting record: " . $conn->error;
+			}
+		}
 		//stampa
 		$sql = "SELECT * FROM listaspesa WHERE codice_fam='".$_SESSION['fam']."'";
 		$result = $conn->query($sql);
@@ -112,43 +118,37 @@
 									Lista della spesa #".$row['id_spesa']."
 								</button>
 							</h5>
-						</div>";
-						if($row['id_spesa']==$_REQUEST['id_spesa']){
-							echo "<div id='".$i."' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>";
-						}
-						else{
-							echo "<div id='".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>";
-						}
-						echo "<div class='card card-body'>
-								Informazioni
-								<ul>
-								  <li>Data: ".$row['data']."</li>
-								  <li>Luogo: ".$row['luogo']."</li>
-								</ul>
+						</div>
+				";
+				if($row['id_spesa']==$_REQUEST['id_spesa']){
+					echo "<div id='".$i."' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>";
+				}
+				else{
+					echo "<div id='".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>";
+				}
+				echo "<div class='card card-body'>
+						Informazioni
+						<ul>
+						  <li>Data: ".$row['data']."</li>
+						  <li>Luogo: ".$row['luogo']."</li>
+						</ul>
 				";
 				$sql = "SELECT * FROM prodotto WHERE id_spesa='".$row['id_spesa']."'";
 				$result1 = $conn->query($sql);
-				if ($result1->num_rows > 0) {
-					echo "Prodotti<ul class='list-group'>";
-					while($row1 = $result1->fetch_assoc()) {
-						echo "<li class='list-group-item'>#".$row1['id_prod']." - ".$row1['descrizione']." (x".$row1['quantita'].")</li>";
-						/*echo "
-							<form class='form-inline mt-3' action='./listaspesa.php?prod=".$row1['id_prod']."' method='post'>
-								<div class='input-group'>
-									<div class='input-group-prepend'>
-										<div class='input-group-text'>
-											#".$row1['descrizione']."
-										</div>
-										<div class='input-group-append'>
-											<input type='submit' value='comprato' name='delprod'>
-										</div>
-									</div>
+				if ($result1->num_rows > 0){
+					echo "Prodotti<br>";
+					while($row1 = $result1->fetch_assoc()){
+						echo "
+							<form class='form-inline' id='".$row1['id_prod']."' action='./listaspesa.php?p=".$row1['id_prod']."&id_spesa=".$row['id_spesa']."' method='post'>
+								<div class='input-group-prepend'>
+									<button name='canc' class='btn btn-danger' form='".$row1['id_prod']."' type='submit'>x</button>
+								</div>
+								<div class='input-group-append'>
+									<input type='text' disabled class='form-control' value='".$row1['descrizione']." (x".$row1['quantita'].")'>
 								</div>
 							</form>
-						";*/
-						//echo "#".$row1['id_prod']." - ".$row1['descrizione']." (x".$row1['quantita'].")";
+						";
 					}
-					echo "</ul>";
 					echo "
 						<form class='form-inline mt-3' action='./listaspesa.php?id_spesa=".$row['id_spesa']."' method='post'>
 							<div class='input-group mb-2 mr-sm-2'>
@@ -252,4 +252,4 @@
 		";
     ?>
   </body>
-</html>
+</html>
