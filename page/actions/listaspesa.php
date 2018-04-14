@@ -38,12 +38,15 @@
 			//controllo campo data che non sia vuoto
 			x = document.getElementById("ins_date").value;
 			var date_d = new Date(x);
+            date_d.setHours(23);
+            date_d.setMinutes(59);
+            date_d.setSeconds(59);
 			var today = new Date();
 			if (x == ""){
 				alert("Errore: non hai compilato il campo data");return;
 			}
 			else if(date_d<today){
-				alert("Errore: hai inserito una data non valida");return;
+				alert("Errore: hai inserito una data non valida->"+date_d+"-->"+today);return;
 			}
 			//Se è tutto giusto
 			document.getElementById("ins").submit();
@@ -252,4 +255,5 @@
 		";
     ?>
   </body>
-</html>
+</html>
+
