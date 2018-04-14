@@ -43,8 +43,11 @@
       //controllo campo data che non sia vuoto
       x = document.getElementById("data_s").value;
       var date_d = new Date(x);
+      date_d.setHours(23);
+      date_d.setMinutes(59);
+      date_d.setSeconds(59);
       var today = new Date();
-      if (x == "") {
+      if (x == ""){
         alert("Errore: non hai compilato il campo data di scadenza");return;
       }
       else if(date_d<=today){
