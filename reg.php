@@ -48,12 +48,15 @@
       }
       //controllo password
       var pw1 = document.getElementById("regpassword").value;
-      var pw2 = document.getElementById("regpassword2").value; 
+      var pw2 = document.getElementById("regpassword2").value;
       if(pw1=="" || pw2==""){
         alert("Errore nelle password, controlla di avere compilato i campi");return;
       }
       else if(pw1!=pw2){
         alert("Errore: le due password non corrispondono");return;
+      }
+      else if(pw1.length<8){
+        alert("Errore: la password deve avere almeno 8 caratteri");return;
       }
       //Se è tutto giusto
       document.getElementById("reg").submit();
@@ -178,4 +181,4 @@
       }
     ?>
   </body>
-</html>
+</html>
