@@ -106,6 +106,16 @@
 				</div>
 			  </div>";
 		}
+        //controllo uguaglianza password
+		else if(strlen($_REQUEST['regpassword'])<8){
+		  echo "
+			  <div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+			    <div class='align-self-center text-center' style='width: 18rem !important;'>
+				  <h2 class='mb-2' style='color:black;'>Errore - la password dev'essere di almeno 8 caratteri</h2>
+				  <form method='post' action='./reg.php'><input type='submit' class='mt-3 btn btn-danger' name='sel_reg' value='torna indietro'></form>
+				</div>
+			  </div>";
+		}
 		//controllo validazione email
 		else if(!filter_var($_REQUEST['regemail'],FILTER_VALIDATE_EMAIL)){
 		  echo "
