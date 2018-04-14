@@ -116,7 +116,7 @@
 				echo "
 					<div class='card'>
 						<div class='card-header' id='heading".$i."'>
-							<h5 class='mb-0'>
+							<h5>
 								<button class='btn btn-link' data-toggle='collapse' data-target='#".$i."' aria-expanded='true' aria-controls='collapseOne'>
 									Lista della spesa #".$row['id_spesa']."
 								</button>
@@ -130,7 +130,7 @@
 					echo "<div id='".$i."' class='collapse' aria-labelledby='headingOne' data-parent='#accordion'>";
 				}
 				echo "<div class='card card-body'>
-						Informazioni
+						<b>Informazioni</b>
 						<ul>
 						  <li>Data: ".$row['data']."</li>
 						  <li>Luogo: ".$row['luogo']."</li>
@@ -139,7 +139,7 @@
 				$sql = "SELECT * FROM prodotto WHERE id_spesa='".$row['id_spesa']."'";
 				$result1 = $conn->query($sql);
 				if ($result1->num_rows > 0){
-					echo "Prodotti<br>";
+					echo "<b>Prodotti</b><br>";
 					while($row1 = $result1->fetch_assoc()){
 						echo "
 							<form class='form-inline' id='".$row1['id_prod']."' action='./listaspesa.php?p=".$row1['id_prod']."&id_spesa=".$row['id_spesa']."' method='post'>
@@ -157,7 +157,7 @@
 							<div class='input-group mb-2 mr-sm-2'>
 								<div class='input-group-prepend'>
 									<div class='input-group-text'>
-										Prodotto
+										Aggiungi
 									</div>
 								</div>
 								<input type='text' class='form-control' name='prodotto' placeholder='Nome' required>
