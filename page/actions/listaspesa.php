@@ -1,14 +1,14 @@
 <?php
-  session_start();
-  $_SESSION['curpage'] = 'lstsps';
-  $servername = "localhost";
-  $username = "familymanagement@localhost";
-  $password = "";
-  $dbname = "my_familymanagement";
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+    session_start();
+    $_SESSION['curpage'] = 'lstsps';
+    $servername = "localhost";
+    $username = "familymanagement@localhost";
+    $password = "";
+    $dbname = "my_familymanagement";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
 ?>
 <html>
     <head>
@@ -70,7 +70,7 @@
 			}
 		}
 		//controllo se settato inserimento prodotto
-		if(isset($_REQUEST['insprod'])){
+		if(isset($_REQUEST['insprod'])&&$_REQUEST['insprod']!="stop"){
 			if($_REQUEST['prodotto']!=""){
 				$prodotto = $_REQUEST['prodotto'];
 				if($_REQUEST['quantita']==""||$_REQUEST['quantita']<=0){
@@ -96,8 +96,9 @@
 					if ($conn->query($sql) === FALSE) {
 						echo "Error: " . $sql . "<br>" . $conn->error;
 					}
-				}
+				}  
 			}
+			$_REQUEST['insprod']="stop";
 		}
 		//controllo se settato cancellazione prodotto
 		if(isset($_REQUEST['canc'])){
