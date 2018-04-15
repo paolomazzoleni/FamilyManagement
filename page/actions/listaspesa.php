@@ -70,7 +70,7 @@
 			}
 		}
 		//controllo se settato inserimento prodotto
-		if(isset($_REQUEST['insprod'])&&$_REQUEST['insprod']!="stop"){
+		if(isset($_REQUEST['insprod'])&&($_REQUEST['insprod']!="stop")){
 			if($_REQUEST['prodotto']!=""){
 				$prodotto = $_REQUEST['prodotto'];
 				if($_REQUEST['quantita']==""||$_REQUEST['quantita']<=0){
@@ -79,20 +79,20 @@
 				else{
 					$quantita=$_REQUEST['quantita'];
 				}
-				$sql = "SELECT * FROM prodotto WHERE descrizione='".$prodotto."' AND id_spesa='".$_REQUEST['id_spesa']."'";
+				$sql = "SELECT * FROM prodotto WHERE descrizione='".strtolower($prodotto)."' AND id_spesa='".$_REQUEST['id_spesa']."'";
 				$result = $conn->query($sql);
 				//se il prodotto già c'è, aumento la quantita
 				if ($result->num_rows > 0) {
 					$row = $result->fetch_assoc();
 					$nuova_q=$row['quantita']+$quantita;
-					$sql = "UPDATE prodotto SET quantita='".$nuova_q."' WHERE descrizione='".$prodotto."' AND id_spesa='".$_REQUEST['id_spesa']."'";
+					$sql = "UPDATE prodotto SET quantita='".$nuova_q."' WHERE descrizione='".strtolower($prodotto)."' AND id_spesa='".$_REQUEST['id_spesa']."'";
 					if ($conn->query($sql) === FALSE){
 						echo "Error updating record: " . $conn->error;
 					}
 				}
 				//altrimenti lo aggiungo
 				else {
-					$sql = "INSERT INTO prodotto (descrizione,quantita,id_spesa) VALUES ('".$prodotto."','".$quantita."','".$_REQUEST['id_spesa']."')";
+					$sql = "INSERT INTO prodotto (descrizione,quantita,id_spesa) VALUES ('".strtolower($prodotto)."','".$quantita."','".$_REQUEST['id_spesa']."')";
 					if ($conn->query($sql) === FALSE) {
 						echo "Error: " . $sql . "<br>" . $conn->error;
 					}
