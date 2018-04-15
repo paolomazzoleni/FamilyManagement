@@ -32,34 +32,114 @@
 		require '../_navbar.php';
 		//menu seleziona mese e anno
 		echo "<b>MENU SCELTA VISUALIZZAZIONE</b>";
+		
+		if(isset($_REQUEST['visualizza'])){
+			$mese=$_REQUEST['mese'];
+			$anno=$_REQUEST['anno'];
+		}
+		else{
+			$sql = "SELECT MONTH(CURDATE()),YEAR(CURDATE())";
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			$mese = $row['MONTH(CURDATE())'];
+			$anno = $row['YEAR(CURDATE())'];
+		}
+		
 		echo "
 			<div class='form-inline'>
 				<form method='post'>
-					<select name='mese' class='custom-select'>
-					  <option value='01' selected>Gennaio</option>
-					  <option value='02'>Febbraio</option>
-					  <option value='03'>Marzo</option>
-					  <option value='04'>Aprile</option>
-					  <option value='05'>Maggio</option>
-					  <option value='06'>Giugno</option>
-					  <option value='07'>Luglio</option>
-					  <option value='08'>Agosto</option>
-					  <option value='09'>Settembre</option>
-					  <option value='10'>Ottobre</option>
-					  <option value='11'>Novembre</option>
-					  <option value='12'>Dicembre</option>
+					<select name='mese' class='custom-select'>";
+		
+		if($mese==1)
+			echo "		<option value='01' selected>Gennaio</option>";
+		else
+			echo "		<option value='01'>Gennaio</option>";
+		
+		if($mese==2)
+			echo "		<option value='02' selected>Febbraio</option>";
+		else
+			echo "		<option value='02'>Febbraio</option>";		
+
+		if($mese==3)
+			echo "		<option value='03' selected>Marzo</option>";
+		else
+			echo "		<option value='03'>Marzo</option>";
+
+		if($mese==4)
+			echo "		<option value='04' selected>Aprile</option>";
+		else
+			echo "		<option value='04'>Aprile</option>";
+
+		if($mese==5)
+			echo "		<option value='05' selected>Maggio</option>";
+		else
+			echo "		<option value='05'>Maggio</option>";
+
+		if($mese==6)
+			echo "		<option value='06' selected>Giugno</option>";
+		else
+			echo "		<option value='06'>Giugno</option>";
+
+		if($mese==7)
+			echo "		<option value='07' selected>Luglio</option>";
+		else
+			echo "		<option value='07'>Luglio</option>";
+
+		if($mese==8)
+			echo "		<option value='08' selected>Agosto</option>";
+		else
+			echo "		<option value='08'>Agosto</option>";
+
+		if($mese==9)
+			echo "		<option value='09' selected>Settembre</option>";
+		else
+			echo "		<option value='09'>Settembre</option>";
+
+		if($mese==10)
+			echo "		<option value='10' selected>Ottobre</option>";
+		else
+			echo "		<option value='10'>Ottobre</option>";
+
+		if($mese==11)
+			echo "		<option value='11' selected>Novembre</option>";
+		else
+			echo "		<option value='11'>Novembre</option>";
+
+		if($mese==12)
+			echo "		<option value='12' selected>Dicembre</option>
 					</select>
-					
 					<select name='anno' class='custom-select'>
-					  <option value='2018' selected>2018</option>
-					  <option value='2019'>2019</option>
-					  <option value='2020'>2020</option>
+			";
+		else
+			echo "		<option value='12'>Dicembre</option>
 					</select>
-					
-					<input type='submit' value='visualizza' name='visualizza'>
+					<select name='anno' class='custom-select'>
+			";
+		
+		if($anno==2018)
+			echo "		<option value='2018' selected>2018</option>";
+		else
+			echo "		<option value='2018'>2018</option>";
+		
+		if($anno==2019)
+			echo "		<option value='2019' selected>2019</option>";
+		else
+			echo "		<option value='2019'>2019</option>";
+		
+		if($anno==2020)
+			echo "		<option value='2020' selected>2020</option>
+					</select>
+			";
+		else
+			echo "		<option value='2020'>2020</option>
+					</select>
+			";
+			
+		echo "		<input type='submit' value='visualizza' name='visualizza'>
 				</form>
 			</div>
 		";
+		
 		//se è richiesto INSERIMENTO
 		if(isset($_REQUEST['ins'])){
 			$sql = "INSERT INTO evento (data,descrizione,descrizione_breve,email,codice_fam) VALUES ('".$_REQUEST['ins_date']."','".$_REQUEST['ins_desc']."','".$_REQUEST['ins_desc_b']."','".$_SESSION['user']."','".$_SESSION['fam']."')";
@@ -144,6 +224,9 @@
 			else{
 				echo "ancora nessun appuntamento";
 			}*/
+		}
+		else{
+			echo "stampa eventi relativi a ".$mese."/".$anno;
 		}
 		
 		//menu inserimento e cancellazione
