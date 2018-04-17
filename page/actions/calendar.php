@@ -238,7 +238,7 @@
 				<div class='container-fluid'>
 					<div class='row'>
 						<div class='col'>
-							<h4 align='center'>NESSUN EVENTO NEL PERIODO SCELTO</h4>
+							<h4 class='mt-2' align='center'>NESSUN EVENTO NEL PERIODO SCELTO</h4>
 						</div>
 					</div>
 				</div>
