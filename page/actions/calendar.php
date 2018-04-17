@@ -163,11 +163,19 @@
             $_REQUEST['anno']=$anno;
         }
 		//visualizza eventi
-		if(isset($_REQUEST['visualizza'])){
-			echo "
-				Mese/Anno: ".$_REQUEST['mese']."/".$_REQUEST['anno']."
-			";
-			
+		if(isset($_REQUEST['visualizza'])){            
+			$sql = "SELECT * FROM evento WHERE codice_fam='".$_SESSION['fam']."' AND MONTH(data)='".$_REQUEST['mese']."' AND YEAR(data)='".$_REQUEST['anno']."' ORDER BY data";
+			$result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                echo "<br>presente almeno un evento in Mese/Anno: ".$_REQUEST['mese']."/".$_REQUEST['anno'];
+                while($row = $result->fetch_assoc()) {
+                    echo "<br>descrizione: " . $row["descrizione"].", data: ".$row['data'];
+                }
+            }
+            else {
+                echo "0 results in Mese/Anno: ".$_REQUEST['mese']."/".$_REQUEST['anno'];
+            }
+            
 			/*
 			//stampa 2 - corretta
 			//NUMERO UTENTI - serve per numero colonne
