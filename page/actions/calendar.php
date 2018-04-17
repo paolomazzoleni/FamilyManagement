@@ -38,11 +38,13 @@
 			$anno=$_REQUEST['anno'];
 		}
 		else{
-			$sql = "SELECT MONTH(CURDATE()),YEAR(CURDATE())";
+			$sql = "SELECT CURDATE(),YEAR(CURDATE())";
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
-			$mese = $row['MONTH(CURDATE())'];
-			$anno = $row['YEAR(CURDATE())'];
+			//ricavo il mese con due digit es.'01' dalla data
+			$mese=date('m',strtotime($row['CURDATE()']));
+            //estraggo l'anno
+            $anno = $row['YEAR(CURDATE())'];
 		}
 		
 		echo "
@@ -50,62 +52,62 @@
 				<form method='post'>
 					<select name='mese' class='custom-select'>";
 		
-		if($mese==1)
+		if($mese=="01")
 			echo "		<option value='01' selected>Gennaio</option>";
 		else
 			echo "		<option value='01'>Gennaio</option>";
 		
-		if($mese==2)
+		if($mese=="02")
 			echo "		<option value='02' selected>Febbraio</option>";
 		else
 			echo "		<option value='02'>Febbraio</option>";		
 
-		if($mese==3)
+		if($mese=="03")
 			echo "		<option value='03' selected>Marzo</option>";
 		else
 			echo "		<option value='03'>Marzo</option>";
 
-		if($mese==4)
+		if($mese=="04")
 			echo "		<option value='04' selected>Aprile</option>";
 		else
 			echo "		<option value='04'>Aprile</option>";
 
-		if($mese==5)
+		if($mese=="05")
 			echo "		<option value='05' selected>Maggio</option>";
 		else
 			echo "		<option value='05'>Maggio</option>";
 
-		if($mese==6)
+		if($mese=="06")
 			echo "		<option value='06' selected>Giugno</option>";
 		else
 			echo "		<option value='06'>Giugno</option>";
 
-		if($mese==7)
+		if($mese=="07")
 			echo "		<option value='07' selected>Luglio</option>";
 		else
 			echo "		<option value='07'>Luglio</option>";
 
-		if($mese==8)
+		if($mese=="08")
 			echo "		<option value='08' selected>Agosto</option>";
 		else
 			echo "		<option value='08'>Agosto</option>";
 
-		if($mese==9)
+		if($mese=="09")
 			echo "		<option value='09' selected>Settembre</option>";
 		else
 			echo "		<option value='09'>Settembre</option>";
 
-		if($mese==10)
+		if($mese=="10")
 			echo "		<option value='10' selected>Ottobre</option>";
 		else
 			echo "		<option value='10'>Ottobre</option>";
 
-		if($mese==11)
+		if($mese=="11")
 			echo "		<option value='11' selected>Novembre</option>";
 		else
 			echo "		<option value='11'>Novembre</option>";
 
-		if($mese==12)
+		if($mese=="12")
 			echo "		<option value='12' selected>Dicembre</option>
 					</select>
 					<select name='anno' class='custom-select'>
@@ -154,6 +156,12 @@
 				echo "Error: " . $sql . "<br>" . $conn->error;
 			}
 		}
+        //a caricamento pagina
+		if(!isset($_REQUEST['visualizza'])){
+        	$_REQUEST['visualizza']="1";
+            $_REQUEST['mese']=$mese;
+            $_REQUEST['anno']=$anno;
+        }
 		//visualizza eventi
 		if(isset($_REQUEST['visualizza'])){
 			echo "
@@ -224,9 +232,6 @@
 			else{
 				echo "ancora nessun appuntamento";
 			}*/
-		}
-		else{
-			echo "stampa eventi relativi a ".$mese."/".$anno;
 		}
 		
 		//menu inserimento e cancellazione
