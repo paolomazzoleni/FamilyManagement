@@ -258,7 +258,7 @@
                         	$stampa = "";
                             $eventotd = "";
 							while($row1 = $result1->fetch_assoc()) {
-                                $eventotd .= "<li>".$row1['descrizione_breve']." (".$row1['id_evento'].")</li>";
+                                $eventotd .= "<li>".$row1['descrizione_breve']."</li>";
                                 $stampa .= "ID evento: ".$row1['id_evento']." - Descrizione: ".$row1['descrizione']."\\n\\n";
 							}
                             $evento = "<td style='cursor: pointer;' onclick='alert(\"".$stampa."\")'><ul>";
