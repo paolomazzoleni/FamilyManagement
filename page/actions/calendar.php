@@ -196,21 +196,24 @@
 				$nutenti = $row['nutenti'];
 				
 				// visualizzo tabella eventi
-				echo "	
+                //calcolo la percentuale per ogni header
+				$perc = 100/($nutenti+1); //+1 -> colonna data
+                //stampo header e memorizzo nomi utenti
+                echo "	
 					<div class='container-fluid'>
 						<div class='table-responsive-md'>
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
 									<tr>
-										<th scope='col'>DATA</th>";
+										<th style='width:".(int)$perc."%' scope='col'>DATA</th>
+                ";
 				
-				//stampo header e memorizzo nomi utenti
 				$i=0;
 				$sql = "SELECT * FROM utente WHERE codice_fam='".$_SESSION['fam']."' ORDER BY EMAIL";
 				$result = $conn->query($sql);
 				while($row = $result->fetch_assoc()) {
 					$nomi[$i]=$row['email'];
-					echo "<th scope='col'>".$nomi[$i]."</th>";
+					echo "<th style='width:".(int)$perc."%' scope='col'>".$nomi[$i]."</th>";
 					$i++;
 				}
 				echo "
@@ -221,12 +224,13 @@
 				
 				// per ogni riga -> fino a fine mese
 				$i=0;
+                
 				while($i<$giorni[$mese]){
 					$sql = "SELECT ADDDATE('".$datainizio."',".$i.") AS data";
 					$result = $conn->query($sql);
 					$row = $result->fetch_assoc();
-					echo "<tr style='background-color:#FFFFFF;'><td>".$row["data"]."</td>";
-					
+					echo "<tr class='table-light'><td>".$row["data"]."</td>";
+					//per ogni utente stampo una <td>
 					for($j=0;$j<$nutenti;$j++){
 						$sql = "SELECT * FROM evento WHERE email='".$nomi[$j]."' AND data='".$row["data"]."'";
 						$result1 = $conn->query($sql);
@@ -239,10 +243,10 @@
 						}
 						else if ($result->num_rows == 1){
 							$row1 = $result1->fetch_assoc();
-							$evento = "<td>".$row1['descrizione_breve']."</td>";
+							$evento = "<td style='width:".$perc."'>".$row1['descrizione_breve']."</td>";
 						}
 						else {
-							$evento = "<td></td>";
+							$evento = "<td style='width:".$perc."'></td>";
 						}
 						echo $evento;
 					}
