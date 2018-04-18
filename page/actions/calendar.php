@@ -20,6 +20,9 @@
 			table, th, td {
 				border: 1px solid black;
 			}
+            td {
+                vertical-align: middle !important;
+            }
 		</style>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -252,15 +255,19 @@
 						$sql = "SELECT * FROM evento WHERE email='".$nomi[$j]."' AND data='".$row["data"]."'";
 						$result1 = $conn->query($sql);
 						if ($result1->num_rows > 1) {
-							$evento = "<td><ul>";
+                        	$stampa = "";
+                            $eventotd = "";
 							while($row1 = $result1->fetch_assoc()) {
-								$evento .= "<li>".$row1['descrizione_breve']." (".$row1['id_evento'].")</li>";
+                                $eventotd .= "<li>".$row1['descrizione_breve']." (".$row1['id_evento'].")</li>";
+                                $stampa .= "ID evento: ".$row1['id_evento']." - Descrizione: ".$row1['descrizione']."\\n\\n";
 							}
+                            $evento = "<td style='cursor: pointer;' onclick='alert(\"".$stampa."\")'><ul>";
+                            $evento .= $eventotd;
 							$evento .= "</ul></td>";
 						}
 						else if ($result1->num_rows == 1){
 							$row1 = $result1->fetch_assoc();
-							$evento = "<td>".$row1['descrizione_breve']." (".$row1['id_evento'].")</td>";
+							$evento = "<td style='cursor: pointer;' onclick='alert(\"ID evento: ".$row1['id_evento']."\\nDescrizione: ".$row1['descrizione']."\")'>".$row1['descrizione_breve']."</td>";
 						}
 						else {
 							$evento = "<td></td>";
