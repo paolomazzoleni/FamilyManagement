@@ -1,5 +1,4 @@
 <?php
-	//header("Cache-Control: no-cache");
 	session_start();
     $servername = "localhost";
     $username = "familymanagement@localhost";
@@ -62,7 +61,7 @@
 			document.getElementById("reg").submit();
 		}
 	</script>
-	<body class="w-100 h-100 d-flex justify-content-center">
+	<body class="w-100 h-100 d-flex justify-content-center" style='background-color:#9ECCFF;'>
 		<?php
 			//effettua registrazione
 			if(isset($_REQUEST['regemail'])){
@@ -162,7 +161,7 @@
 			}
 			else{
 				echo "
-					<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+					<div class='w-100 h-100 d-flex justify-content-center'>
 						<div class='mt-5 text-center'>
 							<h1 class='mb-2' style='color:black;'>REGISTRAZIONE</h1>
 							<form action='./reg.php' method='post' id='reg'>
