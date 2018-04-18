@@ -30,6 +30,38 @@
 	<body style='background-color:#9ECCFF;'>
 		<?php
 			require '../_navbar.php';
+            
+            // INSERIMENTO EVENTO
+			if(isset($_REQUEST['ins'])){
+				$sql = "INSERT INTO evento (data,descrizione,descrizione_breve,email,codice_fam) VALUES ('".$_REQUEST['ins_date']."','".$_REQUEST['ins_desc']."','".$_REQUEST['ins_desc_b']."','".$_SESSION['user']."','".$_SESSION['fam']."')";
+				if ($conn->query($sql) === FALSE){
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
+                //voglio visualizzare il mese dove è stato inserito l'evento
+                $mese=date('m',strtotime($_REQUEST['ins_date']));
+                $anno=date('Y',strtotime($_REQUEST['ins_date']));
+                $_REQUEST['mese'] = $mese;
+                $_REQUEST['anno'] = $anno;
+			}
+			// CANCELLAZIONE EVENTO
+			if(isset($_REQUEST['del'])){
+                $sql = "SELECT data FROM evento WHERE id_evento='".$_REQUEST['del_id']."'";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+					$row = $result->fetch_assoc();
+                    //voglio visualizzare il mese dove è stato inserito l'evento
+                    $mese=date('m',strtotime($row['data']));
+                    $anno=date('Y',strtotime($row['data']));
+                    $_REQUEST['mese'] = $mese;
+                    $_REQUEST['anno'] = $anno;
+                }
+                
+                $sql = "DELETE FROM evento WHERE id_evento='".$_REQUEST['del_id']."'";
+				if ($conn->query($sql) === FALSE){
+					echo "Error: " . $sql . "<br>" . $conn->error;
+				}
+			}
+            
 			//menu seleziona mese e anno
 			echo "<div class='container-fluid'>";
 			echo "	<div class='row'>
@@ -159,21 +191,6 @@
 				</div>
 			";
 			
-			// INSERIMENTO EVENTO
-			if(isset($_REQUEST['ins'])){
-				$sql = "INSERT INTO evento (data,descrizione,descrizione_breve,email,codice_fam) VALUES ('".$_REQUEST['ins_date']."','".$_REQUEST['ins_desc']."','".$_REQUEST['ins_desc_b']."','".$_SESSION['user']."','".$_SESSION['fam']."')";
-				if ($conn->query($sql) === FALSE){
-					echo "Error: " . $sql . "<br>" . $conn->error;
-				}
-			}
-			// CANCELLAZIONE EVENTO
-			if(isset($_REQUEST['del'])){
-				$sql = "DELETE FROM evento WHERE id_evento='".$_REQUEST['del_id']."'";
-				if ($conn->query($sql) === FALSE){
-					echo "Error: " . $sql . "<br>" . $conn->error;
-				}
-			}
-			
 			// controllo se ci sono eventi nel periodo scelto
 			$sql = "SELECT * FROM evento WHERE MONTH(data)='".$mese."' AND YEAR(data)='".$anno."'";
 			$result = $conn->query($sql);
@@ -205,7 +222,7 @@
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
 									<tr>
-										<th style='width:".(int)$perc."%' scope='col'>DATA</th>
+										<th style='width:".(int)$perc."%;text-align:center;' scope='col'>DATA</th>
                 ";
 				
 				$i=0;
@@ -213,7 +230,7 @@
 				$result = $conn->query($sql);
 				while($row = $result->fetch_assoc()) {
 					$nomi[$i]=$row['email'];
-					echo "<th style='width:".(int)$perc."%' scope='col'>".$nomi[$i]."</th>";
+					echo "<th style='width:".(int)$perc."%;min-width:200px;text-align:center;' scope='col'>".$nomi[$i]."</th>";
 					$i++;
 				}
 				echo "
@@ -237,16 +254,16 @@
 						if ($result1->num_rows > 1) {
 							$evento = "<td><ul>";
 							while($row1 = $result1->fetch_assoc()) {
-								$evento .= "<li>".$row1['descrizione_breve']."</li>";
+								$evento .= "<li>".$row1['descrizione_breve']." (".$row1['id_evento'].")</li>";
 							}
 							$evento .= "</ul></td>";
 						}
-						else if ($result->num_rows == 1){
+						else if ($result1->num_rows == 1){
 							$row1 = $result1->fetch_assoc();
-							$evento = "<td style='width:".$perc."'>".$row1['descrizione_breve']."</td>";
+							$evento = "<td>".$row1['descrizione_breve']." (".$row1['id_evento'].")</td>";
 						}
 						else {
-							$evento = "<td style='width:".$perc."'></td>";
+							$evento = "<td></td>";
 						}
 						echo $evento;
 					}
