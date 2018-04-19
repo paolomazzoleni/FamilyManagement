@@ -60,17 +60,23 @@
 						}
 					}
 					
-					$sql = "INSERT INTO recovery_psw (token,data_creazione,data_expiration,email) VALUES ('".$randomString."',NOW(),NOW() + INTERVAL 1 DAY,'".$_REQUEST['email']."')";
-					if ($conn->query($sql) === TRUE) {
-						$sql = "SELECT NOW() + INTERVAL 1 DAY AS data";
-						$result = $conn->query($sql);
-						$row = $result->fetch_assoc();
-						mail($_REQUEST['email'],"FamilyManagement - Password dimenticata","Clicca su questo link per settare una nuova password: https://familymanagement.altervista.org/page/recovery.php?token=".$randomString.".\nQuesto link scadrà in data e ora: ".$row['data']."");
-						$corretta=true;
+                    $sql = "DELETE FROM recovery_psw WHERE email='".$_REQUEST['email']."'";
+                    if ($conn->query($sql) === TRUE) {
+                        $sql = "INSERT INTO recovery_psw (token,data_creazione,data_expiration,email) VALUES ('".$randomString."',NOW(),NOW() + INTERVAL 1 DAY,'".$_REQUEST['email']."')";
+						if ($conn->query($sql) === TRUE) {
+							$sql = "SELECT NOW() + INTERVAL 1 DAY AS data";
+							$result = $conn->query($sql);
+							$row = $result->fetch_assoc();
+							mail($_REQUEST['email'],"FamilyManagement - Password dimenticata","Clicca su questo link per settare una nuova password: https://familymanagement.altervista.org/page/recovery.php?token=".$randomString.".\nQuesto link scadrà in data e ora: ".$row['data']."");
+							$corretta=true;
+                    	}
+						else {
+							echo "Error: " . $sql . "<br>" . $conn->error;
+						}
                     }
-					else {
-						echo "Error: " . $sql . "<br>" . $conn->error;
-					}
+                    else {
+                        echo "Error deleting record: " . $conn->error;
+                    }
 				}
 				else {
 					$errore=1;
