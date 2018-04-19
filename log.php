@@ -1,5 +1,4 @@
 <?php
-	//header("Cache-Control: no-cache");
 	session_start();
 	$servername = "localhost";
 	$username = "familymanagement@localhost";
@@ -19,7 +18,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
-	<body class="w-100 h-100 d-flex justify-content-center">
+	<body class="w-100 h-100 d-flex justify-content-center" style='background-color:#9ECCFF;'>
 		<?php
 			//effettua login
 			if(isset($_REQUEST['login'])){
@@ -96,7 +95,7 @@
 			}
 		  //menù login
 			echo 
-				"<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+				"<div class='w-100 h-100 d-flex justify-content-center'>
 					<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
 						<h1 class='mb-2' style='color:black;'>LOGIN</h1>
 						<form action='./log.php' method='post'> 
