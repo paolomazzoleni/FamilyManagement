@@ -57,12 +57,15 @@
 			if(isset($_REQUEST['token'])){
 				$sql = "SELECT * FROM recovery_psw WHERE token='".$_REQUEST['token']."'";
 				$result = $conn->query($sql);
+				//se token corretto
 				if ($result->num_rows == 1){
 					$row = $result->fetch_assoc();
-					if($row['token']=="scaduto"){
+                    $now = date("Y-m-d H:i:s");
+					//se token scaduto
+					if($row['data_expiration']>$now){
 						$errore=1;
-						
 					}
+					//se token ancora valido
 					else{
 						$_SESSION['user'] = $row['email'];
 						$_SESSION['token'] = $_REQUEST['token'];
@@ -87,6 +90,7 @@
 					}
 				}
 				else{
+					//se token invalido
 					echo "
 						<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
 							<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
@@ -119,4 +123,4 @@
 			}*/
 		?>
     </body>
-</html>
+</html>
