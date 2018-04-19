@@ -65,8 +65,9 @@
 						$sql = "SELECT NOW() + INTERVAL 1 DAY AS data";
 						$result = $conn->query($sql);
 						$row = $result->fetch_assoc();
-						mail($_REQUEST['regemail'],"FamilyManagement - Password dimenticata","Clicca su questo link per settare una nuova password: <a href='https://familymanagement.altervista.org/page/recovery.php?token=".$randomString."'>https://familymanagement.altervista.org/page/recovery.php<a>.\nQuesto link scadr‡ in data e ora: ".$row['data']."");
-					}
+						mail($_REQUEST['email'],"FamilyManagement - Password dimenticata","Clicca su questo link per settare una nuova password: https://familymanagement.altervista.org/page/recovery.php?token=".$randomString.".\nQuesto link scadr√† in data e ora: ".$row['data']."");
+						$corretta=true;
+                    }
 					else {
 						echo "Error: " . $sql . "<br>" . $conn->error;
 					}
@@ -78,27 +79,35 @@
 			}
 		}
 		
-		if($visualizza==1){
+		echo "
+			<body class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+				<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+					<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
+						<h3>Recupero password</h3>
+						<form action='./sendmail.php' method='post' id='form1'>
+							<div class='form-group'>
+								<input type='email' name='email' class='form-control' id='email' placeholder='Email' required>";
+		if($errore==1){
 			echo "
-				<body class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-					<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-						<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
-							<h3>Recupero password</h3>
-							<form action='./sendmail.php' method='post' id='form1'>
-								<div class='form-group'>
-									<input type='email' name='email' class='form-control' id='email' placeholder='Email' required>";
-			if($errore==1){
-				echo "
-									<small class='form-text p-2 mb-2 bg-danger text-white'>Email non valida</small>
-				";
-			}			
-			echo "				</div>
-								<input type='button' name='send' class='btn btn-primary' onclick='controllo()' value='Invia email'>
-							</form>
-						</div>
-					</div>
-				</body>
+								<small class='form-text p-2 mb-2 bg-danger text-white'>Email non valida</small>
 			";
+               $errore=0;
 		}
+           else if($corretta==true){
+           	echo "
+               					<small class='form-text p-2 mb-2 bg-success text-white'>Email inviata correttamente</small>
+               ";
+            $corretta=false;
+        }
+		echo "				</div>
+							<input type='button' name='send' class='btn btn-primary btn-lg btn-block' onclick='controllo()' value='Invia email'>
+						</form>
+                        <form method='post' action='../index.php'>
+							<input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
+						</form>
+					</div>
+				</div>
+			</body>
+		";
 	?>
-</html>
+</html>
