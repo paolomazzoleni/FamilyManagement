@@ -97,45 +97,49 @@
 		  //menù login
 			echo 
 				"<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-					<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:10px;border-radius:25px;'>
+					<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
 						<h1 class='mb-2' style='color:black;'>LOGIN</h1>
 						<form action='./log.php' method='post'> 
-						<div class='form-group'>
-							<label>Indirizzo email</label>
-							<input type='email' class='form-control' name='logemail' placeholder='Email' required>
+							<div class='form-group'>
+								<label>Indirizzo email</label>
+								<input type='email' class='form-control' name='logemail' placeholder='Email' required>
 			";
 			
 			if($errore==1){
 				$errore=0;
 				echo "
-							<small class='form-text p-2 mb-2 bg-danger text-white'>Email non valida</small>
+								<small class='form-text p-2 mb-2 bg-danger text-white'>Email non valida</small>
 				";
 			}
-			echo "		</div>
-						<div class='form-group'>
-							<label>Password</label>
-						    <input type='password' class='form-control' name='logpassword' placeholder='Password' required>
+			echo "			</div>
+							<div class='form-group'>
+								<label>Password</label>
+						    	<input type='password' class='form-control' name='logpassword' placeholder='Password' required>
 			";
 			
 			if($errore==2){
 				$errore=0;
 				echo "
-							<small class='form-text p-2 mb-2 bg-danger text-white'>Password errata</small>
+								<small class='form-text p-2 mb-2 bg-danger text-white'>Password errata</small>
 				";
 			}
 			else if($errore==3){
 				$errore=0;
 				echo "
-							<small class='form-text p-2 mb-2 bg-danger text-white'>Password assente</small>
+								<small class='form-text p-2 mb-2 bg-danger text-white'>Password assente</small>
 				";
 			}
 			
-			echo "		</div>
-						<div class='form-check'>
-							<input type='checkbox' class='form-check-input' name='ricordami'>
-							<label class='form-check-label'>Ricordami</label>
-						</div>
-						<input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='login' name='login'></form>
+			echo "			</div>
+							<div class='form-check'>
+								<input type='checkbox' class='form-check-input' name='ricordami'>
+								<label class='form-check-label'>Ricordami</label>
+							</div>
+							<input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='login' name='login'>
+                        </form>
+                        <form action='./page/sendmail.php' method='post'>
+                        	<input type='submit' class='btn btn-info btn-block' value='password dimenticata?'>
+                        </form>
 						<form method='post' action='./index.php'>
 							<input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
 						</form>
