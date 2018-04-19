@@ -143,7 +143,7 @@
 							echo "Error: " . $sql . "<br>" . $conn->error;
 						}
 						else{
-							mail($_REQUEST['regemail'],"Famiglia - Registrazione","You registered as:\nemail - ".$_REQUEST['regemail']."\npassword - ".$_REQUEST['regpassword']."");
+							mail($_REQUEST['regemail'],"FamilyManagement - Registrazione","Ti sei registrato/a con le seguenti credenziali:\nemail - ".$_REQUEST['regemail']."\npassword - ".$_REQUEST['regpassword']."");
 							header('Location: ./index.php');
 						}
 					}
