@@ -97,15 +97,16 @@
 			echo "
 								<small class='form-text p-2 mb-2 bg-danger text-white'>Email non valida</small>
 			";
-               $errore=0;
+            $errore=0;
 		}
-           else if($corretta==true){
+        else if($corretta==true){
            	echo "
                					<small class='form-text p-2 mb-2 bg-success text-white'>Email inviata correttamente</small>
                ";
             $corretta=false;
         }
-		echo "				</div>
+		echo "				
+							</div>
 							<input type='button' name='send' class='btn btn-primary btn-lg btn-block' onclick='controllo()' value='Invia email'>
 						</form>
                         <form method='post' action='../index.php'>
