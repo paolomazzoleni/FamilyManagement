@@ -27,7 +27,7 @@
           }
         </style>
 	</head>
-	<body class="w-100 h-100 d-flex justify-content-center" style='background-color:#9ECCFF;'>
+	<body class="w-100 h-100 d-flex justify-content-center">
 		<?php
 			//effettua login
 			if(isset($_REQUEST['login'])){
@@ -104,7 +104,7 @@
 			}
 		  //menù login
 			echo 
-				"<div class='w-100 h-100 d-flex justify-content-center'>
+				"<div class='w-100 h-100 d-flex justify-content-center mt-4 mb-4'>
 					<div class='align-self-center text-center' style='width: 21rem !important;background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
                         <h1 class='mb-2' style='color:black;'>LOGIN</h1>
 						<form action='./log.php' method='post'> 
@@ -146,7 +146,7 @@
 							<input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='login' name='login'>
                         </form>
                         <form action='./page/sendmail.php' method='post'>
-                        	<input type='submit' class='btn btn-info btn-block' value='password dimenticata?'>
+                        	<input type='submit' class='btn btn-info btn-lg btn-block' value='password dimenticata?'>
                         </form>
 						<form method='post' action='./index.php'>
 							<input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
