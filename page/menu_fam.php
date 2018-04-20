@@ -54,7 +54,7 @@
             }
               
             echo "
-					<div align='center' class='col col-sm mt-3'><div class='card' style='width: 25rem;height:450px;'>
+					<div align='center' class='col col-sm mt-3'><div class='card' style='width: 21rem;height:400px;'>
 						<img class='card-img-top' src='".$matches[0][0]."'>
 						<div class='card-body'>
 							<p class='card-text'>".$item->title."</p>
