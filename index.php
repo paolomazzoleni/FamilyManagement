@@ -63,7 +63,7 @@
 			}
 		?>
     
-		<div class="w-100 h-100 d-flex justify-content-center">
+		<div class="w-100 h-100 d-flex justify-content-center" style="padding:10px;">
 			<div class="align-self-center text-center" style='border-radius:25px; padding:25px;background-color:rgba(255,255,255,0.9)!important;'>
 				<h1 class="mb-2" >FAMILY MANAGEMENT</h1>
 				<form action="./log.php" method="post" class="mb-1">
