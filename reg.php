@@ -17,6 +17,15 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          body{
+              background-image: url("./img/wallp1.jpg");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-position: center center;
+              background-size: cover;
+          }
+        </style>
 	</head>
 	<script>
 		function controlloreg(){
@@ -61,7 +70,7 @@
 			document.getElementById("reg").submit();
 		}
 	</script>
-	<body class="w-100 h-100 d-flex justify-content-center" style='background-color:#9ECCFF;'>
+	<body class="w-100 h-100 d-flex justify-content-center">
 		<?php
 			//effettua registrazione
 			if(isset($_REQUEST['regemail'])){
@@ -162,41 +171,46 @@
 			else{
 				echo "
 					<div class='w-100 h-100 d-flex justify-content-center'>
-						<div class='mt-5 text-center'>
+                    	<div class='align-self-center text-center' style='background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
 							<h1 class='mb-2' style='color:black;'>REGISTRAZIONE</h1>
 							<form action='./reg.php' method='post' id='reg'>
 							<div class='form-group'>
 								<label>Email address</label>
 								<input type='email' class='form-control' id='regemail' name='regemail' aria-describedby='emailHelp' placeholder='Email'>
 							</div>
-							<div class='form-group'>
-							  <label>Password</label>
-							  <input type='password' class='form-control' id='regpassword' placeholder='Password' name='regpassword' required>
-							</div>
-							<div class='form-group'>
-							  <label>Conferma password</label>
-							  <input type='password' class='form-control' id='regpassword2' placeholder='Conferma password' name='regpassword2' required>
-							</div>
-							<div class='form-group'>
-							  <label>Nome</label>
-							  <input type='text' class='form-control' id='regname' placeholder='Nome' name='regname' required>
-							</div>
-							<div class='form-group'>
-							  <label>Cognome</label>
-							  <input type='text' class='form-control' id='regsurname' placeholder='Cognome' name='regsurname' required>
-							</div>
+                         	<div class='row'>
+								<div class='col form-group'>
+							  		<label>Password</label>
+							  		<input type='password' class='form-control' id='regpassword' placeholder='Password' name='regpassword' required>
+								</div>
+								<div class='col form-group'>
+							  		<label>Conferma password</label>
+							  		<input type='password' class='form-control' id='regpassword2' placeholder='Conferma password' name='regpassword2' required>
+								</div>
+                         	</div>
+                         
+                        	<div class='row'>
+					 			<div class='col form-group'>
+							  		<label>Nome</label>
+							  		<input type='text' class='form-control' id='regname' placeholder='Nome' name='regname' required>
+								</div>
+								<div class='col form-group'>
+							  		<label>Cognome</label>
+							  		<input type='text' class='form-control' id='regsurname' placeholder='Cognome' name='regsurname' required>
+								</div>
+                        	</div>
 							<div class='form-group'>
 							  <label>Data di nascita</label>
 							  <input type='date' class='form-control' name='regdate' id='regdate'>
 							</div>
-							<input type='button' onclick='controlloreg()' class='btn btn-primary btn-lg btn-block' value='register' name='register' id='register'></form>
+							<input type='button' onclick='controlloreg()' class='btn btn-primary btn-lg btn-block' value='registrati' name='register' id='register'></form>
 							<form method='post' action='./index.php'>
 								<input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='torna indietro'>
 							</form>
-						</div>
+                    	</div>
 					</div>
 				";
 			}
 		?>
 	</body>
-</html>
+</html>
