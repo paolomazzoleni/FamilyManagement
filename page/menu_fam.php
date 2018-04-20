@@ -13,7 +13,7 @@
 <html>
 	<head>
 		<title>Home | FM</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -54,7 +54,7 @@
             }
               
             echo "
-					<div align='center' class='col mt-3'><div class='card' style='width: 18rem;height:400px;'>
+					<div align='center' class='col col-sm mt-3'><div class='card' style='width: 25rem;height:450px;'>
 						<img class='card-img-top' src='".$matches[0][0]."'>
 						<div class='card-body'>
 							<p class='card-text'>".$item->title."</p>
