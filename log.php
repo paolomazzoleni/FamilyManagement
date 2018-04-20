@@ -75,7 +75,6 @@
 										$var = false;
 									}
 								}
-
 								$token = rand(5000000000000000000,10000000000000000000);
 							  
 								//scrittura numero cookie nel database
@@ -104,12 +103,12 @@
 			}
 		  //menù login
 			echo 
-				"<div class='w-100 h-100 d-flex justify-content-center mt-4 mb-4'>
+				"<div class='w-100 h-100 d-flex justify-content-center'>
 					<div class='align-self-center text-center' style='width: 21rem !important;background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
                         <h1 class='mb-2' style='color:black;'>LOGIN</h1>
 						<form action='./log.php' method='post'> 
 							<div class='form-group'>
-								<label>Indirizzo email</label>
+								
 								<input type='email' class='form-control' name='logemail' placeholder='Email' required>
 			";
 			
@@ -121,7 +120,7 @@
 			}
 			echo "			</div>
 							<div class='form-group'>
-								<label>Password</label>
+								
 						    	<input type='password' class='form-control' name='logpassword' placeholder='Password' required>
 			";
 			
@@ -156,4 +155,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
