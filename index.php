@@ -19,7 +19,16 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-	</head>
+		<style>
+          body{
+              background-image: url("./img/wallp1.jpg");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-position: center center;
+              background-size: cover;
+          }
+        </style>
+    </head>
 	<body class="w-100 h-100 d-flex justify-content-center">
 		<?php
 			//se è richiesto logout, cancello i cookie
@@ -54,9 +63,9 @@
 			}
 		?>
     
-		<div class="w-100 h-100 d-flex justify-content-center" style="background-color:#9ECCFF;">
-			<div class="align-self-center text-center">
-				<h1 class="mb-2" style="color:black;">FAMILY MANAGEMENT</h1>
+		<div class="w-100 h-100 d-flex justify-content-center">
+			<div class="align-self-center text-center" style='border-radius:25px; padding:15px;background-color:rgba(255,255,255,0.5)!important;'>
+				<h1 class="mb-2" style="padding:15px;border-radius:25px;color:black;background-color:rgba(255,255,255,0.5)!important;">FAMILY MANAGEMENT</h1>
 				<form action="./log.php" method="post" class="mb-1">
 					<input class="btn btn-primary btn-lg btn-block" type="submit" value="login" name="sel_log">
 				</form>
@@ -66,4 +75,4 @@
 			</div>
 		</div>
 	</body>
-</html>
+</html>
