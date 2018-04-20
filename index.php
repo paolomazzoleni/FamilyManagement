@@ -64,8 +64,8 @@
 		?>
     
 		<div class="w-100 h-100 d-flex justify-content-center">
-			<div class="align-self-center text-center" style='border-radius:25px; padding:15px;background-color:rgba(255,255,255,0.5)!important;'>
-				<h1 class="mb-2" style="padding:15px;border-radius:25px;color:black;background-color:rgba(255,255,255,0.7)!important;">FAMILY MANAGEMENT</h1>
+			<div class="align-self-center text-center" style='border-radius:25px; padding:25px;background-color:rgba(255,255,255,0.9)!important;'>
+				<h1 class="mb-2" >FAMILY MANAGEMENT</h1>
 				<form action="./log.php" method="post" class="mb-1">
 					<input class="btn btn-primary btn-lg btn-block" type="submit" value="login" name="sel_log">
 				</form>

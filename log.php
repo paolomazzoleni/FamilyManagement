@@ -17,6 +17,15 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          body{
+              background-image: url("./img/wallp1.jpg");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-position: center center;
+              background-size: cover;
+          }
+        </style>
 	</head>
 	<body class="w-100 h-100 d-flex justify-content-center" style='background-color:#9ECCFF;'>
 		<?php
@@ -96,8 +105,8 @@
 		  //menù login
 			echo 
 				"<div class='w-100 h-100 d-flex justify-content-center'>
-					<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
-						<h1 class='mb-2' style='color:black;'>LOGIN</h1>
+					<div class='align-self-center text-center' style='width: 21rem !important;background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
+                        <h1 class='mb-2' style='color:black;'>LOGIN</h1>
 						<form action='./log.php' method='post'> 
 							<div class='form-group'>
 								<label>Indirizzo email</label>
