@@ -72,13 +72,13 @@
 	//bottoni fine navbar
 	echo "
 			<form class='form-inline my-lg-0' action='http://familymanagement.altervista.org/page/actions/f_settings.php'>
-				<button class='btn btn-secondary btn-md btn-block my-sm-0 mt-2 mr-2' type='submit'>Family settings</button>
+				<button class='btn btn-secondary btn-md btn-block my-sm-0 mt-2 mr-2 ml-2' type='submit'>Impostazioni familiari</button>
 			</form>
 			<form class='form-inline my-lg-0' action='http://familymanagement.altervista.org/page/actions/p_settings.php'>
-				<button class='btn btn-secondary btn-md btn-block my-sm-0 mr-2' type='submit'>Personal settings</button>
+				<button class='btn btn-secondary btn-md btn-block my-sm-0 mr-2 ml-2' type='submit'>Impostazioni personali</button>
 			</form>
 			<form class='form-inline  my-lg-0' action='http://familymanagement.altervista.org/' method='post'>
-				<button class='btn btn-dark btn-md btn-block my-sm-0' type='submit' name='logout'>Logout</button>
+				<button class='btn btn-dark btn-md btn-block my-sm-0 mr-2 ml-2' type='submit' name='logout'>Logout</button>
 			</form>
 		</div>
 	</nav>";
