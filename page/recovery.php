@@ -55,46 +55,39 @@
 			}
 			
 			if(isset($_REQUEST['token'])){
-				$sql = "SELECT * FROM recovery_psw WHERE token='".$_REQUEST['token']."'";
+				$sql = "SELECT COUNT(*) AS valido FROM recovery_psw WHERE token='".$_REQUEST['token']."' AND data_expiration >= NOW()";
 				$result = $conn->query($sql);
+				$row = $result->fetch_assoc();
 				//se token corretto
-				if ($result->num_rows == 1){
-					$row = $result->fetch_assoc();
-                    $now = date("Y-m-d H:i:s");
-					//se token scaduto
-					if($row['data_expiration']>$now){
-						$errore=1;
-					}
+				if ($row['valido']>0){
 					//se token ancora valido
-					else{
-						$_SESSION['user'] = $row['email'];
-						$_SESSION['token'] = $_REQUEST['token'];
-						echo "
-							<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-								<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
-									<h5 style='background-color:#DDDDDD;padding:15px;border-radius:25px;' class='mt-2'>Cambia password</h5>
-									<form method='post' action='./recovery.php' id='form1'>
-										<div class='form-group'>
-											<label>Nuova password</label>
-											<input type='password' class='form-control' id='password' name='password' placeholder='Nuova password' required>
-										</div>
-										<div class='form-group'>
-											<label>Conferma nuova password</label>
-											<input type='password' class='form-control' id='password2' name='password2' placeholder='Conferma nuova password' required>
-										</div>
-										<input class='btn btn-primary btn-lg btn-block' type='button' onclick='controlla()' value='conferma'>
-									</form>
-								</div>
-							</div>
-						";
-					}
-				}
-				else{
-					//se token invalido
+					$_SESSION['user'] = $row['email'];
+					$_SESSION['token'] = $_REQUEST['token'];
 					echo "
 						<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
 							<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
-								<h5 class='mt-2'>Token invalido</h5>
+								<h5 style='background-color:#DDDDDD;padding:15px;border-radius:25px;' class='mt-2'>Cambia password</h5>
+								<form method='post' action='./recovery.php' id='form1'>
+									<div class='form-group'>
+										<label>Nuova password</label>
+										<input type='password' class='form-control' id='password' name='password' placeholder='Nuova password' required>
+									</div>
+									<div class='form-group'>
+										<label>Conferma nuova password</label>
+										<input type='password' class='form-control' id='password2' name='password2' placeholder='Conferma nuova password' required>
+									</div>
+									<input class='btn btn-primary btn-lg btn-block' type='button' onclick='controlla()' value='conferma'>
+								</form>
+							</div>
+						</div>
+					";
+				}
+				//se token invalido o scaduto
+				else{
+					echo "
+						<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+							<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
+								<h5 class='mt-2'>Token invalido o scaduto</h5>
 								<form method='post' action='../index.php'>
 									<input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='vai alla pagina principale'>
 								</form>
@@ -103,24 +96,6 @@
 					";
 				}
 			}
-			
-			if($errore==1) {
-				$errore=0;
-				echo "
-						<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-							<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
-								<h5 class='mt-2'>Token scaduto</h5>
-								<form method='post' action='../index.php'>
-									<input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='vai alla pagina principale'>
-								</form>
-							</div>
-						</div>
-					";
-			}
-			
-			/*else{
-				header('Location: ../log.php');
-			}*/
 		?>
     </body>
 </html>
