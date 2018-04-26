@@ -31,6 +31,11 @@
 					}
 					else{
 						$_SESSION['fam'] = $_REQUEST['codice_fam'];
+						
+						$sql = "UPDATE evento SET codice_fam='".$_SESSION['fam']."' WHERE email='".$_SESSION['user']."'";
+						if ($conn->query($sql) === FALSE) {
+							echo "Error updating record: " . $conn->error;
+						}
 					}
 				}
 				else{
@@ -134,4 +139,4 @@
 			}
 		?>
 	</body>
-</html>
+</html>
