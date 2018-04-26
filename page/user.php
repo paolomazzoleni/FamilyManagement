@@ -107,7 +107,7 @@
 										<h2 class='mt-2' style='color:black;'>Crea una famiglia</h2>
 										<form action='./user.php' method='post'>
 											<div class='form-group'>
-												<label>Codice famiglia</label>
+												<label>Nome</label>
 												<input type='text' maxlength='100' class='form-control' name='nome' required aria-describedby='emailHelp' placeholder='Nome'>
 											</div>
 											<div class='form-group'>
@@ -134,4 +134,4 @@
 			}
 		?>
 	</body>
-</html>
+</html>
