@@ -85,7 +85,7 @@
 								<form method='post' action='./recovery.php' id='form1'>
 									<div class='form-group'>
 										<label>Email</label>
-										<input style='text-align:center;' type='text' class='form-control-plaintext' id='password' name='password' value='".$row['email']."' readonly>
+										<input style='text-align:center;' type='text' class='form-control-plaintext' id='email' name='password' value='".$row['email']."' readonly>
 									</div>
                                     <div class='form-group'>
 										<label>Nuova password</label>
