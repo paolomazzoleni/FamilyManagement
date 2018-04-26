@@ -18,13 +18,13 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
         <style>
-          body{
-              background-image: url("./img/wallp1.jpg");
-              background-repeat: no-repeat;
-              background-attachment: fixed;
-              background-position: center center;
-              background-size: cover;
-          }
+          	body{
+              	background-image: url("./img/wallp1.jpg");
+              	background-repeat: no-repeat;
+              	background-attachment: fixed;
+              	background-position: center center;
+              	background-size: cover;
+          	}
         </style>
 	</head>
 	<body class="w-100 h-100 d-flex justify-content-center">
@@ -109,7 +109,7 @@
 						<form action='./log.php' method='post'> 
 							<div class='form-group'>
 								
-								<input type='email' class='form-control' name='logemail' placeholder='Email' required>
+								<input type='email' class='form-control' name='logemail' placeholder='Email' autofocus required>
 			";
 			
 			if($errore==1){
