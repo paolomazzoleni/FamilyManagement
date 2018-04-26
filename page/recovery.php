@@ -73,12 +73,21 @@
 					//se token ancora valido
 					$_SESSION['user'] = $row['email'];
 					$_SESSION['token'] = $_REQUEST['token'];
+                    
+                    $sql = "SELECT email FROM recovery_psw WHERE token='".$_REQUEST['token']."'";
+                    $result = $conn->query($sql);
+                    $row = $result->fetch_assoc();
+                    
 					echo "
 						<div class='w-100 h-100 d-flex justify-content-center'>
 							<div class='align-self-center text-center' style='width: 21rem !important;background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
 								<h5 style='background-color:rgba(192,192,192,0.5)!important;padding:15px;border-radius:25px;' class='mt-2'>Cambia password</h5>
 								<form method='post' action='./recovery.php' id='form1'>
 									<div class='form-group'>
+										<label>Email</label>
+										<input style='text-align:center;' type='text' class='form-control-plaintext' id='password' name='password' value='".$row['email']."' readonly>
+									</div>
+                                    <div class='form-group'>
 										<label>Nuova password</label>
 										<input type='password' class='form-control' id='password' name='password' placeholder='Nuova password' required>
 									</div>
