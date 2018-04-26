@@ -27,7 +27,7 @@
             background-size: cover;
         }
     </style>
-	<body style="background-color: #9ECCFF;">
+	<body>
 		<?php
 			//join a famiglia tramite codice
 			if(isset($_REQUEST['join'])){
