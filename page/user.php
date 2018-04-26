@@ -18,6 +18,15 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
+    <style>
+        body{
+        	background-image: url("../img/wallp3.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center center;
+            background-size: cover;
+        }
+    </style>
 	<body style="background-color: #9ECCFF;">
 		<?php
 			//join a famiglia tramite codice
@@ -84,12 +93,12 @@
 		  
 			//se utente non ancora registrato in un gruppo
 			else if(isset($_SESSION['user'])){
-				echo "<h1 class='mt-3 mb-3' style='text-align:center;background-color:#CEE5FF;padding:5px;'>Benvenuto!</h1>";
 				echo "
 					<div class='container-fluid'>
+                    	<p class='h1 mt-3 mb-3' style='text-align:center;background-color:rgba(255,255,255,0.7)!important;padding:25px;border-radius:25px;'>Benvenuto!</p>
 						<div class='row'>
 							<div class='col'>
-								<div class='card mt-3' style='height:325px;'>
+								<div class='card mt-3' style='height:375px;background-color:rgba(255,255,255,0.7)!important;padding:25px;border-radius:25px;'>
 									<div class='card-body'>
 										<h2 class='mt-5' style='color:black;'>Unisciti ad una famiglia</h2>
 											<form action='./user.php' method='post'>
@@ -107,7 +116,7 @@
 								</div>
 							</div>
 							<div class='col'>
-								<div class='card mt-3 mb-3' style='height:325px;'>
+								<div class='card mt-3 mb-3' style='height:375px;background-color:rgba(255,255,255,0.7)!important;padding:25px;border-radius:25px;'>
 									<div class='card-body'>
 										<h2 class='mt-2' style='color:black;'>Crea una famiglia</h2>
 										<form action='./user.php' method='post'>
@@ -126,17 +135,20 @@
 							</div>
 						</div>
 						<div class='row'>
-							<div class='col'></div>
-							<div class='col'>
-								<form action='../index.php' method='post'>
-									<input type='submit' class='mt-4 btn btn-secondary btn-lg btn-block' value='logout' name='logout'>
-								</form>
+							<div class='col' align='center'>
+                            	<div class='card mt-3 mb-3' style='background-color:rgba(255,255,255,0.7)!important;border-radius:25px;'>
+									<div class='card-body'>
+										<form action='../index.php' method='post'>
+											<input type='submit' class='mt-4 btn btn-danger btn-lg btn-block' value='logout' name='logout'>
+										</form>
+                                    </div>
+                                </div>
 							</div>
-							<div class='col'></div> 
 						</div>
 					</div>
 				";
 			}
 		?>
 	</body>
-</html>
+</html>
+
