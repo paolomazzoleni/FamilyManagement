@@ -1,14 +1,14 @@
 <?php
-  $_SESSION['curpage'] = 'fset';
-  session_start();
-  $servername = "localhost";
-  $username = "familymanagement@localhost";
-  $password = "";
-  $dbname = "my_familymanagement";
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+	$_SESSION['curpage'] = 'fset';
+	session_start();
+	$servername = "localhost";
+	$username = "familymanagement@localhost";
+	$password = "";
+	$dbname = "my_familymanagement";
+	$conn = new mysqli($servername, $username, $password, $dbname);
+	if ($conn->connect_error) {
+		die("Connection failed: " . $conn->connect_error);
+	}
 ?>
 <html>
 	<head>
@@ -40,7 +40,7 @@
 			if(isset($_REQUEST['delete_f'])){
 				$sql = "DELETE FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
 				if ($conn->query($sql) === FALSE){
-					"Error deleting record: " . $conn->error; 
+					"Error deleting record: " . $conn->error;
 				}
 				else{
 					unset($_SESSION['fam']);
@@ -54,6 +54,10 @@
 					"Error updating record: " . $conn->error;
 				}
 				else{
+					$sql = "UPDATE evento SET codice_fam=NULL WHERE email='".$_SESSION['user']."'";
+					if ($conn->query($sql) === FALSE) {
+						echo "Error updating record: " . $conn->error;
+					}
 					unset($_SESSION['fam']);
 					header('Location: ../user.php');
 				}
@@ -169,4 +173,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
