@@ -17,6 +17,15 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          	body{
+              	background-image: url("../img/wallp4.jpg");
+              	background-repeat: no-repeat;
+              	background-attachment: fixed;
+              	background-position: center center;
+              	background-size: cover;
+          	}
+        </style>
     </head>
 	<script>
 		function controlla(){
@@ -35,7 +44,7 @@
 			document.getElementById("form1").submit();
 		}
 	</script>
-    <body class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+    <body class='w-100 h-100 d-flex justify-content-center'>
     	<?php
 			if(isset($_REQUEST['password'])){
 				$password = $_REQUEST['password'];
@@ -51,6 +60,7 @@
 				}
 				else {
 					echo "Error updating record: " . $conn->error;
+					$_REQUEST['token']=$_SESSION['token'];
 				}
 			}
 			
@@ -64,9 +74,9 @@
 					$_SESSION['user'] = $row['email'];
 					$_SESSION['token'] = $_REQUEST['token'];
 					echo "
-						<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-							<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
-								<h5 style='background-color:#DDDDDD;padding:15px;border-radius:25px;' class='mt-2'>Cambia password</h5>
+						<div class='w-100 h-100 d-flex justify-content-center'>
+							<div class='align-self-center text-center' style='width: 21rem !important;background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
+								<h5 style='background-color:rgba(192,192,192,0.5)!important;padding:15px;border-radius:25px;' class='mt-2'>Cambia password</h5>
 								<form method='post' action='./recovery.php' id='form1'>
 									<div class='form-group'>
 										<label>Nuova password</label>
@@ -85,8 +95,8 @@
 				//se token invalido o scaduto
 				else{
 					echo "
-						<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
-							<div class='align-self-center text-center' style='width: 18rem !important;background-color:white;padding:15px;border-radius:25px;'>
+						<div class='w-100 h-100 d-flex justify-content-center'>
+							<div class='align-self-center text-center' style='width: 21rem !important;background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
 								<h5 class='mt-2'>Token invalido o scaduto</h5>
 								<form method='post' action='../index.php'>
 									<input class='mt-5 btn btn-secondary btn-lg btn-block' type='submit' value='vai alla pagina principale'>
@@ -95,6 +105,9 @@
 						</div>
 					";
 				}
+			}
+			else{
+				header('Location: ../index.php');
 			}
 		?>
     </body>
