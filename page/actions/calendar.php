@@ -23,6 +23,13 @@
             td {
                 vertical-align: middle !important;
             }
+          	body{
+              	background-image: url("../../img/wallp7.png");
+              	background-repeat: no-repeat;
+              	background-attachment: fixed;
+              	background-position: center center;
+              	background-size: cover;
+          	}
 		</style>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -30,7 +37,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
-	<body style='background-color:#9ECCFF;'>
+	<body>
 		<?php
 			require '../_navbar.php';
             
@@ -225,7 +232,7 @@
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
 									<tr>
-										<th style='width:".(int)$perc."%;text-align:center;' scope='col'>DATA</th>
+										<th style='width:".(int)$perc."%;text-align:middle;text-align:center;' scope='col'>DATA</th>
                 ";
 				
 				$i=0;
@@ -249,7 +256,7 @@
 					$sql = "SELECT ADDDATE('".$datainizio."',".$i.") AS data";
 					$result = $conn->query($sql);
 					$row = $result->fetch_assoc();
-					echo "<tr class='table-light'><td>".$row["data"]."</td>";
+					echo "<tr class='table-light'><td style='text-align:center;text-align:middle;'>".$row["data"]."</td>";
 					//per ogni utente stampo una <td>
 					for($j=0;$j<$nutenti;$j++){
 						$sql = "SELECT * FROM evento WHERE email='".$nomi[$j]."' AND data='".$row["data"]."'";
@@ -259,7 +266,7 @@
                             $eventotd = "";
 							while($row1 = $result1->fetch_assoc()) {
                                 $eventotd .= "<li>".$row1['descrizione_breve']."</li>";
-                                $stampa .= "ID evento: ".$row1['id_evento']." - Descrizione: ".$row1['descrizione']."\\n\\n";
+                                $stampa .= "Descrizione: ".$row1['descrizione']."(#".$row1['id_evento'].")\\n\\n";
 							}
                             $evento = "<td style='cursor: pointer;' onclick='alert(\"".$stampa."\")'><ul>";
                             $evento .= $eventotd;
@@ -267,7 +274,7 @@
 						}
 						else if ($result1->num_rows == 1){
 							$row1 = $result1->fetch_assoc();
-							$evento = "<td style='cursor: pointer;' onclick='alert(\"ID evento: ".$row1['id_evento']."\\nDescrizione: ".$row1['descrizione']."\")'>".$row1['descrizione_breve']."</td>";
+							$evento = "<td style='cursor: pointer;' onclick='alert(\"Descrizione: ".$row1['descrizione']." (#".$row1['id_evento'].")\")'>".$row1['descrizione_breve']."</td>";
 						}
 						else {
 							$evento = "<td></td>";
