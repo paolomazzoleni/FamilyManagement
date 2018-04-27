@@ -37,36 +37,72 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
+	<!--INSERIMENTO NUOVO EVENTO-->
+	<script>	
+		function insevento(){
+			var ins_evento = $("#ins_evento").val();
+			var ins_desc_evento = $("#ins_desc_evento").val();
+			var ins_desc_b_evento = $("#ins_desc_b_evento").val();
+			
+			//controllo campo descrizione che non sia vuoto
+			x = document.getElementById("ins_desc_evento").value;
+			if (x == "") {
+				alert("Errore: non hai compilato il campo descrizione");return;
+			}
+			//controllo campo descrizione che non sia vuoto
+			x = document.getElementById("ins_desc_b_evento").value;
+			if (x == "") {
+				alert("Errore: non hai compilato il campo descrizione breve");return;
+			}
+			//controllo campo descrizione che non sia vuoto
+			x = document.getElementById("ins_evento").value;
+			if (x == "") {
+				alert("Errore: non hai compilato il campo data");return;
+			}
+			
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					var xd = new Date(x);
+					var xm = xd.getMonth()+1;
+					var xy = xd.getFullYear();
+					window.location.replace("https://familymanagement.altervista.org/page/actions/calendar.php?mese="+xm+"&anno="+xy);
+				}
+			};
+
+			var param="ins_evento="+ ins_evento + "&ins_desc_evento="+ins_desc_evento+"&ins_desc_b_evento="+ins_desc_b_evento;
+
+			xmlhttp.open("POST","./salvadb.php",true);
+			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xmlhttp.send(param);
+		}
+	</script>
+	
 	<body>
 		<?php
 			require '../_navbar.php';
             
-            // INSERIMENTO EVENTO
-			if(isset($_REQUEST['ins'])){
-				$sql = "INSERT INTO evento (data,descrizione,descrizione_breve,email,codice_fam) VALUES ('".$_REQUEST['ins_date']."','".$_REQUEST['ins_desc']."','".$_REQUEST['ins_desc_b']."','".$_SESSION['user']."','".$_SESSION['fam']."')";
-				if ($conn->query($sql) === FALSE){
-					echo "Error: " . $sql . "<br>" . $conn->error;
-				}
-                //voglio visualizzare il mese dove è stato inserito l'evento
-                $mese=date('m',strtotime($_REQUEST['ins_date']));
-                $anno=date('Y',strtotime($_REQUEST['ins_date']));
-                $_REQUEST['mese'] = $mese;
-                $_REQUEST['anno'] = $anno;
-			}
 			// CANCELLAZIONE EVENTO
-			if(isset($_REQUEST['del'])){
-                $sql = "SELECT data FROM evento WHERE id_evento='".$_REQUEST['del_id']."'";
+			if(isset($_POST['del'])){
+                $sql = "SELECT data FROM evento WHERE id_evento='".$_POST['del_id']."'";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
 					$row = $result->fetch_assoc();
                     //voglio visualizzare il mese dove è stato inserito l'evento
                     $mese=date('m',strtotime($row['data']));
                     $anno=date('Y',strtotime($row['data']));
-                    $_REQUEST['mese'] = $mese;
-                    $_REQUEST['anno'] = $anno;
+                    $_POST['mese'] = $mese;
+                    $_POST['anno'] = $anno;
                 }
                 
-                $sql = "DELETE FROM evento WHERE id_evento='".$_REQUEST['del_id']."'";
+                $sql = "DELETE FROM evento WHERE id_evento='".$_POST['del_id']."'";
 				if ($conn->query($sql) === FALSE){
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
@@ -82,9 +118,9 @@
 			";
 			
 			// se select submittata
-			if(isset($_REQUEST['mese'])){
-				$mese=$_REQUEST['mese'];
-				$anno=$_REQUEST['anno'];
+			if(isset($_POST['mese'])){
+				$mese=$_POST['mese'];
+				$anno=$_POST['anno'];
 			}
 			// altrimenti appena si carica la pagina
 			else{
@@ -103,68 +139,92 @@
 						<div class='col'>
 							<select name='mese' class='custom-select' onchange='this.form.submit()'>";
 			
-			if($mese=="01")
+			if($mese=="01"||$mese==1){
 				echo "			<option value='01' selected>Gennaio</option>";
+				$mese="01";
+			}
 			else
 				echo "			<option value='01'>Gennaio</option>";
 			
-			if($mese=="02")
+			if($mese=="02"||$mese==2){
 				echo "			<option value='02' selected>Febbraio</option>";
+				$mese="02";
+			}
 			else
 				echo "			<option value='02'>Febbraio</option>";		
 
-			if($mese=="03")
+			if($mese=="03"||$mese==3){
 				echo "			<option value='03' selected>Marzo</option>";
+				$mese="03";
+			}
 			else
 				echo "			<option value='03'>Marzo</option>";
 
-			if($mese=="04")
+			if($mese=="04"||$mese==4){
 				echo "			<option value='04' selected>Aprile</option>";
+				$mese="04";
+			}
 			else
 				echo "			<option value='04'>Aprile</option>";
 
-			if($mese=="05")
+			if($mese=="05"||$mese==5){
 				echo "			<option value='05' selected>Maggio</option>";
+				$mese="05";
+			}
 			else
 				echo "			<option value='05'>Maggio</option>";
 
-			if($mese=="06")
+			if($mese=="06"||$mese==6){
 				echo "			<option value='06' selected>Giugno</option>";
+				$mese="06";
+			}
 			else
 				echo "			<option value='06'>Giugno</option>";
 
-			if($mese=="07")
+			if($mese=="07"||$mese==7){
 				echo "			<option value='07' selected>Luglio</option>";
+				$mese="07";
+			}
 			else
 				echo "			<option value='07'>Luglio</option>";
 
-			if($mese=="08")
+			if($mese=="08"||$mese==8){
 				echo "			<option value='08' selected>Agosto</option>";
+				$mese="08";
+			}
 			else
 				echo "			<option value='08'>Agosto</option>";
 
-			if($mese=="09")
+			if($mese=="09"||$mese==9){
 				echo "			<option value='09' selected>Settembre</option>";
+				$mese="09";
+			}
 			else
 				echo "			<option value='09'>Settembre</option>";
 
-			if($mese=="10")
+			if($mese=="10"||$mese==10){
 				echo "			<option value='10' selected>Ottobre</option>";
+				$mese="10";
+			}
 			else
 				echo "			<option value='10'>Ottobre</option>";
 
-			if($mese=="11")
+			if($mese=="11"||$mese==11){
 				echo "			<option value='11' selected>Novembre</option>";
+				$mese="11";
+			}
 			else
 				echo "			<option value='11'>Novembre</option>";
 
-			if($mese=="12")
+			if($mese=="12"||$mese==12){
 				echo "			<option value='12' selected>Dicembre</option>
 							</select>
 						</div>
 						<div class='col'>
 							<select name='anno' class='custom-select'>
 				";
+				$mese="12";
+			}
 			else
 				echo "			<option value='12'>Dicembre</option>
 							</select>
@@ -317,17 +377,17 @@
 									<form method='post'>
 										<div class='form-group'>
 											<label>Data</label>
-											<input type='date' class='form-control' name='ins_date' id='ins_date'>
+											<input type='date' class='form-control' name='ins_evento' id='ins_evento'>
 										</div>
 										<div class='form-group'>
 											<label>Descrizione</label>
-											<input type='text' class='form-control' name='ins_desc' placeholder='Descrizione' id='ins_desc'>
+											<input type='text' class='form-control' name='ins_desc_evento' placeholder='Descrizione' id='ins_desc_evento'>
 										</div>
 										<div class='form-group'>
 											<label>Descrizione breve</label>
-											<input type='text' class='form-control' name='ins_desc_b' placeholder='Descrizione breve' id='ins_desc_b'>
+											<input type='text' class='form-control' name='ins_desc_b_evento' placeholder='Descrizione breve' id='ins_desc_b_evento'>
 										</div>
-										<input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='ins'>
+										<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='ins' onclick='insevento()'>
 									</form>
 								</div>
 							</div>
