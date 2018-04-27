@@ -21,8 +21,7 @@
 			table, th, td {
 				border: 1px solid black;
 			}
-            
-            body{
+			body{
               	background-image: url("../../img/wallp7.png");
               	background-repeat: no-repeat;
               	background-attachment: fixed;
@@ -38,6 +37,43 @@
 	</head>
 	<script>
 		function controlla(){
+			
+			document.getElementById("ins").submit();
+		}
+	</script>
+	<!--INSERIMENTO PRODOTTO IN LISTA SPESA-->
+	<script>	
+		function insprod(x){
+			var prod = $("#prodotto"+x).val();
+			var quan = $("#quantita"+x).val();   
+			var id_spesa = x;
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					window.location.replace("https://familymanagement.altervista.org/page/actions/listaspesa.php?id_spesa="+id_spesa);
+				}
+			};
+
+			var param="prodotto="+ prod + "&quantita="+quan+"&id_spesa="+id_spesa;
+
+			xmlhttp.open("POST","./salvadb.php",true);
+			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xmlhttp.send(param);
+		}
+	</script>
+	<!--INSERIMENTO NUOVA LISTA SPESA-->
+	<script>	
+		function insspe(){
+			var ins_date = $("#ins_date").val();
+			var ins_luo = $("#ins_luo").val();   
+
 			//controllo campo luogo che non sia vuoto
 			x = document.getElementById("ins_luo").value;
 			if (x == "") {
@@ -54,59 +90,39 @@
 				alert("Errore: non hai compilato il campo data");return;
 			}
 			else if(date_d<today){
-				alert("Errore: hai inserito una data non valida->"+date_d+"-->"+today);return;
+				alert("Errore: hai inserito una data non valida");return;
 			}
 			//Se è tutto giusto
-			document.getElementById("ins").submit();
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					location.reload();
+				}
+			};
+
+			var param="ins_date="+ ins_date + "&ins_luo="+ins_luo;
+
+			xmlhttp.open("POST","./salvadb.php",true);
+			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xmlhttp.send(param);
 		}
 	</script>
 	<body style='background-color:#9ECCFF;'>
     <?php
 		require '../_navbar.php';
-		//se è richiesto INSERIMENTO
-		if(isset($_REQUEST['ins_date'])){
-			$sql = "INSERT INTO listaspesa (data,luogo,codice_fam) VALUES ('".$_REQUEST['ins_date']."','".$_REQUEST['ins_luo']."','".$_SESSION['fam']."')";
-			if ($conn->query($sql) === FALSE) {
-				echo "Error: " . $sql . "<br>" . $conn->error;
-			}
-		}
-		//se è richiesta CANCELLAZIONE
+		//se è richiesta cancellazione lista della spesa
 		if(isset($_REQUEST['del'])){
 			$sql = "DELETE FROM listaspesa WHERE id_spesa='".$_REQUEST['del_id']."'";
 			if ($conn->query($sql) === FALSE){
 				echo "Error deleting record: " . $conn->error;
 			}
-		}
-		//controllo se settato inserimento prodotto
-		if(isset($_REQUEST['insprod'])&&($_REQUEST['insprod']!="stop")){
-			if($_REQUEST['prodotto']!=""){
-				$prodotto = $_REQUEST['prodotto'];
-				if($_REQUEST['quantita']==""||$_REQUEST['quantita']<=0){
-					$quantita=1;
-				}
-				else{
-					$quantita=$_REQUEST['quantita'];
-				}
-				$sql = "SELECT * FROM prodotto WHERE descrizione='".strtolower($prodotto)."' AND id_spesa='".$_REQUEST['id_spesa']."'";
-				$result = $conn->query($sql);
-				//se il prodotto già c'è, aumento la quantita
-				if ($result->num_rows > 0) {
-					$row = $result->fetch_assoc();
-					$nuova_q=$row['quantita']+$quantita;
-					$sql = "UPDATE prodotto SET quantita='".$nuova_q."' WHERE descrizione='".strtolower($prodotto)."' AND id_spesa='".$_REQUEST['id_spesa']."'";
-					if ($conn->query($sql) === FALSE){
-						echo "Error updating record: " . $conn->error;
-					}
-				}
-				//altrimenti lo aggiungo
-				else {
-					$sql = "INSERT INTO prodotto (descrizione,quantita,id_spesa) VALUES ('".strtolower($prodotto)."','".$quantita."','".$_REQUEST['id_spesa']."')";
-					if ($conn->query($sql) === FALSE) {
-						echo "Error: " . $sql . "<br>" . $conn->error;
-					}
-				}  
-			}
-			$_REQUEST['insprod']="stop";
 		}
 		//controllo se settato cancellazione prodotto
 		if(isset($_REQUEST['canc'])){
@@ -169,10 +185,10 @@
 										Aggiungi
 									</div>
 								</div>
-								<input type='text' class='form-control' name='prodotto' placeholder='Nome' required>
-								<input type='number' class='form-control' name='quantita' placeholder='Quantita' required>
+								<input type='text' class='form-control' id='prodotto".$row['id_spesa']."' name='prodotto' placeholder='Nome' required>
+								<input type='number' class='form-control' id='quantita".$row['id_spesa']."' name='quantita' placeholder='Quantita' required>
 								<div class='input-group-append'>
-									<input type='submit' value='+' name='insprod'>
+									<input onclick='insprod(".$row['id_spesa'].")' type='button' value='+'>
 								</div>
 							</div>
 						</form>
@@ -189,10 +205,10 @@
 										Prodotto
 									</div>
 								</div>
-								<input type='text' class='form-control' name='prodotto' placeholder='Nome' required>
-								<input type='number' class='form-control' name='quantita' placeholder='Quantita' required>
+								<input type='text' class='form-control' id='prodotto".$row['id_spesa']."' name='prodotto' placeholder='Nome' required>
+								<input type='number' class='form-control' id='quantita".$row['id_spesa']."' name='quantita' placeholder='Quantita' required>
 								<div class='input-group-append'>
-									<input type='submit' value='+' name='insprod'>
+									<input onclick='insprod(".$row['id_spesa'].")' type='button' value='+'>
 								</div>
 							</div>
 						</form>
@@ -240,7 +256,7 @@
 										<label>Luogo</label>
 										<input type='text' class='form-control' name='ins_luo' id='ins_luo' placeholder='Luogo'>
 									</div>
-									<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='ins' onclick='controlla()'>
+									<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='ins' onclick='insspe()'>
 								</form>
 							</div>
 						</div>

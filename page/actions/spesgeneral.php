@@ -21,6 +21,13 @@
 			table, th, td {
 				border: 1px solid black;
 			}
+            body{
+                background-image: url("../../img/wallp7.png");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center center;
+                background-size: cover;
+            }
 		</style>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -28,9 +35,15 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
-	<script>
-		function controllo(){
-			//controllo campo descrizione che non sia vuoto
+    
+    <!--INSERIMENTO NUOVA SPESA-->
+    <script>	
+		function insspe(){
+			var data_s = $("#data_s").val();
+			var ins_desc = $("#ins_desc").val();
+            var ins_costo = $("#ins_costo").val();
+	
+    		//controllo campo descrizione che non sia vuoto
 			x = document.getElementById("ins_desc").value;
 			if (x == "") {
 				alert("Errore: non hai compilato il campo descrizione");return;
@@ -55,8 +68,30 @@
 			}
 			//Se è tutto giusto
 			document.getElementById("ins").submit();
+
+			//Se è tutto giusto
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					location.reload();
+				}
+			};
+
+			var param="data_s="+ data_s + "&ins_desc="+ins_desc+"&ins_costo="+ins_costo;
+
+			xmlhttp.open("POST","./salvadb.php",true);
+			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xmlhttp.send(param);
 		}
 	</script>
+
 	<body>
 		<?php
 			require '../_navbar.php';
@@ -64,18 +99,6 @@
 				$sql = "DELETE FROM spesgen WHERE id_spesa_gen='".$_REQUEST['del_id']."'";
 				if ($conn->query($sql) === FALSE) {
 					echo "Error deleting record: " . $conn->error;
-				}
-			}
-		  
-			if(isset($_REQUEST['ins_desc'])){
-				$sql = "SELECT CURDATE()";
-				$result = $conn->query($sql);
-				$row = $result->fetch_assoc();
-				$data = $row["CURDATE()"];
-			
-				$sql = "INSERT INTO spesgen (data_ins,data_scad,descrizione,costo,codice_fam) VALUES ('".$data."','".$_REQUEST['data_s']."','".$_REQUEST['ins_desc']."','".$_REQUEST['ins_costo']."','".$_SESSION['fam']."')";
-				if ($conn->query($sql) === FALSE) {
-					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
 			}
 		  
@@ -144,7 +167,7 @@
 											<label>Costo</label>
 											<input type='number' class='form-control' name='ins_costo' step='0.01' placeholder='Costo' id='ins_costo'>
 										</div>
-										<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='insert' onclick='controllo()'>
+										<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='insert' onclick='insspe()'>
 									</form>
 								</div>
 							</div>
