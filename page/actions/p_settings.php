@@ -13,16 +13,41 @@
 
 <html>
   <head>
-    <title>Impostazioni personali | FM</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Impostazioni personali | FM</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  	  <style>
+          body{
+              background-image: url("../../img/wallp7.png");
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+              background-position: center center;
+              background-size: cover;
+           }
+      </style>
   </head>
-  <body style='background-color:#9ECCFF;'>
+  <body>
     <?php
       require '../_navbar.php';   
+      if($_SESSION['user']=='paolomazzoleni99@gmail.com'){
+        echo "<b>SCRIPT</b>
+        	  <ul>
+              	  <li>bug page refresh</li>
+                  <li>aggiungere meteo in base a residenza(?)</li>
+              </ul>
+              <b>GRAFICA</b>
+        	  <ul>
+                  <li>sistemare table(?) calendar.php</li>
+                  <li>sistemare grid home</li>
+                  <li>sistemare 'nessun evento nel periodo scelto'
+                  <li>sfondo</li>
+                  <li>icona</li>
+              <ul>
+        ";
+      }
       
       //se è richiesto cambio password
       if(isset($_REQUEST['cpass'])){
@@ -59,7 +84,7 @@
       
       //stampa menù
       echo 
-       "<div class='w-100 h-100 d-flex justify-content-center' style='background-color:#9ECCFF;'>
+       "<div class='w-100 h-100 d-flex justify-content-center'>
           <div class='align-self-center text-center' style='width: 18rem !important;'>
             <h3 class='mb-2' style='color:black;'>CAMBIO PASSWORD</h3>
               <form action='./p_settings.php' method='post'>
