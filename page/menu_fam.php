@@ -18,15 +18,24 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+          	body{
+              	background-image: url("../img/wallp7.png");
+              	background-repeat: no-repeat;
+              	background-attachment: fixed;
+              	background-position: center center;
+              	background-size: cover;
+          	}
+        </style>
 	</head>
-	<body style='background-color:#9ECCFF;'>
+	<body>
 		<?php
 			require './_navbar.php';
 			$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
 			echo "
-				<div class='mt-3' align='center' style='background-color:#DDDDDD;'>
+				<div class='mt-3' align='center' style='background-color:#FFFFFF;'>
 					<p style='font-size: large;'> <b>Benvenuto ".$row['nome']."</b><br>
 					eccoti alcune delle principali notizie odierne</p>
 				</div>
@@ -75,4 +84,4 @@
 			echo "</div>";
 		?>
 	</body>
-</html>
+</html>
