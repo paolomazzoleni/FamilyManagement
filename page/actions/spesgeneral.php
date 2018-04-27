@@ -57,7 +57,7 @@
 			document.getElementById("ins").submit();
 		}
 	</script>
-	<body style='background-color:#9ECCFF;'>
+	<body>
 		<?php
 			require '../_navbar.php';
 			if(isset($_REQUEST['delete'])){
