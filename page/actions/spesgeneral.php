@@ -95,8 +95,8 @@
 	<body>
 		<?php
 			require '../_navbar.php';
-			if(isset($_REQUEST['delete'])){
-				$sql = "DELETE FROM spesgen WHERE id_spesa_gen='".$_REQUEST['del_id']."'";
+			if(isset($_POST['delete'])){
+				$sql = "DELETE FROM spesgen WHERE id_spesa_gen='".$_POST['del_id']."'";
 				if ($conn->query($sql) === FALSE) {
 					echo "Error deleting record: " . $conn->error;
 				}

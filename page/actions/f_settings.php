@@ -32,21 +32,21 @@
 		<?php
 			require '../_navbar.php';
 			//modifica nome famiglia
-			if(isset($_REQUEST['mod_n'])){
-				$sql = "UPDATE famiglia SET nome='".$_REQUEST['mod_name']."' WHERE codice_fam='".$_SESSION['fam']."'";
+			if(isset($_POST['mod_n'])){
+				$sql = "UPDATE famiglia SET nome='".$_POST['mod_name']."' WHERE codice_fam='".$_SESSION['fam']."'";
 				if ($conn->query($sql) === FALSE){
 					"Error updating record: " . $conn->error;
 				}
 			}
 			//modifica residenza famiglia
-			if(isset($_REQUEST['mod_r'])){
-				$sql = "UPDATE famiglia SET residenza='".$_REQUEST['mod_res']."' WHERE codice_fam='".$_SESSION['fam']."'";
+			if(isset($_POST['mod_r'])){
+				$sql = "UPDATE famiglia SET residenza='".$_POST['mod_res']."' WHERE codice_fam='".$_SESSION['fam']."'";
 				if ($conn->query($sql) === FALSE){
 					"Error updating record: " . $conn->error;
 				}
 			}
 			//elimina famiglia
-			if(isset($_REQUEST['delete_f'])){
+			if(isset($_POST['delete_f'])){
 				$sql = "DELETE FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
 				if ($conn->query($sql) === FALSE){
 					"Error deleting record: " . $conn->error;
@@ -57,7 +57,7 @@
 				}
 			}
 			//uscita dal gruppo
-			if(isset($_REQUEST['exit'])){
+			if(isset($_POST['exit'])){
 				$sql = "UPDATE utente SET codice_fam=NULL WHERE email='".$_SESSION['user']."'";
 				if ($conn->query($sql) === FALSE){
 					"Error updating record: " . $conn->error;
@@ -162,7 +162,7 @@
 						<div class='col'>
 							<div class='card mt-3'>
 								<div class='card-body'>
-									<form>
+									<form method='post'>
 										<input type='submit' class='btn btn-danger btn-block' value='Esci dal gruppo' name='exit'>
 									</form>
 								</div>
@@ -171,7 +171,7 @@
 						<div class='col'>
 							<div class='card mt-3 mb-3'>
 								<div class='card-body'>
-									<form>
+									<form method='post'>
 										<input type='submit' class='btn btn-danger btn-block' value='Elimina gruppo' name='delete_f'>
 									</form>
 								</div>

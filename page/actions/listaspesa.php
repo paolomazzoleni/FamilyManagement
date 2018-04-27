@@ -118,15 +118,15 @@
     <?php
 		require '../_navbar.php';
 		//se è richiesta cancellazione lista della spesa
-		if(isset($_REQUEST['del'])){
-			$sql = "DELETE FROM listaspesa WHERE id_spesa='".$_REQUEST['del_id']."'";
+		if(isset($_POST['del'])){
+			$sql = "DELETE FROM listaspesa WHERE id_spesa='".$_POST['del_id']."'";
 			if ($conn->query($sql) === FALSE){
 				echo "Error deleting record: " . $conn->error;
 			}
 		}
 		//controllo se settato cancellazione prodotto
-		if(isset($_REQUEST['canc'])){
-			$sql = "DELETE FROM prodotto WHERE id_prod='".$_REQUEST['p']."'";
+		if(isset($_POST['canc'])){
+			$sql = "DELETE FROM prodotto WHERE id_prod='".$_POST['p']."'";
 			if ($conn->query($sql) === FALSE) {
 				echo "Error deleting record: " . $conn->error;
 			}
@@ -148,7 +148,7 @@
 							</h5>
 						</div>
 				";
-				if($row['id_spesa']==$_REQUEST['id_spesa']){
+				if($row['id_spesa']==$_GET['id_spesa']){
 					echo "<div id='".$i."' class='collapse show' aria-labelledby='headingOne' data-parent='#accordion'>";
 				}
 				else{
@@ -178,7 +178,7 @@
 						";
 					}
 					echo "
-						<form class='form-inline mt-3' action='./listaspesa.php?id_spesa=".$row['id_spesa']."' method='post'>
+						<form class='form-inline mt-3' method='post'>
 							<div class='input-group mb-2 mr-sm-2'>
 								<div class='input-group-prepend'>
 									<div class='input-group-text'>
@@ -198,7 +198,7 @@
 				else {
 					echo "<br>Questa lista della spesa non ha ancora prodotti";
 					echo "
-						<form class='form-inline mt-3' action='./listaspesa.php?id_spesa=".$row['id_spesa']."' method='post'>
+						<form class='form-inline mt-3' method='post'>
 							<div class='input-group mb-2 mr-sm-2'>
 								<div class='input-group-prepend'>
 									<div class='input-group-text'>
@@ -266,7 +266,7 @@
 						<div class='card mt-3 mb-3' style='height:315px;'>
 							<div class='card-body mt-3'>
 								<h5 class='card-title mt-5'>Elimina lista della spesa</h5>
-								<form method='post'>
+								<form method='post' action='./listaspesa.php'>
 									<div class='form-group'>
 										<input type='number' class='form-control' name='del_id' placeholder='#' required>
 									</div>
