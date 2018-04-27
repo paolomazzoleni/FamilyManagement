@@ -18,6 +18,15 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            body{
+                background-image: url("../../img/wallp7.png");
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center center;
+                background-size: cover;
+            }
+		</style>
 	 </head>
 	<body style='background-color:#9ECCFF;'>
 		<?php
@@ -173,4 +182,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
