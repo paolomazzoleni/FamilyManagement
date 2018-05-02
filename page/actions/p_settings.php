@@ -59,23 +59,7 @@
 	<body>
     <?php
 		require '../_navbar.php';   
-		if($_SESSION['user']=='paolomazzoleni99@gmail.com'){
-			echo "
-				<b>SCRIPT</b>
-					<ul>
-						<li>aggiungere meteo in base a residenza(?)</li>
-					</ul>
-				<b>GRAFICA</b>
-					<ul>
-						<li>sistemare table(?) calendar.php</li>
-						<li>sistemare grid home</li>
-						<li>sistemare 'nessun evento nel periodo scelto'
-						<li>sfondo</li>
-						<li>icona</li>
-					<ul>
-			";
-		}
-      
+
 		//se è richiesto cambio password
 		if(isset($_POST['o_password'])){
 			$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
@@ -117,40 +101,44 @@
 		//stampa menù
 		echo  "
 			<div class='w-100 h-100 d-flex justify-content-center'>
-				<div class='align-self-center text-center' style='width: 18rem !important;'>
-					<h3 class='mb-2' style='color:black;'>CAMBIO PASSWORD</h3>
-					<form action='./p_settings.php' method='post' id='change'>
-						<div class='form-group'>
-							<label>Password attuale</label>
-							<input type='password' class='form-control' id='o_password' name='o_password' placeholder='Password attuale' required>
+				<div class='align-self-center text-center'>
+                	<div class='card' style='width: 22rem;padding:15px;'>
+                    	<div class='card-body'>
+							<h3 class='mb-2' style='color:black;'>CAMBIO PASSWORD</h3>
+							<form action='./p_settings.php' method='post' id='change'>
+								<div class='form-group'>
+									<label>Password attuale</label>
+									<input type='password' class='form-control' id='o_password' name='o_password' placeholder='Password attuale' required>
 		";
         if($errore==1){
-			echo  "  		<small class='form-text p-2 mb-2 bg-danger text-white'>Hai inserito una password errata</small>";
+			echo  "  				<small class='form-text p-2 mb-2 bg-danger text-white'>Hai inserito una password errata</small>";
 			$errore=0;
 		}
 		echo  "
-						</div>
-						<div class='form-group'>
-							<label>Nuova password</label>
-							<input type='password' class='form-control' id='n1_password' name='n1_password' placeholder='Nuova password' required>
+								</div>
+								<div class='form-group'>
+									<label>Nuova password</label>
+									<input type='password' class='form-control' id='n1_password' name='n1_password' placeholder='Nuova password' required>
 		";
 		if($errore==3){
-			echo "			<small class='form-text p-2 mb-2 bg-danger text-dark'>La password deve avere almeno 8 caratteri</small>";
+			echo "					<small class='form-text p-2 mb-2 bg-danger text-dark'>La password deve avere almeno 8 caratteri</small>";
 			$errore=0;
 		}
-		echo  "			</div>
-						<div class='form-group'>
-							<label>Conferma password</label>
-							<input type='password' class='form-control' id='n2_password' name='n2_password' placeholder='Conferma password' required>
+		echo  "					</div>
+								<div class='form-group'>
+									<label>Conferma password</label>
+									<input type='password' class='form-control' id='n2_password' name='n2_password' placeholder='Conferma password' required>
 		";
 		if($errore==2){
-			echo "			<small class='form-text p-2 mb-2 bg-danger text-dark'>La password di conferma non è corretta</small>";
+			echo "					<small class='form-text p-2 mb-2 bg-danger text-dark'>La password di conferma non è corretta</small>";
 			$errore=0;
 		}
 		echo  "
-						</div>
-						<input class='mt-3 btn btn-primary btn-lg btn-block' type='button' onclick='controllo()' value='cambia password' name='cpass'></form>
-					</form>
+								</div>
+								<input class='mt-3 btn btn-primary btn-lg btn-block' type='button' onclick='controllo()' value='cambia password' name='cpass'></form>
+							</form>
+                    	</div>
+                    </div>
 				</div>
 			</div>
 		";
