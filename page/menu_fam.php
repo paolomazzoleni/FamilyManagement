@@ -32,22 +32,6 @@
 		<?php
 			require './_navbar.php';
             
-            $sql = "SELECT residenza FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
-			$result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-            $residenza = str_replace(" ","%20",$row['residenza']);
-            $residenza = str_replace("'","%27",$residenza);
-            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY";
-            //OVERVIEW cURL request
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL,$url);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-            $content = json_decode(curl_exec($ch),true);
-            curl_close($ch);
-            echo "Key citta:";
-            echo $content[0]['Key']."-";
-            echo $content[0]['LocalizedName'];
-            
             //memorizzazione in variabile delle spese in scadenza oggi
             $sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."' AND data_scad=CURDATE()";
 			$result = $conn->query($sql);
@@ -89,15 +73,61 @@
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
 			echo "
-				<div class='mt-3' align='center' style='background-color:#FFFFFF;'>
-					<p style='font-size: large;padding:10px;'> 
+				<div class='container-fluid mt-3' align='center'>
+					<p style='border-radius:7px;font-size:large;padding:10px;background-color:#FFFFFF;'> 
                     	<b>Benvenuto ".$row['nome']."</b>
                         <br>eccoti alcune delle principali notizie<br><br>
-                    	<marquee scrollamount='10' align='middle' bgcolor='#CCCCCC'>".$memorizza."</marquee>
+                    	<marquee scrollamount='6' align='middle' bgcolor='#CCCCCC'>".$memorizza."</marquee>
                     </p>
 				</div>
 			";
+            
+            //METEO
+            $sql = "SELECT residenza FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
+            $result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            $residenza = str_replace(" ","%20",$row['residenza']);
+            $residenza = str_replace("'","%27",$residenza);
+            //richiesta chiave citta
+            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=XXXXXXXXXXXXXXXYYYYYYYYYYYY";
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_URL,$url);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+            $content = json_decode(curl_exec($ch),true);
+            curl_close($ch);
+            /*echo "Key citta:";
+            echo $content[0]['Key']."-";
+            echo $content[0]['LocalizedName'];*/
+            //richiesta meteo citta
+            $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/".$content[0]['Key']."?apikey=XXXXXXXXXXXXXXXYYYYYYYYYYYY";
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_URL,$url);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+            $content = json_decode(curl_exec($ch),true);
+            curl_close($ch);
 			
+            echo "
+            	<div class='container-fluid'>
+            		<div class='row'>
+            ";
+            foreach($content['DailyForecasts'] as $prev_giorn){
+            	$data = substr($prev_giorn['Date'],0,10);
+                $meteo = $prev_giorn['Day']['Icon'];
+                echo "
+                	<div class='col-sm' align='center'>
+                    	<ul class='list-group'>
+                        	<li class='list-group-item active'>".$data."</li>
+                        	<li class='list-group-item'><img src='https://developer.accuweather.com/sites/default/files/".$meteo."-s.png'></li>
+                      	</ul>
+                    </div>
+                ";
+            }
+            echo "
+            		</div>
+            	</div>
+            ";
+            
+            //NOTIZIE
 			$feed_url='http://www.liberoquotidiano.it/rss.jsp?sezione=1'; 
 			$xml = simplexml_load_file($feed_url);
 			
