@@ -31,6 +31,23 @@
 	<body>
 		<?php
 			require './_navbar.php';
+            
+            $sql = "SELECT residenza FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
+			$result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            $residenza = str_replace(" ","%20",$row['residenza']);
+            $residenza = str_replace("'","%27",$residenza);
+            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=XXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYY";
+            //OVERVIEW cURL request
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_URL,$url);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+            $content = json_decode(curl_exec($ch),true);
+            curl_close($ch);
+            echo "Key citta:";
+            echo $content[0]['Key']."-";
+            echo $content[0]['LocalizedName'];
+            
             //memorizzazione in variabile delle spese in scadenza oggi
             $sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."' AND data_scad=CURDATE()";
 			$result = $conn->query($sql);
