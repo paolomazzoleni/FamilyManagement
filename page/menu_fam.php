@@ -31,13 +31,53 @@
 	<body>
 		<?php
 			require './_navbar.php';
+            //memorizzazione in variabile delle spese in scadenza oggi
+            $sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."' AND data_scad=CURDATE()";
+			$result = $conn->query($sql);
+            if($result->num_rows > 0) {
+            	$i=1;
+            	$memorizza = "Spese in scadenza oggi: ";
+                while($row = $result->fetch_assoc()) {
+                	if($i<$result->num_rows)
+                    	$memorizza .= $row['descrizione']." (".$row['costo']."€), ";
+                    else
+                    	$memorizza .= $row['descrizione']." (".$row['costo']."€)  ";
+                    $i++;
+                }
+            }
+
+            //memorizzazione in variabile delle liste della spesa di oggi 
+            $sql = "SELECT COUNT(*) AS nspese FROM listaspesa WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
+			$result = $conn->query($sql);
+            $row = $result->fetch_assoc();
+            
+            if($row['nspese'] > 0) {
+            	$i=1;
+                if(empty($memorizza)){
+                	if($row['nspese'] > 1)
+                    	$memorizza .= "Per oggi sono previste ".$row['nspese']." liste della spesa";
+                    else
+                    	$memorizza .= "Per oggi &egrave; prevista ".$row['nspese']." lista della spesa";
+                }	
+				else{
+                	if($row['nspese'] > 1)
+                    	$memorizza .= "  &#151; Per oggi sono previste ".$row['nspese']." liste della spesa";
+                    else
+                    	$memorizza .= "  &#151; Per oggi &egrave; prevista ".$row['nspese']." lista della spesa";
+                } 
+            }
+            
+            //stampa benvenuto e testo scorrevole con spese/liste della spesa/eventi odierni
 			$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
 			echo "
 				<div class='mt-3' align='center' style='background-color:#FFFFFF;'>
-					<p style='font-size: large;'> <b>Benvenuto ".$row['nome']."</b><br>
-					eccoti alcune delle principali notizie odierne</p>
+					<p style='font-size: large;padding:10px;'> 
+                    	<b>Benvenuto ".$row['nome']."</b>
+                        <br>eccoti alcune delle principali notizie<br><br>
+                    	<marquee scrollamount='10' align='middle' bgcolor='#CCCCCC'>".$memorizza."</marquee>
+                    </p>
 				</div>
 			";
 			
