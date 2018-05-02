@@ -109,10 +109,10 @@
 			}
             
 			//menu seleziona mese e anno
-			echo "<div class='container-fluid'>";
-			echo "	<div class='row'>
-						<div class='col'>
-							<h5 class='mt-2' align='center'>Scegli cosa vuoi visualizzare</h5>
+			echo "<div class='container-fluid mb-4' style='background-color:#FFFFFF;padding:10px;'>";
+			echo "   <div class='row'>
+						<div class='col mt-2'>
+							<h5 class='mt-2' align='center'>Scegli il periodo che vuoi visualizzare</h5>
 						</div>
 					</div>
 			";
@@ -358,8 +358,8 @@
 				echo "
 					<div class='container-fluid'>
 						<div class='row'>
-							<div class='col'>
-								<h4 class='mt-2' align='center'>NESSUN EVENTO NEL PERIODO SCELTO</h4>
+							<div class='col mt-3 mb-3'>
+								<h4 style='border-radius: 5px;background-color:#FFFFFF;padding:15px!important;' align='center'>NESSUN EVENTO NEL PERIODO SCELTO</h4>
 							</div>
 						</div>
 					</div>
