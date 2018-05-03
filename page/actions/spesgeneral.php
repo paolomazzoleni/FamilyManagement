@@ -133,15 +133,12 @@
 				";
 			}
 			else{
-				echo "
-					<div class='container-fluid mt-3'>
+            	echo "
+					<div class='container-fluid'>
 						<div class='row'>
-							<div class='col'></div>
-							<div class='col'>
-								<h2 align='center'>Nessuna spesa ancora settata</h2>
-								<p align='center'>Utilizza il menù sottostante per inserire la prima</p>
+							<div class='col mt-3 mb-3'>
+								<h4 style='border-radius: 5px;background-color:#FFFFFF;padding:15px!important;' align='center'>NESSUNA SPESA ANCORA SETTATA</h4>
 							</div>
-							<div class='col'></div>
 						</div>
 					</div>
 				";
@@ -190,4 +187,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
