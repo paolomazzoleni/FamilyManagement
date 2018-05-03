@@ -31,11 +31,11 @@
 	<body>
 		<?php
 			require './_navbar.php';
-            
+
             //memorizzazione in variabile delle spese in scadenza oggi
             $sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."' AND data_scad=CURDATE()";
 			$result = $conn->query($sql);
-            if($result->num_rows > 0) {
+            if($result->num_rows > 0){
             	$i=1;
             	$memorizza = "Spese in scadenza oggi: ";
                 while($row = $result->fetch_assoc()) {
@@ -46,13 +46,14 @@
                     $i++;
                 }
             }
-            $memorizza = "Nessuna spesa in scadenza oggi ";
+			else{
+				$memorizza = "Nessuna spesa in scadenza oggi ";
+			}
 
             //memorizzazione in variabile delle liste della spesa di oggi 
             $sql = "SELECT COUNT(*) AS nspese FROM listaspesa WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
 			$result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            
             if($row['nspese'] > 0){
             	$i=1;
                 if(empty($memorizza)){
@@ -71,37 +72,87 @@
             else{
             	$memorizza .= " &#151; Nessuna lista della spesa prevista per oggi";
             }
-			
+
 			//memorizzazione in variabile degli eventi di oggi
-            $sql = "SELECT * FROM evento WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
+            $sql = "SELECT COUNT(*) as neventi FROM evento WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
 			$result = $conn->query($sql);
-            if($result->num_rows > 1)
-               	$memorizza .= " &#151; Per oggi sono previsti ".$result->num_rows." eventi";
-            else if($result->num_rows == 1)
-               	$memorizza .= " &#151; Per oggi &egrave; previsto 1 evento";
-			else
-				$memorizza .= " &#151; Nessun evento previsto per oggi";
-				
-            if($result->num_rows > 0){
-            	/*while($row = $result->fetch_assoc()) {
-					
-				}*/
+			$row = $result->fetch_assoc();
+
+            if($row['neventi'] > 0){
+				// se c'è più di un evento
+            	if($row['neventi'] > 1){
+					//utenti della famiglia
+					$i=0;
+					$sql = "SELECT * FROM utente WHERE codice_fam='".$_SESSION['fam']."' ORDER BY EMAIL";
+					$result = $conn->query($sql);
+					while($row = $result->fetch_assoc()){
+						$nomi[$i]=$row['email'];
+						$i++;
+					}
+					$memorizza .= " &#151; Per oggi sono previsti i seguenti eventi: ";
+					$nutenti = $result->num_rows;
+					//eventi
+					$gia_mem=false;
+					for($j=0;$j<$nutenti;$j++){
+						$sql = "SELECT * FROM evento WHERE email='".$nomi[$j]."' AND data=CURDATE()";
+						$result = $conn->query($sql);
+						
+						if ($result->num_rows > 1){
+							if($gia_mem==true)
+								$memorizza.= "; ";
+								
+							$k=1;
+							while($row = $result->fetch_assoc()){
+								if($k==1){
+									$email = $row['email'];
+								}
+								if(($k+1)>$result->num_rows)
+									$memorizza .= $row['descrizione_breve'];
+								else
+									$memorizza .= $row['descrizione_breve'].",";
+									
+								$k++;
+							}
+							$memorizza .= " (".$email.") ";
+							$gia_mem=true;
+						}
+						else if ($result->num_rows == 1){
+							if($gia_mem==true)
+								$memorizza.= "; ";
+							
+							$row = $result->fetch_assoc();
+							$memorizza .= $row['descrizione_breve']." (".$row['email'].")";
+							$gia_mem=true;
+						}
+					}
+				}
+				// se c'è solo un evento
+				else if($row['neventi'] == 1){
+					$sql = "SELECT * FROM evento WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
+					$result = $conn->query($sql);
+					$row = $result->fetch_assoc();
+					$memorizza .= " &#151; Per oggi &egrave; previsto 1 evento: ".$row['descrizione_breve']." (".$row['email'].") ";
+				}
             }
-            
+			// se non ci sono eventi
+			else{
+				$memorizza .= " &#151; Nessun evento previsto per oggi";
+			}
+
             //stampa benvenuto e testo scorrevole con spese/liste della spesa/eventi odierni
 			$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
-			echo "
-				<div class='container-fluid mt-3' align='center'>
+			echo  "
+				<div class='container-fluid mt-4' align='center'>
 					<p style='border-radius:7px;font-size:large;padding:10px;background-color:#FFFFFF;'> 
                     	<b>Benvenuto ".$row['nome']."</b>
                         <br>eccoti alcune delle principali notizie<br><br>
-                    	<marquee scrollamount='6' align='middle' bgcolor='#CCCCCC'>".$memorizza."</marquee>
+                    	<marquee scrollamount='8' bgcolor='#CCCCCC'>".$memorizza."</marquee>
                     </p>
 				</div>
 			";
-            /*
+
             //METEO
             $sql = "SELECT residenza FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
             $result = $conn->query($sql);
@@ -122,7 +173,7 @@
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
             $content = json_decode(curl_exec($ch),true);
             curl_close($ch);
-			
+
             echo "
             	<div class='container-fluid'>
             		<div class='row'>
@@ -151,11 +202,11 @@
             		</div>
             	</div>
             ";
-            */
+
             //NOTIZIE
 			$feed_url='http://www.liberoquotidiano.it/rss.jsp?sezione=1'; 
 			$xml = simplexml_load_file($feed_url);
-			
+
 			$matches = array();
 			$i=0;
 			echo "<div class='container-fluid mb-3'>";
@@ -168,12 +219,12 @@
 				if(empty($matches[0][0])){
 					$matches[0][0] = "http://familymanagement.altervista.org/img/news.jpg";
 				}
-				  
+
 				if($i==0||$i==4){
-					echo "<div class='row'>";
+					echo  "<div class='row'>";
 				}
-				  
-				echo "
+
+				echo  "
 						<div align='center' class='col col-sm mt-3'><div class='card' style='width: 21rem;height:400px;'>
 							<img class='card-img-top' src='".$matches[0][0]."'>
 							<div class='card-body'>
@@ -183,17 +234,17 @@
 						</div>
 					</div>
 				";
-				  
+
 				if($i==3||$i==7){
-					echo "</div>";
+					echo  "</div>";
 				}
-				
+
 				$i++;
 				if($i==8){
 					break;
 				}
 			}
-			echo "</div>";
+			echo  "</div>";
 		?>
 	</body>
 </html>
