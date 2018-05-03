@@ -13,7 +13,7 @@
 	//controllo se settato inserimento prodotto in lista spesa
 	if(isset($_POST['prodotto'])){
 		if($_POST['prodotto']!=""){
-			$prodotto = $_POST['prodotto'];
+			$prodotto = str_replace("'","",$_POST['prodotto']);
 			if($_POST['quantita']==""||$_POST['quantita']<=0){
 				$quantita=1;
 			}
@@ -42,7 +42,8 @@
 	}
 	//controllo se settato inserimento nuova lista spesa
 	else if(isset($_POST['ins_date'])){
-		$sql = "INSERT INTO listaspesa (data,luogo,codice_fam) VALUES ('".$_POST['ins_date']."','".$_POST['ins_luo']."','".$_SESSION['fam']."')";
+		$luogo = str_replace("'","",$_POST['ins_luo']);
+		$sql = "INSERT INTO listaspesa (data,luogo,codice_fam) VALUES ('".$_POST['ins_date']."','".$luogo."','".$_SESSION['fam']."')";
 		if ($conn->query($sql) === FALSE) {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
@@ -54,14 +55,19 @@
 		$row = $result->fetch_assoc();
 		$data = $row["CURDATE()"];
 		
-        $sql = "INSERT INTO spesgen (data_ins,data_scad,descrizione,costo,codice_fam) VALUES ('".$data."','".$_POST['data_s']."','".$_POST['ins_desc']."','".$_POST['ins_costo']."','".$_SESSION['fam']."')";
+		$descrizione = str_replace("'","",$_POST['ins_desc']);
+		
+        $sql = "INSERT INTO spesgen (data_ins,data_scad,descrizione,costo,codice_fam) VALUES ('".$data."','".$_POST['data_s']."','".$descrizione."','".$_POST['ins_costo']."','".$_SESSION['fam']."')";
 		if ($conn->query($sql) === FALSE) {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
     }
 	//controllo se settato inserimento nuovo evento
 	else if(isset($_POST['ins_evento'])){
-		$sql = "INSERT INTO evento (data,descrizione,descrizione_breve,email,codice_fam) VALUES ('".$_POST['ins_evento']."','".$_POST['ins_desc_evento']."','".$_POST['ins_desc_b_evento']."','".$_SESSION['user']."','".$_SESSION['fam']."')";
+		$desc = str_replace("'","",$_POST['ins_desc_evento']);
+		$descb = str_replace("'","",$_POST['ins_desc_b_evento']);
+		
+		$sql = "INSERT INTO evento (data,descrizione,descrizione_breve,email,codice_fam) VALUES ('".$_POST['ins_evento']."','".$desc."','".$descb."','".$_SESSION['user']."','".$_SESSION['fam']."')";
 		if ($conn->query($sql) === FALSE){
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
