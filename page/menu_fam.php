@@ -68,6 +68,10 @@
                 } 
             }
             
+            if(empty($memorizza)){
+            	$memorizza = "Nessuna spesa in scadenza oggi &#151; Nessuna lista della spesa prevista per oggi &#151; Nessun evento previsto per oggi";
+            }
+            
             //stampa benvenuto e testo scorrevole con spese/liste della spesa/eventi odierni
 			$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
 			$result = $conn->query($sql);
@@ -89,7 +93,7 @@
             $residenza = str_replace(" ","%20",$row['residenza']);
             $residenza = str_replace("'","%27",$residenza);
             //richiesta chiave citta
-            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=XXXXXXXXXXXXXXXYYYYYYYYYYYY";
+            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=raALZEeZmAZEs35T3GsS3HISvmWiKXs3";
             $ch = curl_init();
             curl_setopt($ch,CURLOPT_URL,$url);
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
@@ -99,7 +103,7 @@
             echo $content[0]['Key']."-";
             echo $content[0]['LocalizedName'];*/
             //richiesta meteo citta
-            $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/".$content[0]['Key']."?apikey=XXXXXXXXXXXXXXXYYYYYYYYYYYY";
+            $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/".$content[0]['Key']."?apikey=raALZEeZmAZEs35T3GsS3HISvmWiKXs3";
             $ch = curl_init();
             curl_setopt($ch,CURLOPT_URL,$url);
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
@@ -113,11 +117,19 @@
             foreach($content['DailyForecasts'] as $prev_giorn){
             	$data = substr($prev_giorn['Date'],0,10);
                 $meteo = $prev_giorn['Day']['Icon'];
+                
                 echo "
                 	<div class='col-sm' align='center'>
                     	<ul class='list-group'>
                         	<li class='list-group-item active'>".$data."</li>
-                        	<li class='list-group-item'><img src='https://developer.accuweather.com/sites/default/files/".$meteo."-s.png'></li>
+                ";
+                if($meteo<10){
+                	echo "  <li class='list-group-item'><img src='https://developer.accuweather.com/sites/default/files/0".$meteo."-s.png'></li>";
+                }
+                else{
+                	echo "  <li class='list-group-item'><img src='https://developer.accuweather.com/sites/default/files/".$meteo."-s.png'></li>";
+                }
+                echo "
                       	</ul>
                     </div>
                 ";
