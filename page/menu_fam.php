@@ -46,30 +46,46 @@
                     $i++;
                 }
             }
+            $memorizza = "Nessuna spesa in scadenza oggi ";
 
             //memorizzazione in variabile delle liste della spesa di oggi 
             $sql = "SELECT COUNT(*) AS nspese FROM listaspesa WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
 			$result = $conn->query($sql);
             $row = $result->fetch_assoc();
             
-            if($row['nspese'] > 0) {
+            if($row['nspese'] > 0){
             	$i=1;
                 if(empty($memorizza)){
                 	if($row['nspese'] > 1)
                     	$memorizza .= "Per oggi sono previste ".$row['nspese']." liste della spesa";
                     else
                     	$memorizza .= "Per oggi &egrave; prevista ".$row['nspese']." lista della spesa";
-                }	
+                }
 				else{
                 	if($row['nspese'] > 1)
                     	$memorizza .= "  &#151; Per oggi sono previste ".$row['nspese']." liste della spesa";
                     else
                     	$memorizza .= "  &#151; Per oggi &egrave; prevista ".$row['nspese']." lista della spesa";
-                } 
+                }
             }
-            
-            if(empty($memorizza)){
-            	$memorizza = "Nessuna spesa in scadenza oggi &#151; Nessuna lista della spesa prevista per oggi &#151; Nessun evento previsto per oggi";
+            else{
+            	$memorizza .= " &#151; Nessuna lista della spesa prevista per oggi";
+            }
+			
+			//memorizzazione in variabile degli eventi di oggi
+            $sql = "SELECT * FROM evento WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
+			$result = $conn->query($sql);
+            if($result->num_rows > 1)
+               	$memorizza .= " &#151; Per oggi sono previsti ".$result->num_rows." eventi";
+            else if($result->num_rows == 1)
+               	$memorizza .= " &#151; Per oggi &egrave; previsto 1 evento";
+			else
+				$memorizza .= " &#151; Nessun evento previsto per oggi";
+				
+            if($result->num_rows > 0){
+            	/*while($row = $result->fetch_assoc()) {
+					
+				}*/
             }
             
             //stampa benvenuto e testo scorrevole con spese/liste della spesa/eventi odierni
@@ -85,7 +101,7 @@
                     </p>
 				</div>
 			";
-            
+            /*
             //METEO
             $sql = "SELECT residenza FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
             $result = $conn->query($sql);
@@ -99,9 +115,6 @@
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
             $content = json_decode(curl_exec($ch),true);
             curl_close($ch);
-            /*echo "Key citta:";
-            echo $content[0]['Key']."-";
-            echo $content[0]['LocalizedName'];*/
             //richiesta meteo citta
             $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/".$content[0]['Key']."?apikey=raALZEeZmAZEs35T3GsS3HISvmWiKXs3";
             $ch = curl_init();
@@ -138,7 +151,7 @@
             		</div>
             	</div>
             ";
-            
+            */
             //NOTIZIE
 			$feed_url='http://www.liberoquotidiano.it/rss.jsp?sezione=1'; 
 			$xml = simplexml_load_file($feed_url);
