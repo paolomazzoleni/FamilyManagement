@@ -316,33 +316,37 @@
 					$sql = "SELECT ADDDATE('".$datainizio."',".$i.") AS data";
 					$result = $conn->query($sql);
 					$row = $result->fetch_assoc();
-					echo "<tr class='table-light'><td style='text-align:center;text-align:middle;'>".$row["data"]."</td>";
-					//per ogni utente stampo una <td>
-					for($j=0;$j<$nutenti;$j++){
-						$sql = "SELECT * FROM evento WHERE email='".$nomi[$j]."' AND data='".$row["data"]."'";
-						$result1 = $conn->query($sql);
-						if ($result1->num_rows > 1) {
-                        	$stampa = "";
-                            $eventotd = "";
-							while($row1 = $result1->fetch_assoc()) {
-                                $eventotd .= "<li>".$row1['descrizione_breve']."</li>";
-                                $stampa .= "Descrizione: ".$row1['descrizione']."(#".$row1['id_evento'].")\\n\\n";
+
+					$sql1 = "SELECT * FROM evento WHERE data='".$row['data']."' AND codice_fam='".$_SESSION['fam']."'";
+					$result1 = $conn->query($sql1);
+					if ($result1->num_rows > 0) {
+						echo "<tr class='table-light'><td style='text-align:center;text-align:middle;'>".$row["data"]."</td>";
+						//per ogni utente stampo una <td>
+						for($j=0;$j<$nutenti;$j++){
+							$sql = "SELECT * FROM evento WHERE email='".$nomi[$j]."' AND data='".$row["data"]."'";
+							$result1 = $conn->query($sql);
+							if ($result1->num_rows > 1) {
+								$stampa = "";
+								$eventotd = "";
+								while($row1 = $result1->fetch_assoc()) {
+									$eventotd .= "<li>".$row1['descrizione_breve']."</li>";
+									$stampa .= "Descrizione: ".$row1['descrizione']."(#".$row1['id_evento'].")\\n\\n";
+								}
+								$evento = "<td style='cursor: pointer;' onclick='alert(\"".$stampa."\")'><ul>";
+								$evento .= $eventotd;
+								$evento .= "</ul></td>";
 							}
-                            $evento = "<td style='cursor: pointer;' onclick='alert(\"".$stampa."\")'><ul>";
-                            $evento .= $eventotd;
-							$evento .= "</ul></td>";
+							else if ($result1->num_rows == 1){
+								$row1 = $result1->fetch_assoc();
+								$evento = "<td style='cursor: pointer;' onclick='alert(\"Descrizione: ".$row1['descrizione']." (#".$row1['id_evento'].")\")'>".$row1['descrizione_breve']."</td>";
+							}
+							else {
+								$evento = "<td></td>";
+							}
+							echo $evento;
 						}
-						else if ($result1->num_rows == 1){
-							$row1 = $result1->fetch_assoc();
-							$evento = "<td style='cursor: pointer;' onclick='alert(\"Descrizione: ".$row1['descrizione']." (#".$row1['id_evento'].")\")'>".$row1['descrizione_breve']."</td>";
-						}
-						else {
-							$evento = "<td></td>";
-						}
-						echo $evento;
+						echo "</tr>";	
 					}
-					
-					echo "</tr>";
 					$i++;
 				}
 				
