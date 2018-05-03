@@ -160,14 +160,14 @@
             $residenza = str_replace(" ","%20",$row['residenza']);
             $residenza = str_replace("'","%27",$residenza);
             //richiesta chiave citta
-            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=raALZEeZmAZEs35T3GsS3HISvmWiKXs3";
+            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=XXXXXXX";
             $ch = curl_init();
             curl_setopt($ch,CURLOPT_URL,$url);
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
             $content = json_decode(curl_exec($ch),true);
             curl_close($ch);
             //richiesta meteo citta
-            $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/".$content[0]['Key']."?apikey=raALZEeZmAZEs35T3GsS3HISvmWiKXs3";
+            $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/".$content[0]['Key']."?apikey=XXXXXXX";
             $ch = curl_init();
             curl_setopt($ch,CURLOPT_URL,$url);
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
