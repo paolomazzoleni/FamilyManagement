@@ -152,57 +152,97 @@
                     </p>
 				</div>
 			";
-
+			
+			
+			
             //METEO
             $sql = "SELECT residenza FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
             $residenza = str_replace(" ","%20",$row['residenza']);
             $residenza = str_replace("'","%27",$residenza);
-            //richiesta chiave citta
-            $url = "http://dataservice.accuweather.com/locations/v1/cities/search?q=".$residenza."&apikey=XXXXXXX";
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL,$url);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-            $content = json_decode(curl_exec($ch),true);
-            curl_close($ch);
-            //richiesta meteo citta
-            $url = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/".$content[0]['Key']."?apikey=XXXXXXX";
-            $ch = curl_init();
-            curl_setopt($ch,CURLOPT_URL,$url);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
-            $content = json_decode(curl_exec($ch),true);
-            curl_close($ch);
 
+            $url = "http://api.openweathermap.org/data/2.5/forecast/?q=".$residenza."&appid=2d2d846eab61ee520a8cbf5e818c514f";
+            $ch = curl_init();
+            curl_setopt($ch,CURLOPT_URL,$url);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+            $content = json_decode(curl_exec($ch),true);
+            curl_close($ch);
             echo "
             	<div class='container-fluid'>
-            		<div class='row'>
+            		<div class='row' align='center'>
             ";
-            foreach($content['DailyForecasts'] as $prev_giorn){
-            	$data = substr($prev_giorn['Date'],0,10);
-                $meteo = $prev_giorn['Day']['Icon'];
-                
-                echo "
-                	<div class='col-sm' align='center'>
-                    	<ul class='list-group'>
-                        	<li class='list-group-item active'>".$data."</li>
-                ";
-                if($meteo<10){
-                	echo "  <li class='list-group-item'><img src='https://developer.accuweather.com/sites/default/files/0".$meteo."-s.png'></li>";
-                }
-                else{
-                	echo "  <li class='list-group-item'><img src='https://developer.accuweather.com/sites/default/files/".$meteo."-s.png'></li>";
-                }
-                echo "
-                      	</ul>
-                    </div>
-                ";
-            }
-            echo "
-            		</div>
-            	</div>
-            ";
+            
+			$k=0;
+            foreach($content['list'] as $meteo){
+				if($k==0){
+					if(strpos($meteo["dt_txt"],'12:00')||strpos($meteo["dt_txt"],'15:00')){
+						echo "
+							<div class='col-sm mb-2'>
+                            	<ul class='list-group'>
+                                	<li class='list-group-item active'>
+										".substr($meteo["dt_txt"],0,10)."
+									</li>
+									<li class='list-group-item'>
+										09:00
+										<img src='http://familymanagement.altervista.org/img/nodata.png'>
+									</li>
+						";
+					}
+					else if(strpos($meteo["dt_txt"],'18:00')||strpos($meteo["dt_txt"],'21:00')){
+						echo "
+							<div class='col-sm mb-2'>
+                            	<ul class='list-group'>
+                                	<li class='list-group-item active'>
+										".substr($meteo["dt_txt"],0,10)."
+									</li>
+									<li class='list-group-item'>
+										09:00
+										<img src='http://familymanagement.altervista.org/img/nodata.png'>
+									</li>
+									<li class='list-group-item'>
+										15:00
+										<img src='http://familymanagement.altervista.org/img/nodata.png'>
+									</li>
+						";
+					}
+					
+					$k++;
+				}
 
+            	if(strpos($meteo["dt_txt"],'09:00')||strpos($meteo["dt_txt"],'15:00')||strpos($meteo["dt_txt"],'21:00')){
+                	
+                    if(strpos($meteo["dt_txt"],'09:00')){
+                    	echo "
+                        	<div class='col-sm mb-2'>
+                            	<ul class='list-group'>
+                                	<li class='list-group-item active'>".substr($meteo["dt_txt"],0,10)."</li>
+                        ";
+                    }
+                    
+                    echo "
+                    	<li class='list-group-item'>
+                        	".substr($meteo["dt_txt"],11,5)."
+                            <img src='http://openweathermap.org/img/w/".$meteo["weather"][0]["icon"].".png'>
+                        </li>
+                    ";
+                    
+                    if(strpos($meteo["dt_txt"],'21:00')){
+                    	echo "
+                        		</ul>
+                        	</div>
+                        ";
+                    }
+                }
+
+             }
+             echo "
+             		</div>
+             	</div>
+            ";
+			
+			
+			
             //NOTIZIE
 			$feed_url='http://www.liberoquotidiano.it/rss.jsp?sezione=1'; 
 			$xml = simplexml_load_file($feed_url);
