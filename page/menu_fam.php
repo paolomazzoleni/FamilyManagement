@@ -153,8 +153,6 @@
 				</div>
 			";
 			
-			
-			
             //METEO
             $sql = "SELECT residenza FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
             $result = $conn->query($sql);
@@ -239,37 +237,51 @@
 			
 			if(strpos($ultimo,'15:00')||strpos($ultimo,'18:00')){
 				echo "
-					<li class='list-group-item'>
-						21:00
-						<img src='http://familymanagement.altervista.org/img/nodata.png'>
-					</li>
+                	<ul class='list-group'>
+                    	<li class='list-group-item'>
+                        	21:00
+                        	<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                    	</li>
+                  	</ul>
 				";
 			}
 			else if(strpos($ultimo,'09:00')||strpos($ultimo,'12:00')){
 				echo "
-					<li class='list-group-item'>
-						09:00
-						<img src='http://familymanagement.altervista.org/img/nodata.png'>
-					</li>
-					<li class='list-group-item'>
-						15:00
-						<img src='http://familymanagement.altervista.org/img/nodata.png'>
-					</li>
-					<li class='list-group-item'>
-						21:00
-						<img src='http://familymanagement.altervista.org/img/nodata.png'>
-					</li>
+                      <li class='list-group-item'>
+                          15:00
+                          <img src='http://familymanagement.altervista.org/img/nodata.png'>
+                      </li>
+                      <li class='list-group-item'>
+                          21:00
+                          <img src='http://familymanagement.altervista.org/img/nodata.png'>
+                      </li>
+                  </ul>
 				";
 			}
-			else if(strpos($ultimo,'03:00')||strpos($ultimo,'16:00')){
-			
+			else if(strpos($ultimo,'03:00')||strpos($ultimo,'06:00')){
+				echo "
+                	<div class='col-sm mb-2'>
+                    	<ul class='list-group'>
+                	  		<li class='list-group-item'>
+                         		09:00
+                          		<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                      		</li>
+                      		<li class='list-group-item'>
+                          		15:00
+                          		<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                      		</li>
+                      		<li class='list-group-item'>
+                          		21:00
+                          		<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                      		</li>
+                  		</ul>
+                    </div>
+				";
 			}
              echo "
              		</div>
              	</div>
             ";
-			
-			
 			
             //NOTIZIE
 			$feed_url='http://www.liberoquotidiano.it/rss.jsp?sezione=1'; 
