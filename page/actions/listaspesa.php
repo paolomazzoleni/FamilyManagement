@@ -126,7 +126,7 @@
 		}
 		//controllo se settato cancellazione prodotto
 		if(isset($_POST['canc'])){
-			$sql = "DELETE FROM prodotto WHERE id_prod='".$_POST['p']."'";
+			$sql = "DELETE FROM prodotto WHERE id_prod='".$_GET['p']."'";
 			if ($conn->query($sql) === FALSE) {
 				echo "Error deleting record: " . $conn->error;
 			}
