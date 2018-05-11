@@ -136,7 +136,7 @@
             	echo "
 					<div class='container-fluid'>
 						<div class='row'>
-							<div class='col mt-3 mb-3'>
+							<div class='col mt-5 mb-4'>
 								<h4 style='border-radius: 5px;background-color:#FFFFFF;padding:15px!important;' align='center'>NESSUNA SPESA ANCORA SETTATA</h4>
 							</div>
 						</div>
