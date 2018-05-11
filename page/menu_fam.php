@@ -31,7 +31,6 @@
 	<body>
 		<?php
 			require './_navbar.php';
-
             //memorizzazione in variabile delle spese in scadenza oggi
             $sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."' AND data_scad=CURDATE()";
 			$result = $conn->query($sql);
@@ -49,7 +48,6 @@
 			else{
 				$memorizza = "Nessuna spesa in scadenza oggi ";
 			}
-
             //memorizzazione in variabile delle liste della spesa di oggi 
             $sql = "SELECT COUNT(*) AS nspese FROM listaspesa WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
 			$result = $conn->query($sql);
@@ -72,12 +70,10 @@
             else{
             	$memorizza .= " &#151; Nessuna lista della spesa prevista per oggi";
             }
-
 			//memorizzazione in variabile degli eventi di oggi
             $sql = "SELECT COUNT(*) as neventi FROM evento WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
-
             if($row['neventi'] > 0){
 				// se c'è più di un evento
             	if($row['neventi'] > 1){
@@ -138,7 +134,6 @@
 			else{
 				$memorizza .= " &#151; Nessun evento previsto per oggi";
 			}
-
             //stampa benvenuto e testo scorrevole con spese/liste della spesa/eventi odierni
 			$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
 			$result = $conn->query($sql);
@@ -159,7 +154,6 @@
             $row = $result->fetch_assoc();
             $residenza = str_replace(" ","%20",$row['residenza']);
             $residenza = str_replace("'","%27",$residenza);
-
             $url = "http://api.openweathermap.org/data/2.5/forecast/?q=".$residenza."&appid=2d2d846eab61ee520a8cbf5e818c514f";
             $ch = curl_init();
             curl_setopt($ch,CURLOPT_URL,$url);
@@ -207,7 +201,6 @@
 					
 					$k++;
 				}
-
             	if(strpos($meteo["dt_txt"],'09:00')||strpos($meteo["dt_txt"],'15:00')||strpos($meteo["dt_txt"],'21:00')){
                 	
                     if(strpos($meteo["dt_txt"],'09:00')){
@@ -286,7 +279,6 @@
             //NOTIZIE
 			$feed_url='http://www.liberoquotidiano.it/rss.jsp?sezione=1'; 
 			$xml = simplexml_load_file($feed_url);
-
 			$matches = array();
 			$i=0;
 			echo "<div class='container-fluid mb-3'>";
@@ -296,29 +288,32 @@
 				$img = $array[1];
 				preg_match("/(http|https).*\.(jpg|JPG)/",$img,$matches,PREG_OFFSET_CAPTURE);
 				//se non c'è l'immagine dell'articolo
-				if(empty($matches[0][0])){
+				/*if(empty($matches[0][0])){
 					$matches[0][0] = "http://familymanagement.altervista.org/img/news.jpg";
-				}
-
+				}*/
 				if($i==0||$i==4){
 					echo  "<div class='row'>";
 				}
-
+				
 				echo  "
-						<div align='center' class='col col-sm mt-3'><div class='card' style='width: 21rem;height:400px;'>
-							<img class='card-img-top' src='".$matches[0][0]."'>
-							<div class='card-body'>
-								<p class='card-text'>".$item->title."</p>
-								<a target='_blank' href='".$item->link."' class='btn btn-primary'>Leggi l'articolo</a>
+						<div align='center' class='col col-sm mt-3'>
+							<div class='card' style='height:450px;'>";
+				if(!empty($matches[0][0])){
+						echo  " <img class='card-img-top' src='".$matches[0][0]." alt='no image''>";
+				}
+				
+				echo "			<div class='card-body'>
+									<p class='card-text'>".$item->title."</p>
+								</div>
+								<div class='card-footer text-muted'>
+									<a target='_blank' href='".$item->link."' class='btn btn-primary'>Leggi l'articolo</a>
+								</div>
 							</div>
-						</div>
 					</div>
 				";
-
 				if($i==3||$i==7){
 					echo  "</div>";
 				}
-
 				$i++;
 				if($i==8){
 					break;
