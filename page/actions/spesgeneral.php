@@ -66,8 +66,6 @@
 			else if(date_d<=today){
 				alert("Errore: hai inserito una data di scadenza invalida");return;
 			}
-			//Se è tutto giusto
-			document.getElementById("ins").submit();
 
 			//Se è tutto giusto
 			if (window.XMLHttpRequest) {
