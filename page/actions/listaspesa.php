@@ -226,18 +226,14 @@
 		} 
 		else{
 			echo "
-				<div class='container-fluid mt-3'>
-					<div class='row'>
-						<div class='col'>
+					<div class='container-fluid'>
+						<div class='row'>
+							<div class='col mt-5 mb-4'>
+								<h4 style='border-radius: 5px;background-color:#FFFFFF;padding:15px!important;' align='center'>NESSUNA LISTA DELLA SPESA INSERITA</h4>
+							</div>
 						</div>
-						<div class='col'>
-							<h2 align='center'>Nessuna lista della spesa ancora settata</h2>
-							<p align='center'>Utilizza il menù sottostante per inserire la prima</p>
-						</div>
-						<div class='col'></div>
 					</div>
-				</div>
-			";
+				";
 		}
       
 		echo "
