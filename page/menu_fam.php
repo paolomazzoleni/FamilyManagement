@@ -233,7 +233,7 @@
                 	<ul class='list-group'>
                     	<li class='list-group-item'>
                         	21:00
-                        	<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                        	<img src='http://familymanagement.altervista.org/img/soon.png'>
                     	</li>
                   	</ul>
 				";
@@ -242,11 +242,11 @@
 				echo "
                       <li class='list-group-item'>
                           15:00
-                          <img src='http://familymanagement.altervista.org/img/nodata.png'>
+                          <img src='http://familymanagement.altervista.org/img/soon.png'>
                       </li>
                       <li class='list-group-item'>
                           21:00
-                          <img src='http://familymanagement.altervista.org/img/nodata.png'>
+                          <img src='http://familymanagement.altervista.org/img/soon.png'>
                       </li>
                   </ul>
 				";
@@ -257,15 +257,15 @@
                     	<ul class='list-group'>
                 	  		<li class='list-group-item'>
                          		09:00
-                          		<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                          		<img src='http://familymanagement.altervista.org/img/soon.png'>
                       		</li>
                       		<li class='list-group-item'>
                           		15:00
-                          		<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                          		<img src='http://familymanagement.altervista.org/img/soon.png'>
                       		</li>
                       		<li class='list-group-item'>
                           		21:00
-                          		<img src='http://familymanagement.altervista.org/img/nodata.png'>
+                          		<img src='http://familymanagement.altervista.org/img/soon.png'>
                       		</li>
                   		</ul>
                     </div>
@@ -288,9 +288,9 @@
 				$img = $array[1];
 				preg_match("/(http|https).*\.(jpg|JPG)/",$img,$matches,PREG_OFFSET_CAPTURE);
 				//se non c'è l'immagine dell'articolo
-				/*if(empty($matches[0][0])){
+				if(empty($matches[0][0])){
 					$matches[0][0] = "http://familymanagement.altervista.org/img/news.jpg";
-				}*/
+				}
 				if($i==0||$i==4){
 					echo  "<div class='row'>";
 				}
@@ -298,9 +298,9 @@
 				echo  "
 						<div align='center' class='col col-sm mt-3'>
 							<div class='card' style='height:450px;'>";
-				if(!empty($matches[0][0])){
-						echo  " <img class='card-img-top' src='".$matches[0][0]." alt='no image''>";
-				}
+				//if(!empty($matches[0][0])){
+						echo  " <img class='card-img-top' src='".$matches[0][0]."' style='max-height:275px;min-height: 155px;'>";
+				//}
 				
 				echo "			<div class='card-body'>
 									<p class='card-text'>".$item->title."</p>
@@ -322,4 +322,4 @@
 			echo  "</div>";
 		?>
 	</body>
-</html>
+</html>
