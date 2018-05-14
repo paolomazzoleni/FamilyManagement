@@ -230,25 +230,27 @@
 			
 			if(strpos($ultimo,'15:00')||strpos($ultimo,'18:00')){
 				echo "
-                	<ul class='list-group'>
-                    	<li class='list-group-item'>
-                        	21:00
-                        	<img src='http://familymanagement.altervista.org/img/soon.png'>
-                    	</li>
-                  	</ul>
+                        <ul class='list-group'>
+                            <li class='list-group-item'>
+                                21:00
+                                <img src='http://familymanagement.altervista.org/img/soon.png'>
+                            </li>
+                        </ul>
+                    </div>
 				";
 			}
 			else if(strpos($ultimo,'09:00')||strpos($ultimo,'12:00')){
 				echo "
-                      <li class='list-group-item'>
-                          15:00
-                          <img src='http://familymanagement.altervista.org/img/soon.png'>
-                      </li>
-                      <li class='list-group-item'>
-                          21:00
-                          <img src='http://familymanagement.altervista.org/img/soon.png'>
-                      </li>
-                  </ul>
+                          <li class='list-group-item'>
+                              15:00
+                              <img src='http://familymanagement.altervista.org/img/soon.png'>
+                          </li>
+                          <li class='list-group-item'>
+                              21:00
+                              <img src='http://familymanagement.altervista.org/img/soon.png'>
+                          </li>
+                      </ul>
+                  </div>
 				";
 			}
 			else if(strpos($ultimo,'03:00')||strpos($ultimo,'06:00')){
@@ -322,4 +324,4 @@
 			echo  "</div>";
 		?>
 	</body>
-</html>
+</html>
