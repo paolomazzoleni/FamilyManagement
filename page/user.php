@@ -72,7 +72,7 @@
 					}
 				}
 			
-				$sql = "INSERT INTO famiglia (codice_fam,nome,residenza) VALUES ('".$rand."','".$_REQUEST['nome']."','".$_REQUEST['residenza']."')";
+				$sql = "INSERT INTO famiglia (codice_fam,nome,residenza,admin) VALUES ('".$rand."','".$_REQUEST['nome']."','".$_REQUEST['residenza']."','".$_SESSION['user']."')";
 				if ($conn->query($sql) === FALSE){
 					echo "Error: " . $sql . "<br>" . $conn->error;
 				}
