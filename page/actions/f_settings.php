@@ -155,31 +155,54 @@
 					</div>
 				";
 			}
-		  
-			echo "
-				<div class='container-fluid'>
-					<div class='row'>
-						<div class='col'>
-							<div class='card mt-3'>
-								<div class='card-body'>
-									<form method='post'>
-										<input type='submit' class='btn btn-danger btn-block' value='Esci dal gruppo' name='exit'>
-									</form>
+			
+			$sql = "SELECT admin FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			
+			if($_SESSION['user']==$row['admin']){
+				echo "
+					<div class='container-fluid'>
+						<div class='row'>
+							<div class='col'>
+								<div class='card mt-3'>
+									<div class='card-body'>
+										<form method='post'>
+											<input type='submit' class='btn btn-danger btn-block' value='Esci dal gruppo' name='exit'>
+										</form>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class='col'>
-							<div class='card mt-3 mb-3'>
-								<div class='card-body'>
-									<form method='post'>
-										<input type='submit' class='btn btn-danger btn-block' value='Elimina gruppo' name='delete_f'>
-									</form>
+							<div class='col'>
+								<div class='card mt-3 mb-3'>
+									<div class='card-body'>
+										<form method='post'>
+											<input type='submit' class='btn btn-danger btn-block' value='Elimina gruppo' name='delete_f'>
+										</form>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			";
+				";
+			}
+			else{
+				echo "
+					<div class='container-fluid'>
+						<div class='row'>
+							<div class='col'>
+								<div class='card mt-3'>
+									<div class='card-body'>
+										<form method='post'>
+											<input type='submit' class='btn btn-danger btn-block' value='Esci dal gruppo' name='exit'>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					<div>
+				";
+			}
 		?>
 	</body>
 </html>
