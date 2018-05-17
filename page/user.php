@@ -81,8 +81,13 @@
 				if ($conn->query($sql) === FALSE){
 					echo "Error updating record: " . $conn->error;
 				}
-			
+				
 				$_SESSION['fam'] = $rand;
+				
+				$sql = "UPDATE evento SET codice_fam='".$_SESSION['fam']."' WHERE email='".$_SESSION['user']."'";
+				if ($conn->query($sql) === FALSE) {
+					echo "Error updating record: " . $conn->error;
+				}
 			}
 		  
 		  
@@ -151,4 +156,3 @@
 		?>
 	</body>
 </html>
-
