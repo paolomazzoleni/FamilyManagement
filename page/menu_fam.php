@@ -253,27 +253,7 @@
                   </div>
 				";
 			}
-			else if(strpos($ultimo,'03:00')||strpos($ultimo,'06:00')){
-				echo "
-                	<div class='col-sm mb-2'>
-                    	<ul class='list-group'>
-                	  		<li class='list-group-item'>
-                         		09:00
-                          		<img src='http://familymanagement.altervista.org/img/soon.png'>
-                      		</li>
-                      		<li class='list-group-item'>
-                          		15:00
-                          		<img src='http://familymanagement.altervista.org/img/soon.png'>
-                      		</li>
-                      		<li class='list-group-item'>
-                          		21:00
-                          		<img src='http://familymanagement.altervista.org/img/soon.png'>
-                      		</li>
-                  		</ul>
-                    </div>
-				";
-			}
-             echo "
+            echo "
              		</div>
              	</div>
             ";
