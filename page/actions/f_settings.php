@@ -167,7 +167,7 @@
 								<div class='card mt-3 mb-3'>
 									<div class='card-body'>
 										<form method='post'>
-											<input type='submit' class='btn btn-danger btn-block' value='Elimina gruppo' name='delete_f'>
+											<input type='submit' class='btn btn-danger btn-block mt-3' value='Elimina gruppo' name='delete_f'>
 										</form>
 									</div>
 								</div>
