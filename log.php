@@ -65,7 +65,7 @@
 								$var=true;
 								//generazione session id
 								while($var==true){
-									$sid = rand(5000000000000000000,10000000000000000000);	
+									$sid = substr(base64_encode(sha1(mt_rand())), 0, 16);
 									$sql = "SELECT * FROM cookie WHERE sessionid = '".$sid."'";
 									$result = $conn->query($sql);
 									if ($result->num_rows > 0){
@@ -75,7 +75,7 @@
 										$var = false;
 									}
 								}
-								$token = rand(5000000000000000000,10000000000000000000);
+								$token = substr(base64_encode(sha1(mt_rand())), 0, 16);
 							  
 								//scrittura numero cookie nel database
 								$sql = "INSERT INTO cookie (sessionid,token,email) VALUES ('".$sid."','".$token."','".$_SESSION['user']."')";
