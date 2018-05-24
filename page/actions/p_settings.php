@@ -11,7 +11,7 @@
 	}
 ?>
 
-<html>
+<html style="overflow-y: hidden;">
 	<head>
 		<title>Impostazioni personali | FM</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -51,97 +51,94 @@
 			}
 			//Se è tutto giusto
 			document.getElementById("change").submit();
-			
-			
-			
 		}
 	</script>
 	<body>
-    <?php
-		require '../_navbar.php';   
-
-		//se è richiesto cambio password
-		if(isset($_POST['o_password'])){
-			$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
-			$result = $conn->query($sql);
-			if ($result->num_rows == 1) {
-				$row = $result->fetch_assoc();
-            
-				$psw2 = $_POST['o_password'];
-				$psw1 = $row['password'];
-            
-				if(password_verify($psw2,$psw1)){
-					if($_POST['n1_password']==$_POST['n2_password']){
-						if(strlen($_POST['n1_password']<8)){
-							$errore=3;
-						}
-						else{
-							$password = $_POST['n1_password'];
-							$hpsw = password_hash($password,PASSWORD_DEFAULT);
-							$sql = "UPDATE utente SET password='".$hpsw."' WHERE email='".$_SESSION['user']."'";
-							if ($conn->query($sql) === FALSE){
-								echo "Error updating record: " . $conn->error;;
+		<?php
+			//se è richiesto cambio password
+			if(isset($_POST['o_password'])){
+				$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
+				$result = $conn->query($sql);
+				if ($result->num_rows == 1) {
+					$row = $result->fetch_assoc();
+				
+					$psw2 = $_POST['o_password'];
+					$psw1 = $row['password'];
+				
+					if(password_verify($psw2,$psw1)){
+						if($_POST['n1_password']==$_POST['n2_password']){
+							if(strlen($_POST['n1_password']<8)){
+								$errore=3;
 							}
 							else{
-								mail($_SESSION['user'],"Famiglia - Cambio password","Password cambiata con successo.\nLe tue credenziali ora sono:\nemail - ".$_SESSION['user']."\npassword - ".$_REQUEST['n1_password']."");
-								header('Location: ../menu_fam.php'); 
+								$password = $_POST['n1_password'];
+								$hpsw = password_hash($password,PASSWORD_DEFAULT);
+								$sql = "UPDATE utente SET password='".$hpsw."' WHERE email='".$_SESSION['user']."'";
+								if ($conn->query($sql) === FALSE){
+									echo "Error updating record: " . $conn->error;;
+								}
+								else{
+									mail($_SESSION['user'],"Famiglia - Cambio password","Password cambiata con successo.\nLe tue credenziali ora sono:\nemail - ".$_SESSION['user']."\npassword - ".$_REQUEST['n1_password']."");
+									header('Location: ../menu_fam.php'); 
+								}
 							}
+						}
+						else{
+							$errore=2; //password diverse
 						}
 					}
 					else{
-						$errore=2; //password diverse
+						$errore=1; //password attuale errata
 					}
 				}
-				else{
-					$errore=1; //password attuale errata
-				}
 			}
-		}
-      
-		//stampa menù
-		echo  "
-			<div class='w-100 h-100 d-flex justify-content-center'>
-				<div class='align-self-center text-center'>
-                	<div class='card' style='width: 22rem;padding:15px;'>
-                    	<div class='card-body'>
-							<h3 class='mb-2' style='color:black;'>CAMBIO PASSWORD</h3>
-							<form action='./p_settings.php' method='post' id='change'>
-								<div class='form-group'>
-									<label>Password attuale</label>
-									<input type='password' class='form-control' id='o_password' name='o_password' placeholder='Password attuale' required>
-		";
-        if($errore==1){
-			echo  "  				<small class='form-text p-2 mb-2 bg-danger text-white'>Hai inserito una password errata</small>";
-			$errore=0;
-		}
-		echo  "
-								</div>
-								<div class='form-group'>
-									<label>Nuova password</label>
-									<input type='password' class='form-control' id='n1_password' name='n1_password' placeholder='Nuova password' required>
-		";
-		if($errore==3){
-			echo "					<small class='form-text p-2 mb-2 bg-danger text-dark'>La password deve avere almeno 8 caratteri</small>";
-			$errore=0;
-		}
-		echo  "					</div>
-								<div class='form-group'>
-									<label>Conferma password</label>
-									<input type='password' class='form-control' id='n2_password' name='n2_password' placeholder='Conferma password' required>
-		";
-		if($errore==2){
-			echo "					<small class='form-text p-2 mb-2 bg-danger text-dark'>La password di conferma non è corretta</small>";
-			$errore=0;
-		}
-		echo  "
-								</div>
-								<input class='mt-3 btn btn-primary btn-lg btn-block' type='button' onclick='controllo()' value='cambia password' name='cpass'></form>
-							</form>
-                    	</div>
-                    </div>
+		  
+			//stampa menù
+			require '../_navbar.php';
+			
+			echo  "
+				<div class='w-100 h-100 d-flex justify-content-center'>
+					<div class='align-self-center text-center'>
+						<div class='card' style='width: 22rem;padding:15px;'>
+							<div class='card-body'>
+								<h3 class='mb-2' style='color:black;'>CAMBIO PASSWORD</h3>
+								<form action='./p_settings.php' method='post' id='change'>
+									<div class='form-group'>
+										<label>Password attuale</label>
+										<input type='password' class='form-control' id='o_password' name='o_password' placeholder='Password attuale' required>
+			";
+			if($errore==1){
+				echo  "  				<small class='form-text p-2 mb-2 bg-danger text-white'>Hai inserito una password errata</small>";
+				$errore=0;
+			}
+			echo  "
+									</div>
+									<div class='form-group'>
+										<label>Nuova password</label>
+										<input type='password' class='form-control' id='n1_password' name='n1_password' placeholder='Nuova password' required>
+			";
+			if($errore==3){
+				echo "					<small class='form-text p-2 mb-2 bg-danger text-dark'>La password deve avere almeno 8 caratteri</small>";
+				$errore=0;
+			}
+			echo  "					</div>
+									<div class='form-group'>
+										<label>Conferma password</label>
+										<input type='password' class='form-control' id='n2_password' name='n2_password' placeholder='Conferma password' required>
+			";
+			if($errore==2){
+				echo "					<small class='form-text p-2 mb-2 bg-danger text-dark'>La password di conferma non è corretta</small>";
+				$errore=0;
+			}
+			echo  "
+									</div>
+									<input class='mt-3 btn btn-primary btn-lg btn-block' type='button' onclick='controllo()' value='cambia password' name='cpass'></form>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		";
-    ?>
-  </body>
-</html>
+			";
+		?>
+	</body>
+</html>
