@@ -1,13 +1,5 @@
 <?php
-	session_start();
-    $servername = "localhost";
-    $username = "familymanagement@localhost";
-    $password = "";
-    $dbname = "my_familymanagement";
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+	require './_connect_to_db.php';
 ?>
 <html>
 	<head>
@@ -111,8 +103,8 @@
 													<label>Codice famiglia</label>
 													<input type='text' maxlength='7' class='form-control' name='codice_fam' required aria-describedby='emailHelp' placeholder='Codice'>";
 				if($errore==1){
-				  $errore=0;
-				  echo "<small><em>Errore: il codice precedentemente inserito non è valido</em></small>";
+					$errore=0;
+					echo "							<small><em>Errore: il codice precedentemente inserito non è valido</em></small>";
 				}
 				echo "          			</div>
 											<input class='mt-3 btn btn-primary btn-lg btn-block' type='submit' value='join' name='join'>
