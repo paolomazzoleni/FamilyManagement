@@ -7,14 +7,14 @@
 
 <?php
 	echo "
-    <nav class='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
-		<span align='center' class='navbar-brand mb-0 h1'>Family Management</span>
-		<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
-			<span class='navbar-toggler-icon'></span>
-		</button>
+		<nav class='navbar navbar-expand-lg navbar-dark bg-primary sticky-top'>
+			<span align='center' class='navbar-brand mb-0 h1'>Family Management</span>
+			<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation'>
+				<span class='navbar-toggler-icon'></span>
+			</button>
 
-		<div class='collapse navbar-collapse' id='navbarSupportedContent'>
-			<ul class='navbar-nav mr-auto'>
+			<div class='collapse navbar-collapse' id='navbarSupportedContent'>
+				<ul class='navbar-nav mr-auto'>
 	";
 	//se ci troviamo in home
 	if($_SESSION['curpage']=='home'){
@@ -78,15 +78,16 @@
 	}
 	//bottoni fine navbar
 	echo "
-			<form class='form-inline mt-2 my-lg-0' action='http://familymanagement.altervista.org/page/actions/f_settings.php'>
-				<button class='btn btn-secondary btn-md btn-block my-sm-0 mt-2 mr-1 ml-1' type='submit'>Impostazioni familiari</button>
-			</form>
-			<form class='form-inline my-lg-0' action='http://familymanagement.altervista.org/page/actions/p_settings.php'>
-				<button class='btn btn-secondary btn-md btn-block my-sm-0 mr-1 ml-1' type='submit'>Impostazioni personali</button>
-			</form>
-			<form class='form-inline  my-lg-0' action='http://familymanagement.altervista.org/' method='post'>
-				<button class='btn btn-dark btn-md btn-block my-sm-0 mr-1 ml-1' type='submit' name='logout'>Logout</button>
-			</form>
-		</div>
-	</nav>";
-?>
+				<form class='form-inline mt-2 my-lg-0' action='http://familymanagement.altervista.org/page/actions/f_settings.php'>
+					<button class='btn btn-secondary btn-md btn-block my-sm-0 mt-2 mr-1 ml-1' type='submit'>Impostazioni familiari</button>
+				</form>
+				<form class='form-inline my-lg-0' action='http://familymanagement.altervista.org/page/actions/p_settings.php'>
+					<button class='btn btn-secondary btn-md btn-block my-sm-0 mr-1 ml-1' type='submit'>Impostazioni personali</button>
+				</form>
+				<form class='form-inline  my-lg-0' action='http://familymanagement.altervista.org/' method='post'>
+					<button class='btn btn-dark btn-md btn-block my-sm-0 mr-1 ml-1' type='submit' name='logout'>Logout</button>
+				</form>
+			</div>
+		</nav>
+	";
+?>
