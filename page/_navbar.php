@@ -1,8 +1,11 @@
 <style>
-	.nav-link:hover { 
+    .li-nv:hover { 
     	background-color: rgba(255,255,255,0.9)!important;
         color: #000000!important;
 	}
+    .nav-link:hover{
+    	color: #000000!important;
+    }
 </style>
 
 <?php
@@ -19,60 +22,60 @@
 	//se ci troviamo in home
 	if($_SESSION['curpage']=='home'){
 		echo "
-			<li class='nav-item active mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/menu_fam.php'>Home <span class='sr-only'>(current)</span></a>
+			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/menu_fam.php' style='line-height: 50px;'>Home</a>
 			</li>
 		";
 	}
 	else{
 		echo "
-			<li class='nav-item mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/menu_fam.php'>Home <span class='sr-only'>(current)</span></a>
+			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/menu_fam.php' style='line-height: 50px;'>Home</a>
 			</li>
 		";
 	}
 	//se ci troviamo in calendario
 	if($_SESSION['curpage']=='calendario'){
 		echo "
-			<li class='nav-item active mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/calendar.php'>Calendario</a>
+			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/calendar.php' style='line-height: 50px;'>Calendario</a>
 			</li>
 		";
 	}
 	else{
 		echo "
-			<li class='nav-item mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/calendar.php'>Calendario</a>
+			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/calendar.php' style='line-height: 50px;'>Calendario</a>
 			</li>
 		";
 	}
 	//se ci troviamo in spese generali
 	if($_SESSION['curpage']=='spsgen'){
 		echo "
-			<li class='nav-item active mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/spesgeneral.php'>Spese generali</a>
+			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/spesgeneral.php' style='line-height: 50px;'>Spese generali</a>
 			</li>
 		";
 	}
 	else{
 		echo "
-			<li class='nav-item mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/spesgeneral.php'>Spese generali</a>
+			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/spesgeneral.php' style='line-height: 50px;'>Spese generali</a>
 			</li>
 		";
 	}
 	//se ci troviamo in liste spesa
 	if($_SESSION['curpage']=='lstsps'){
 		echo "
-			<li class='nav-item active mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/listaspesa.php'>Liste spesa</a>
+			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/listaspesa.php' style='line-height: 50px;'>Liste spesa</a>
 			</li></ul>
 		";
 	}
 	else{
 		echo "
-			<li class='nav-item mr-1 ml-1'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/listaspesa.php'>Liste spesa</a>
+			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
+				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/listaspesa.php' style='line-height: 50px;'>Liste spesa</a>
 			</li></ul>
 		";
 	}
@@ -90,4 +93,4 @@
 			</div>
 		</nav>
 	";
-?>
+?>
