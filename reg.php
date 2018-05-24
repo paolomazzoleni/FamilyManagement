@@ -1,13 +1,5 @@
 <?php
-	session_start();
-    $servername = "localhost";
-    $username = "familymanagement@localhost";
-    $password = "";
-    $dbname = "my_familymanagement";
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+	require './page/_connect_to_db.php';
 ?>
 <html class="w-100 h-100">
 	<head>
@@ -16,7 +8,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
         <style>
           body{
               background-image: url("./img/wallp1.jpg");
@@ -170,7 +162,7 @@
 			}
 			else{
 				echo "
-					<div class='w-100 h-100 d-flex justify-content-center'>
+					<div class='w-100 h-100 d-flex justify-content-center p-3'>
                     	<div class='align-self-center text-center' style='background-color:rgba(255,255,255,0.9)!important;padding:25px;border-radius:25px;'>
 							<h1 class='mb-2' style='color:black;'>REGISTRAZIONE</h1>
 							<form action='./reg.php' method='post' id='reg'>
@@ -178,6 +170,7 @@
 								<label>Email address</label>
 								<input type='email' class='form-control' id='regemail' name='regemail' aria-describedby='emailHelp' placeholder='Email' autofocus required>
 							</div>
+
                          	<div class='row'>
 								<div class='col form-group'>
 							  		<label>Password</label>
@@ -188,7 +181,7 @@
 							  		<input type='password' class='form-control' id='regpassword2' placeholder='Conferma password' name='regpassword2' required>
 								</div>
                          	</div>
-                         
+
                         	<div class='row'>
 					 			<div class='col form-group'>
 							  		<label>Nome</label>
@@ -213,4 +206,4 @@
 			}
 		?>
 	</body>
-</html>
+</html>
