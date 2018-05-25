@@ -294,7 +294,7 @@
 				$result = $conn->query($sql);
 				while($row = $result->fetch_assoc()) {
 					$nomi[$i]=$row['email'];
-					echo "<th style='width:".(int)$perc."%;min-width:200px;text-align:center;' scope='col'>".$nomi[$i]."</th>";
+					echo "<th style='width:".(int)$perc."%!important;min-width:200px;text-align:center;' scope='col'>".$nomi[$i]."</th>";
 					$i++;
 				}
 				echo "
@@ -323,20 +323,18 @@
 								$stampa = "";
 								$eventotd = "";
 								while($row1 = $result1->fetch_assoc()) {
-									$eventotd .= "<li>".$row1['descrizione_breve']."</li>";
-									$stampa .= "Descrizione: ".$row1['descrizione']."(#".$row1['id_evento'].")\\n\\n";
+									$eventotd .= "<details><summary>".$row1['descrizione_breve']."</summary><p>".$row1['descrizione']."</p></details>";
 								}
-								$evento = "<td style='cursor: pointer;' onclick='alert(\"".$stampa."\")'><ul>";
-								$evento .= $eventotd;
-								$evento .= "</ul></td>";
+								$evento = "<td style='width:".(int)$perc."%!important;'>".$eventotd."</td>";
 							}
 							else if ($result1->num_rows == 1){
 								$row1 = $result1->fetch_assoc();
-								$evento = "<td style='cursor: pointer;' onclick='alert(\"Descrizione: ".$row1['descrizione']." (#".$row1['id_evento'].")\")'>".$row1['descrizione_breve']."</td>";
+								$evento = "<td style='width:".(int)$perc."%!important;'><details><summary>".$row1['descrizione_breve']."</summary><p>".$row1['descrizione']."</p></details></td>";
 							}
 							else {
-								$evento = "<td></td>";
+								$evento = "<td style='width:".(int)$perc."%!important;'></td>";
 							}
+							
 							echo $evento;
 						}
 						echo "</tr>";	
