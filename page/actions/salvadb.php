@@ -55,10 +55,10 @@
     }
 	//controllo se settato inserimento nuovo evento
 	else if(isset($_POST['ins_evento'])){
-		$desc = str_replace("'","",$_POST['ins_desc_evento']);
-		$descb = str_replace("'","",$_POST['ins_desc_b_evento']);
+		$desc = str_replace("'","\"",$_POST['ins_desc_evento']);
+		$descb = str_replace("'","\"",$_POST['ins_desc_b_evento']);
 		
-		$sql = "INSERT INTO evento (data,descrizione,descrizione_breve,email,codice_fam) VALUES ('".$_POST['ins_evento']."','".$desc."','".$descb."','".$_SESSION['user']."','".$_SESSION['fam']."')";
+		$sql = "INSERT INTO evento (data,dettagli,titolo,email,codice_fam) VALUES ('".$_POST['ins_evento']."','".$desc."','".$descb."','".$_SESSION['user']."','".$_SESSION['fam']."')";
 		if ($conn->query($sql) === FALSE){
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}

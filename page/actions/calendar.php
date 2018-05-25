@@ -89,17 +89,18 @@
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
 					$row = $result->fetch_assoc();
-                    //voglio visualizzare il mese dove è stato inserito l'evento
+
+                    //voglio visualizzare il mese dove è stato cancellato l'evento
                     $mese=date('m',strtotime($row['data']));
                     $anno=date('Y',strtotime($row['data']));
                     $_POST['mese'] = $mese;
                     $_POST['anno'] = $anno;
+
+                    $sql = "DELETE FROM evento WHERE id_evento='".$_POST['del_id']."'";
+					if ($conn->query($sql) === FALSE){
+						echo "Error: " . $sql . "<br>" . $conn->error;
+					}
                 }
-                
-                $sql = "DELETE FROM evento WHERE id_evento='".$_POST['del_id']."'";
-				if ($conn->query($sql) === FALSE){
-					echo "Error: " . $sql . "<br>" . $conn->error;
-				}
 			}
 
 			//menu seleziona mese e anno
@@ -110,7 +111,7 @@
 						</div>
 					</div>
 			";
-			
+
 			// se select submittata
 			if(isset($_POST['mese'])){
 				$mese=$_POST['mese'];
@@ -126,13 +127,13 @@
 				//estraggo l'anno
 				$anno = $row['YEAR(CURDATE())'];
 			}
-			
+
 			echo "
 				<form method='post'>
 					<div class='form-row'>
 						<div class='col'>
 							<select name='mese' class='custom-select' onchange='this.form.submit()'>";
-			
+
 			if($mese=="01"||$mese==1){
 				echo "			<option value='01' selected>Gennaio</option>";
 				$mese="01";
@@ -226,7 +227,7 @@
 						<div class='col'>
 							<select name='anno' class='custom-select' onchange='this.form.submit()'>
 				";
-			
+
 			if($anno==2018)
 				echo "			<option value='2018' selected>2018</option>";
 			else
@@ -256,7 +257,7 @@
 			";
 
 			// controllo se ci sono eventi nel periodo scelto
-			$sql = "SELECT * FROM evento WHERE MONTH(data)='".$mese."' AND YEAR(data)='".$anno."'";
+			$sql = "SELECT * FROM evento WHERE MONTH(data)='".$mese."' AND YEAR(data)='".$anno."' AND codice_fam='".$_SESSION['fam']."'";
 			$result = $conn->query($sql);
 			if ($result->num_rows > 0) {
 				//inizializzo array associativo mese - ngiorni
@@ -323,13 +324,13 @@
 								$stampa = "";
 								$eventotd = "";
 								while($row1 = $result1->fetch_assoc()) {
-									$eventotd .= "<details><summary>".$row1['descrizione_breve']."</summary><p>".$row1['descrizione']."</p></details>";
+									$eventotd .= "<details><summary>".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details>";
 								}
 								$evento = "<td style='width:".(int)$perc."%!important;'>".$eventotd."</td>";
 							}
 							else if ($result1->num_rows == 1){
 								$row1 = $result1->fetch_assoc();
-								$evento = "<td style='width:".(int)$perc."%!important;'><details><summary>".$row1['descrizione_breve']."</summary><p>".$row1['descrizione']."</p></details></td>";
+								$evento = "<td style='width:".(int)$perc."%!important;'><details><summary>".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details></td>";
 							}
 							else {
 								$evento = "<td style='width:".(int)$perc."%!important;'></td>";
