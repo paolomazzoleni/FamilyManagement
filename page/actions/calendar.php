@@ -324,13 +324,13 @@
 								$stampa = "";
 								$eventotd = "";
 								while($row1 = $result1->fetch_assoc()) {
-									$eventotd .= "<details><summary>".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details>";
+									$eventotd .= "<details><summary>#".$row1['id_evento']." - ".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details>";
 								}
 								$evento = "<td style='width:".(int)$perc."%!important;'>".$eventotd."</td>";
 							}
 							else if ($result1->num_rows == 1){
 								$row1 = $result1->fetch_assoc();
-								$evento = "<td style='width:".(int)$perc."%!important;'><details><summary>".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details></td>";
+								$evento = "<td style='width:".(int)$perc."%!important;'><details><summary>#".$row1['id_evento']." - ".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details></td>";
 							}
 							else {
 								$evento = "<td style='width:".(int)$perc."%!important;'></td>";
@@ -377,12 +377,12 @@
 											<input type='date' class='form-control' name='ins_evento' id='ins_evento'>
 										</div>
 										<div class='form-group'>
-											<label>Descrizione</label>
-											<input type='text' class='form-control' name='ins_desc_evento' placeholder='Descrizione' id='ins_desc_evento'>
+											<label>Titolo</label>
+											<input type='text' class='form-control' name='ins_desc_b_evento' placeholder='Titolo' id='ins_desc_b_evento'>
 										</div>
-										<div class='form-group'>
-											<label>Descrizione breve</label>
-											<input type='text' class='form-control' name='ins_desc_b_evento' placeholder='Descrizione breve' id='ins_desc_b_evento'>
+                                        <div class='form-group'>
+											<label>Dettagli</label>
+											<input type='text' class='form-control' name='ins_desc_evento' placeholder='Dettagli' id='ins_desc_evento'>
 										</div>
 										<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='ins' onclick='insevento()'>
 									</form>
