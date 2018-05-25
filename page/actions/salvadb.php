@@ -4,7 +4,7 @@
 	//controllo se settato inserimento prodotto in lista spesa
 	if(isset($_POST['prodotto'])){
 		if($_POST['prodotto']!=""){
-			$prodotto = str_replace("'","",$_POST['prodotto']);
+			$prodotto = str_replace("'","\"",$_POST['prodotto']);
 			if($_POST['quantita']==""||$_POST['quantita']<=0){
 				$quantita=1;
 			}
@@ -33,7 +33,7 @@
 	}
 	//controllo se settato inserimento nuova lista spesa
 	else if(isset($_POST['ins_date'])){
-		$luogo = str_replace("'","",$_POST['ins_luo']);
+		$luogo = str_replace("'","\"",$_POST['ins_luo']);
 		$sql = "INSERT INTO listaspesa (data,luogo,codice_fam) VALUES ('".$_POST['ins_date']."','".$luogo."','".$_SESSION['fam']."')";
 		if ($conn->query($sql) === FALSE) {
 			echo "Error: " . $sql . "<br>" . $conn->error;
@@ -46,7 +46,7 @@
 		$row = $result->fetch_assoc();
 		$data = $row["CURDATE()"];
 		
-		$descrizione = str_replace("'","",$_POST['ins_desc']);
+		$descrizione = str_replace("'","\"",$_POST['ins_desc']);
 		
         $sql = "INSERT INTO spesgen (data_ins,data_scad,descrizione,costo,codice_fam) VALUES ('".$data."','".$_POST['data_s']."','".$descrizione."','".$_POST['ins_costo']."','".$_SESSION['fam']."')";
 		if ($conn->query($sql) === FALSE) {
