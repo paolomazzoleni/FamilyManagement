@@ -81,6 +81,7 @@
 					}
 					$memorizza .= " &#151; Per oggi sono previsti i seguenti eventi: ";
 					$nutenti = $result->num_rows;
+                    
 					//eventi
 					$gia_mem=false;
 					for($j=0;$j<$nutenti;$j++){
@@ -97,9 +98,9 @@
 									$email = $row['email'];
 								}
 								if(($k+1)>$result->num_rows)
-									$memorizza .= $row['descrizione_breve'];
+									$memorizza .= $row['titolo'];
 								else
-									$memorizza .= $row['descrizione_breve'].",";
+									$memorizza .= $row['titolo'].",";
 									
 								$k++;
 							}
@@ -111,7 +112,7 @@
 								$memorizza.= "; ";
 							
 							$row = $result->fetch_assoc();
-							$memorizza .= $row['descrizione_breve']." (".$row['email'].")";
+							$memorizza .= $row['titolo']." (".$row['email'].")";
 							$gia_mem=true;
 						}
 					}
@@ -121,7 +122,7 @@
 					$sql = "SELECT * FROM evento WHERE codice_fam='".$_SESSION['fam']."' AND data=CURDATE()";
 					$result = $conn->query($sql);
 					$row = $result->fetch_assoc();
-					$memorizza .= " &#151; Per oggi &egrave; previsto 1 evento: ".$row['descrizione_breve']." (".$row['email'].") ";
+					$memorizza .= " &#151; Per oggi &egrave; previsto 1 evento: ".$row['titolo']." (".$row['email'].") ";
 				}
             }
 			// se non ci sono eventi
