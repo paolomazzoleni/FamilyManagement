@@ -118,7 +118,7 @@
 			$result = $conn->query($sql);
 			if ($result->num_rows > 0) {
 				echo "
-					<div class='container-fluid mt-5'>
+					<div class='container-fluid mt-4'>
 						<div class='table-responsive-md'>
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
