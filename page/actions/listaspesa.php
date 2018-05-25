@@ -187,9 +187,9 @@
 						</form>
 					";
 				}
-				//se la spesa ancora non ha prodotti
+				//se la spesa non ha prodotti
 				else {
-					echo "<br>Questa lista della spesa non ha ancora prodotti";
+					echo "<br>Questa lista della spesa non ha prodotti";
 					echo "
 						<form class='form-inline mt-3' method='post'>
 							<div class='input-group mb-2 mr-sm-2'>
