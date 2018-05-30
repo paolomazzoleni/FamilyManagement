@@ -60,7 +60,7 @@
 				
 					if(password_verify($psw2,$psw1)){
 						if($_POST['n1_password']==$_POST['n2_password']){
-							if(strlen($_POST['n1_password']<8)){
+							if(strlen($_POST['n1_password'])<8){
 								$errore=3;
 							}
 							else{
@@ -111,7 +111,7 @@
 										<input type='password' class='form-control' id='n1_password' name='n1_password' placeholder='Nuova password' required>
 			";
 			if($errore==3){
-				echo "					<small class='form-text p-2 mb-2 bg-danger text-dark'>La password deve avere almeno 8 caratteri</small>";
+				echo "					<small class='form-text p-2 mb-2 bg-danger text-white'>La password deve avere almeno 8 caratteri</small>";
 				$errore=0;
 			}
 			echo  "					</div>
