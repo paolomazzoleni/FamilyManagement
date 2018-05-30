@@ -39,8 +39,8 @@
 	</script>
     <body class='w-100 h-100 d-flex justify-content-center'>
     	<?php
-			if(isset($_REQUEST['password'])){
-				$password = $_REQUEST['password'];
+			if(isset($_POST['password'])){
+				$password = $_POST['password'];
 				
 				$sql = "UPDATE utente SET password='".password_hash($password,PASSWORD_DEFAULT)."' WHERE email='".$_SESSION['user']."'";
 				if ($conn->query($sql) === TRUE) {
@@ -63,7 +63,11 @@
 				$row = $result->fetch_assoc();
 				//se token corretto
 				if ($row['valido']>0){
-					//se token ancora valido
+					//recupero email per aggiornamento
+					$sql = "SELECT * FROM recovery_psw WHERE token='".$_REQUEST['token']."'";
+					$result = $conn->query($sql);
+					$row = $result->fetch_assoc();
+					
 					$_SESSION['user'] = $row['email'];
 					$_SESSION['token'] = $_REQUEST['token'];
                     
@@ -108,9 +112,9 @@
 					";
 				}
 			}
-			else{
+			/*else{
 				header('Location: ../index.php');
-			}
+			}*/
 		?>
     </body>
 </html>
