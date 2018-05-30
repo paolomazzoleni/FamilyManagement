@@ -97,6 +97,10 @@
 								<h3 class='mb-2' style='color:black;'>CAMBIO PASSWORD</h3>
 								<form action='./p_settings.php' method='post' id='change'>
 									<div class='form-group'>
+										<label>Email</label>
+										<input style='text-align:center;' type='text' class='form-control-plaintext' id='email' name='password' value='".$_SESSION['user']."' readonly>
+									</div>
+									<div class='form-group'>
 										<label>Password attuale</label>
 										<input type='password' class='form-control' id='o_password' name='o_password' placeholder='Password attuale' required>
 			";
@@ -134,4 +138,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
