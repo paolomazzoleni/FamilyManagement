@@ -41,9 +41,14 @@
     	<?php
 			if(isset($_POST['password'])){
 				$password = $_POST['password'];
-				
 				$sql = "UPDATE utente SET password='".password_hash($password,PASSWORD_DEFAULT)."' WHERE email='".$_SESSION['user']."'";
-				if ($conn->query($sql) === TRUE) {
+				
+				mysqli_autocommit($conn,FALSE);
+				mysqli_query($conn,"START TRANSACTION");
+				
+				$a=mysqli_query($conn,$sql);
+				if ($a) {
+					mysqli_query($conn,"COMMIT");
 					$sql = "DELETE FROM recovery_psw WHERE token='".$_SESSION['token']."'";
 					if ($conn->query($sql) === FALSE) {
 						echo "Error deleting record: " . $conn->error;
@@ -53,8 +58,11 @@
 				}
 				else {
 					echo "Error updating record: " . $conn->error;
+					mysqli_query($conn,"ROLLBACK");
 					$_REQUEST['token']=$_SESSION['token'];
 				}
+				
+				mysqli_autocommit($conn,TRUE);
 			}
 			
 			if(isset($_REQUEST['token'])){
