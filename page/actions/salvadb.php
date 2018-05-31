@@ -58,7 +58,6 @@
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 		else{
-			//RITORNA RISPOSTA PER AJAX
 			$sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."'";
 			$result = $conn->query($sql);
 			echo "
