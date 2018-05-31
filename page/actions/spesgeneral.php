@@ -15,7 +15,6 @@
 			table {
 				border-collapse: collapse;
 			}
-
 			table, th, td {
 				border: 1px solid black;
 			}
@@ -63,7 +62,6 @@
 				alert("Errore: hai inserito una data di scadenza invalida");
 				return;
 			}
-
 			//Se è tutto giusto
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -81,9 +79,7 @@
 					document.getElementById("ins_costo").value = "";
 				}
 			};
-
 			var param="data_s="+ data_s + "&ins_desc="+ins_desc+"&ins_costo="+ins_costo;
-
 			xmlhttp.open("POST","./salvadb.php",true);
 			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 			xmlhttp.send(param);
@@ -91,11 +87,9 @@
 	</script>
 
 	<body>
-		<div id="provaajax">
-		</div>
-		
 		<?php
 			require '../_navbar.php';
+			
 			if(isset($_POST['delete'])){
 				$sql = "DELETE FROM spesgen WHERE id_spesa_gen='".$_POST['del_id']."'";
 				if ($conn->query($sql) === FALSE) {
@@ -107,8 +101,8 @@
 			$result = $conn->query($sql);
 			if ($result->num_rows > 0){
 				echo "
-					<div class='container-fluid mt-3'>
-						<div class='table-responsive-md' id='tabella'>
+					<div class='container-fluid mt-3' id='tabella'>
+						<div class='table-responsive-md'>
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
 									<tr>
@@ -135,9 +129,9 @@
 			}
 			else{
             	echo "
-					<div class='container-fluid'>
+					<div class='container-fluid mt-3' id='tabella'>
 						<div class='row'>
-							<div class='col mt-5 mb-4'>
+							<div class='col mb-4'>
 								<h4 style='border-radius: 5px;background-color:#FFFFFF;padding:15px!important;' align='center'>NESSUNA SPESA INSERITA</h4>
 							</div>
 						</div>
@@ -188,4 +182,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
