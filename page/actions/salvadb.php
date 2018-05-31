@@ -1,7 +1,8 @@
 <?php
 	require '../_connect_to_db.php';
-
-	//controllo se settato inserimento prodotto in lista spesa
+	
+	//PRODOTTO IN LISTA SPESA
+	//inserimento prodotto in lista spesa
 	if(isset($_POST['prodotto'])){
 		if($_POST['prodotto']!=""){
 			$prodotto = str_replace("'","\"",$_POST['prodotto']);
@@ -31,7 +32,9 @@
 			}  
 		}
 	}
-	//controllo se settato inserimento nuova lista spesa
+	
+	//LISTA SPESA
+	//inserimento nuova lista spesa
 	else if(isset($_POST['ins_date'])){
 		$luogo = str_replace("'","\"",$_POST['ins_luo']);
 		$sql = "INSERT INTO listaspesa (data,luogo,codice_fam) VALUES ('".$_POST['ins_date']."','".$luogo."','".$_SESSION['fam']."')";
@@ -39,7 +42,9 @@
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 	}
-    //controllo se settato inserimento nuova spesa generale
+	
+	//SPESA GENERALE
+    //inserimento nuova spesa generale
     else if(isset($_POST['data_s'])){
     	$sql = "SELECT CURDATE()";
 		$result = $conn->query($sql);
@@ -52,8 +57,39 @@
 		if ($conn->query($sql) === FALSE) {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
+		else{
+			//RITORNA RISPOSTA PER AJAX
+			$sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."'";
+			$result = $conn->query($sql);
+			echo "
+				<div class='table-responsive-md'>
+					<table class='table' style='color:black;'>
+						<thead class='thead-dark'>
+							<tr>
+								<th scope='col'>#</th>
+								<th scope='col'>DATA INSERIMENTO</th>
+								<th scope='col'>DATA SCADENZA</th>
+								<th scope='col'>DESCRIZIONE</th>
+								<th scope='col'>COSTO</th>
+							</tr>
+						</thead>
+						<tbody>
+			";
+			while($row = $result->fetch_assoc()) {
+				echo "<tr style='background-color:#FFFFFF;'><td>".$row['id_spesa_gen']."</td><td>".$row['data_ins']."</td><td>".$row['data_scad']."</td><td>".$row['descrizione']."</td><td>".$row['costo']."</td>";
+			}
+			
+			echo "
+						</tbody>
+					</table>
+				</div>
+			";
+			
+		}
     }
-	//controllo se settato inserimento nuovo evento
+	
+	//EVENTO
+	//inserimento nuovo evento
 	else if(isset($_POST['ins_evento'])){
 		$desc = str_replace("'","\"",$_POST['ins_desc_evento']);
 		$descb = str_replace("'","\"",$_POST['ins_desc_b_evento']);
