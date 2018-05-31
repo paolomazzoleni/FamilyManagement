@@ -2,7 +2,6 @@
 	require '../_connect_to_db.php';
   	$_SESSION['curpage'] = 'spsgen';
 ?>
-
 <html>
 	<head>
 		<title>Spese Generali | FM</title>
@@ -189,4 +188,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
