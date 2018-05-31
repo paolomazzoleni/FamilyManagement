@@ -2,9 +2,10 @@
 	require '../_connect_to_db.php';
   	$_SESSION['curpage'] = 'spsgen';
 ?>
+
 <html>
 	<head>
-		<title>Spese Generali | Famiglia</title>
+		<title>Spese Generali | FM</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -39,12 +40,14 @@
     		//controllo campo descrizione che non sia vuoto
 			x = document.getElementById("ins_desc").value;
 			if (x == "") {
-				alert("Errore: non hai compilato il campo descrizione");return;
+				alert("Errore: non hai compilato il campo descrizione");
+				return;
 			}
 			//controllo campo costo che non sia vuoto
 			x = document.getElementById("ins_costo").value;
 			if (x == "") {
-				alert("Errore: non hai compilato il campo costo");return;
+				alert("Errore: non hai compilato il campo costo");
+				return;
 			}
 			//controllo campo data che non sia vuoto
 			x = document.getElementById("data_s").value;
@@ -54,10 +57,12 @@
 			date_d.setSeconds(59);
 			var today = new Date();
 			if (x == ""){
-				alert("Errore: non hai compilato il campo data di scadenza");return;
+				alert("Errore: non hai compilato il campo data di scadenza");
+				return;
 			}
 			else if(date_d<=today){
-				alert("Errore: hai inserito una data di scadenza invalida");return;
+				alert("Errore: hai inserito una data di scadenza invalida");
+				return;
 			}
 
 			//Se è tutto giusto
@@ -71,7 +76,10 @@
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					location.reload();
+					document.getElementById("tabella").innerHTML = this.responseText;
+					document.getElementById("data_s").value = "";
+					document.getElementById("ins_desc").value = "";
+					document.getElementById("ins_costo").value = "";
 				}
 			};
 
@@ -84,6 +92,9 @@
 	</script>
 
 	<body>
+		<div id="provaajax">
+		</div>
+		
 		<?php
 			require '../_navbar.php';
 			if(isset($_POST['delete'])){
@@ -98,7 +109,7 @@
 			if ($result->num_rows > 0){
 				echo "
 					<div class='container-fluid mt-5'>
-						<div class='table-responsive-md'>
+						<div class='table-responsive-md' id='tabella'>
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
 									<tr>
