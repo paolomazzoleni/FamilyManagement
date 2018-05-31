@@ -1,6 +1,6 @@
 <?php
 	require '../_connect_to_db.php';
-	
+
 	//PRODOTTO IN LISTA SPESA
 	//inserimento prodotto in lista spesa
 	if(isset($_POST['prodotto'])){
@@ -32,7 +32,7 @@
 			}  
 		}
 	}
-	
+
 	//LISTA SPESA
 	//inserimento nuova lista spesa
 	else if(isset($_POST['ins_date'])){
@@ -42,7 +42,7 @@
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
 	}
-	
+
 	//SPESA GENERALE
     //inserimento nuova spesa generale
     else if(isset($_POST['data_s'])){
@@ -84,10 +84,9 @@
 					</table>
 				</div>
 			";
-			
 		}
     }
-	
+
 	//EVENTO
 	//inserimento nuovo evento
 	else if(isset($_POST['ins_evento'])){
@@ -97,6 +96,104 @@
 		$sql = "INSERT INTO evento (data,dettagli,titolo,email,codice_fam) VALUES ('".$_POST['ins_evento']."','".$desc."','".$descb."','".$_SESSION['user']."','".$_SESSION['fam']."')";
 		if ($conn->query($sql) === FALSE){
 			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+		else{
+			$sql = "SELECT * FROM evento WHERE MONTH(data)=MONTH('".$_POST['ins_evento']."') AND YEAR(data)=YEAR('".$_POST['ins_evento']."') AND codice_fam='".$_SESSION['fam']."'";
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0) {
+				$parts = explode('-',$_POST['ins_evento']);
+
+				$mese = $parts[1];
+				$anno = $parts[0];
+			
+				//inizializzo array associativo mese - ngiorni
+				if($anno%4==0){
+					$giorni = array("01"=>31,"02"=>29,"03"=>31,"04"=>30,"05"=>31,"06"=>30,"07"=>31,"08"=>31,"09"=>30,"10"=>31,"11"=>30,"12"=>31);
+				}
+				else{
+					$giorni = array("01"=>31,"02"=>28,"03"=>31,"04"=>30,"05"=>31,"06"=>30,"07"=>31,"08"=>31,"09"=>30,"10"=>31,"11"=>30,"12"=>31);
+				}
+				
+				// data da cui la select deve iniziare
+				$datainizio = $anno."-".$mese."-01<br>";
+				
+				// numero di utenti della famiglia
+				$sql = "SELECT COUNT(*) AS nutenti FROM utente WHERE codice_fam='".$_SESSION['fam']."'";
+				$result = $conn->query($sql);
+				$row = $result->fetch_assoc();
+				$nutenti = $row['nutenti'];
+				
+				// visualizzo tabella eventi
+                //calcolo la percentuale per ogni header
+				$perc = 100/($nutenti+1); //+1 -> colonna data
+                //stampo header e memorizzo nomi utenti
+                echo "	
+						<div class='table-responsive-md' id='tabella'>
+							<table class='table' style='color:black;'>
+								<thead class='thead-dark'>
+									<tr>
+										<th style='width:".(int)$perc."%;text-align:middle;text-align:center;' scope='col'>DATA</th>
+                ";
+				
+				$i=0;
+				$sql = "SELECT * FROM utente WHERE codice_fam='".$_SESSION['fam']."' ORDER BY EMAIL";
+				$result = $conn->query($sql);
+				while($row = $result->fetch_assoc()) {
+					$nomi[$i]=$row['email'];
+					echo "<th style='width:".(int)$perc."%!important;min-width:200px;text-align:center;' scope='col'>".$nomi[$i]."</th>";
+					$i++;
+				}
+				echo "
+						</tr>
+					</thead>
+					<tbody>
+				";
+				
+				// per ogni riga -> fino a fine mese
+				$i=0;
+                
+				while($i<$giorni[$mese]){
+					$sql = "SELECT ADDDATE('".$datainizio."',".$i.") AS data";
+					$result = $conn->query($sql);
+					$row = $result->fetch_assoc();
+
+					$sql1 = "SELECT * FROM evento WHERE data='".$row['data']."' AND codice_fam='".$_SESSION['fam']."'";
+					$result1 = $conn->query($sql1);
+					if ($result1->num_rows > 0) {
+						echo "<tr class='table-light'><td style='text-align:center;text-align:middle;'>".$row["data"]."</td>";
+						//per ogni utente stampo una <td>
+						for($j=0;$j<$nutenti;$j++){
+							$sql = "SELECT * FROM evento WHERE email='".$nomi[$j]."' AND data='".$row["data"]."'";
+							$result1 = $conn->query($sql);
+							if ($result1->num_rows > 1) {
+								$stampa = "";
+								$eventotd = "";
+								while($row1 = $result1->fetch_assoc()) {
+									$eventotd .= "<details><summary>#".$row1['id_evento']." - ".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details>";
+								}
+								$evento = "<td style='width:".(int)$perc."%!important;'>".$eventotd."</td>";
+							}
+							else if ($result1->num_rows == 1){
+								$row1 = $result1->fetch_assoc();
+								$evento = "<td style='width:".(int)$perc."%!important;'><details><summary>#".$row1['id_evento']." - ".$row1['titolo']."</summary><p>".$row1['dettagli']."</p></details></td>";
+							}
+							else {
+								$evento = "<td style='width:".(int)$perc."%!important;'></td>";
+							}
+							
+							echo $evento;
+						}
+						echo "</tr>";	
+					}
+					$i++;
+				}
+				
+				echo "
+							</tbody>
+						</table>
+					</div>
+				";
+			}
 		}
 	}
 ?>
