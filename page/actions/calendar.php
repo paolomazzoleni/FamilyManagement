@@ -5,7 +5,7 @@
 
 <html>
 	<head>
-		<title>Calendario | FM</title>
+		<title>Calendario | famiglia</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -287,8 +287,8 @@
 				$perc = 100/($nutenti+1); //+1 -> colonna data
                 //stampo header e memorizzo nomi utenti
                 echo "	
-					<div class='container-fluid'>
-						<div class='table-responsive-md' id='tabella'>
+					<div class='container-fluid' id='tabella'>
+						<div class='table-responsive-md'>
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
 									<tr>
@@ -358,7 +358,7 @@
 			// se non ci sono eventi nel periodo scelto
 			else {
 				echo "
-					<div class='container-fluid'>
+					<div class='container-fluid' id='tabella'>
 						<div class='row'>
 							<div class='col mt-3 mb-3'>
 								<h4 style='border-radius: 5px;background-color:#FFFFFF;padding:15px!important;' align='center'>NESSUN EVENTO NEL PERIODO SCELTO</h4>
