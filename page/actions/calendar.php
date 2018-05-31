@@ -64,10 +64,15 @@
 			}
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					var xd = new Date(x);
-					var xm = xd.getMonth()+1;
-					var xy = xd.getFullYear();
-					window.location.replace("https://familymanagement.altervista.org/page/actions/calendar.php?mese="+xm+"&anno="+xy);
+					var res = x.split("-");
+					
+					document.getElementById("tabella").innerHTML = this.responseText;
+					document.getElementById("ins_evento").value = "";
+					document.getElementById("ins_desc_b_evento").value = "";
+					document.getElementById("ins_desc_evento").value = "";
+					
+					document.getElementById("month").value = res[1];
+					document.getElementById("year").value = res[0];
 				}
 			};
 
@@ -132,7 +137,7 @@
 				<form method='post'>
 					<div class='form-row'>
 						<div class='col'>
-							<select name='mese' class='custom-select' onchange='this.form.submit()'>";
+							<select name='mese' class='custom-select' onchange='this.form.submit()' id='month'>";
 
 			if($mese=="01"||$mese==1){
 				echo "			<option value='01' selected>Gennaio</option>";
@@ -225,7 +230,7 @@
 							</select>
 						</div>
 						<div class='col'>
-							<select name='anno' class='custom-select' onchange='this.form.submit()'>
+							<select name='anno' class='custom-select' onchange='this.form.submit()' id='year'>
 				";
 
 			if($anno==2018)
@@ -283,7 +288,7 @@
                 //stampo header e memorizzo nomi utenti
                 echo "	
 					<div class='container-fluid'>
-						<div class='table-responsive-md'>
+						<div class='table-responsive-md' id='tabella'>
 							<table class='table' style='color:black;'>
 								<thead class='thead-dark'>
 									<tr>
