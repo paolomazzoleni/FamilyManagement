@@ -4,7 +4,7 @@
 ?>
 <html>
 	<head>
-		<title>Impostazioni familiari | FM</title>
+		<title>Impostazioni familiari</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -20,24 +20,84 @@
                 background-size: cover;
             }
 		</style>
-	 </head>
+	</head>
+	<!--MODIFICA NOME-->
+	<script>	
+		function cambianome(){
+			var mod_name = $("#mod_name").val();
+			
+			//controllo campo descrizione che non sia vuoto
+			x = document.getElementById("mod_name").value;
+			if (x == "") {
+				alert("Errore: non hai compilato il campo nome");
+				return;
+			}
+			
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("infotabella").innerHTML = this.responseText;
+					
+					document.getElementById("mod_name").value = "";
+				}
+			};
+
+			var param="mod_name="+ mod_name;
+
+			xmlhttp.open("POST","./salvadb.php",true);
+			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xmlhttp.send(param);
+		}
+	</script>
+	
+	<!--MODIFICA RESIDENZA-->
+	<script>	
+		function cambiaresidenza(){
+			var mod_res = $("#mod_res").val();
+			
+			//controllo campo descrizione che non sia vuoto
+			x = document.getElementById("mod_res").value;
+			if (x == "") {
+				alert("Errore: non hai compilato il campo residenza");
+				return;
+			}
+			
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("infotabella").innerHTML = this.responseText;
+					
+					document.getElementById("mod_res").value = "";
+				}
+			};
+
+			var param="mod_res="+ mod_res;
+
+			xmlhttp.open("POST","./salvadb.php",true);
+			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xmlhttp.send(param);
+		}
+	</script>
+	
+	<!--BODY-->
 	<body style='background-color:#9ECCFF;'>
 		<?php
 			require '../_navbar.php';
-			//modifica nome famiglia
-			if(isset($_POST['mod_n'])){
-				$sql = "UPDATE famiglia SET nome='".$_POST['mod_name']."' WHERE codice_fam='".$_SESSION['fam']."'";
-				if ($conn->query($sql) === FALSE){
-					"Error updating record: " . $conn->error;
-				}
-			}
-			//modifica residenza famiglia
-			if(isset($_POST['mod_r'])){
-				$sql = "UPDATE famiglia SET residenza='".$_POST['mod_res']."' WHERE codice_fam='".$_SESSION['fam']."'";
-				if ($conn->query($sql) === FALSE){
-					"Error updating record: " . $conn->error;
-				}
-			}
+
 			//elimina famiglia
 			if(isset($_POST['delete_f'])){
 				$sql = "DELETE FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
@@ -64,12 +124,13 @@
 					header('Location: ../user.php');
 				}
 			}
+			
 			//stampa informazioni
 			$sql = "SELECT * FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
 			$result = $conn->query($sql);
 			$row = $result->fetch_assoc();
 			echo "
-				<div class='container-fluid mt-3'>
+				<div class='container-fluid mt-3' id='infotabella'>
 					<div class='row'>
 						<div class='col'>
 							<ul class='list-group' style='text-align:center;'>
@@ -90,9 +151,9 @@
 									<h5 class='card-title'>Cambia nome</h5>
 									<form method='post'>
 										<div class='form-group'>
-											<input type='text' class='form-control' name='mod_name' placeholder='Nuovo nome' required>
+											<input type='text' class='form-control' name='mod_name' id='mod_name' placeholder='Nuovo nome' required>
 										</div>
-										<input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='mod_n'>
+										<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='mod_n' onclick='cambianome()'>
 									</form>
 								</div>
 							</div>
@@ -103,9 +164,9 @@
 									<h5 class='card-title'>Cambia residenza</h5>
 									<form method='post'>
 										<div class='form-group'>
-											<input type='text' class='form-control' name='mod_res' placeholder='Nuova residenza' required>
+											<input type='text' class='form-control' name='mod_res' id='mod_res' placeholder='Nuova residenza' required>
 										</div>
-										<input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='mod_r'>
+										<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='mod_r' onclick='cambiaresidenza()'>	
 									</form>
 								</div>
 							</div>

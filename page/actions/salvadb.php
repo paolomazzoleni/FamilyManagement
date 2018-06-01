@@ -1,6 +1,38 @@
 <?php
 	require '../_connect_to_db.php';
-
+	
+	//CAMBIA NOME FAMIGLIA
+	if(isset($_POST['mod_name']) || isset($_POST['mod_res'])){
+		if(isset($_POST['mod_name'])){
+			$sql = "UPDATE famiglia SET nome='".$_POST['mod_name']."' WHERE codice_fam='".$_SESSION['fam']."'";
+		}
+		else{
+			$sql = "UPDATE famiglia SET residenza='".$_POST['mod_res']."' WHERE codice_fam='".$_SESSION['fam']."'";
+		}
+		
+		if ($conn->query($sql) === FALSE){
+			"Error updating record: " . $conn->error;
+		}
+		else{
+			$sql = "SELECT * FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
+			$result = $conn->query($sql);
+			$row = $result->fetch_assoc();
+			
+			echo "
+				<div class='row'>
+					<div class='col'>
+						<ul class='list-group' style='text-align:center;'>
+							<li class='list-group-item active'>Informazioni</li>
+							<li class='list-group-item'>Nome: <b>".$row['nome']."</b></li>
+							<li class='list-group-item'>Residenza: <b>".$row['residenza']."</b></li>
+							<li class='list-group-item'>Codice: <b>".$row['codice_fam']."</b></li>
+						</ul>
+					</div>
+				</div>
+			";
+		}
+	}
+	
 	//PRODOTTO IN LISTA SPESA
 	//inserimento prodotto in lista spesa
 	if(isset($_POST['prodotto'])){
