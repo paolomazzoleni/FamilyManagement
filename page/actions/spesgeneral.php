@@ -74,6 +74,7 @@
 			xmlhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					document.getElementById("tabella").innerHTML = this.responseText;
+					
 					document.getElementById("data_s").value = "";
 					document.getElementById("ins_desc").value = "";
 					document.getElementById("ins_costo").value = "";
@@ -90,6 +91,14 @@
 	<script>
 		function delspe(){
 			var del_id_spe_gen = $("#del_id_spe_gen").val();
+			
+			//controllo campo descrizione che non sia vuoto
+			x = document.getElementById("del_id_spe_gen").value;
+			if (x == "") {
+				alert("Errore: non hai compilato il campo data");
+				return;
+			}
+			
 			if (window.XMLHttpRequest) {
 				// code for IE7+, Firefox, Chrome, Opera, Safari
 				xmlhttp = new XMLHttpRequest();
