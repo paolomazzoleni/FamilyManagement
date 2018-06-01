@@ -85,18 +85,38 @@
 			xmlhttp.send(param);
 		}
 	</script>
-
+	
+	<!--CANCELLAZIONE NUOVA SPESA-->
+	<script>
+		function delspe(){
+			var del_id_spe_gen = $("#del_id_spe_gen").val();
+			if (window.XMLHttpRequest) {
+				// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp = new XMLHttpRequest();
+			}
+			else {
+				// code for IE6, IE5
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					document.getElementById("tabella").innerHTML = this.responseText;
+					
+					document.getElementById("del_id_spe_gen").value = "";
+				}
+			};
+			var param="del_id_spe_gen="+ del_id_spe_gen;
+			xmlhttp.open("POST","./salvadb.php",true);
+			xmlhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xmlhttp.send(param);
+		}
+	</script>
+	
+	<!--BODY-->
 	<body>
 		<?php
 			require '../_navbar.php';
-			
-			if(isset($_POST['delete'])){
-				$sql = "DELETE FROM spesgen WHERE id_spesa_gen='".$_POST['del_id']."'";
-				if ($conn->query($sql) === FALSE) {
-					echo "Error deleting record: " . $conn->error;
-				}
-			}
-		  
+
 			$sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."'";
 			$result = $conn->query($sql);
 			if ($result->num_rows > 0){
@@ -170,9 +190,9 @@
 									<h5 class='card-title mt-5'>Elimina spesa</h5>
 									<form method='post'>
 										<div class='form-group'>
-											<input type='number' class='form-control' name='del_id' placeholder='#' required>
+											<input type='number' class='form-control' id='del_id_spe_gen' name='del_id_spe_gen' placeholder='#' required>
 										</div>
-										<input type='submit' value='Conferma' class='btn btn-primary btn-lg btn-block' name='delete'>
+										<input type='button' value='Conferma' class='btn btn-primary btn-lg btn-block' name='delete' onclick='delspe()'>
 									</form>
 								</div>
 							</div>

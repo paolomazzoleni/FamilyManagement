@@ -85,6 +85,51 @@
 			";
 		}
     }
+	//cancellazione spesa generale
+	else if(isset($_POST['del_id_spe_gen'])){
+		$sql = "DELETE FROM spesgen WHERE id_spesa_gen='".$_POST['del_id_spe_gen']."'";
+		if ($conn->query($sql) === FALSE) {
+			echo "Error deleting record: " . $conn->error;
+		}
+		else{
+			$sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."'";
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0){
+				echo "
+					<div class='table-responsive-md'>
+						<table class='table' style='color:black;'>
+							<thead class='thead-dark'>
+								<tr>
+									<th scope='col'>#</th>
+									<th scope='col'>DATA INSERIMENTO</th>
+									<th scope='col'>DATA SCADENZA</th>
+									<th scope='col'>DESCRIZIONE</th>
+									<th scope='col'>COSTO</th>
+								</tr>
+							</thead>
+							<tbody>
+				";			
+				while($row = $result->fetch_assoc()) {
+					echo "<tr style='background-color:#FFFFFF;'><td>".$row['id_spesa_gen']."</td><td>".$row['data_ins']."</td><td>".$row['data_scad']."</td><td>".$row['descrizione']."</td><td>".$row['costo']."</td>";
+				}
+			
+				echo "
+							</tbody>
+						</table>
+					</div>
+				";
+			}
+			else{
+            	echo "
+					<div class='row'>
+						<div class='col mb-4'>
+							<h4 style='border-radius: 5px;background-color:#FFFFFF;padding:15px!important;' align='center'>NESSUNA SPESA INSERITA</h4>
+						</div>
+					</div>
+				";
+			}
+		}
+	}
 
 	//EVENTO
 	//inserimento nuovo evento
