@@ -32,7 +32,7 @@
 				if($_REQUEST['logemail']=="" || $_REQUEST['logpassword']==""){
 					//email non presente
 					if($_REQUEST['logemail']==""){
-						$errore=1;
+						$errore=4;
 					}
 					//password non presente
 					else{
@@ -94,7 +94,7 @@
 					}
 					//nessun risultato con questa email
 					else{
-						$errore=1;
+						$errore=5;
 					}
 				}
 			}
@@ -113,6 +113,18 @@
 				$errore=0;
 				echo "
 								<small class='form-text p-2 mb-2 bg-danger text-white'>Email non valida</small>
+				";
+			}
+			else if($errore==4){
+				$errore=0;
+				echo "
+								<small class='form-text p-2 mb-2 bg-danger text-white'>Email assente</small>
+				";
+			}
+			else if($errore==5){
+				$errore=0;
+				echo "
+								<small class='form-text p-2 mb-2 bg-danger text-white'>Nessun risultato con questa email</small>
 				";
 			}
 			echo "			</div>
@@ -152,4 +164,4 @@
 			";
 		?>
 	</body>
-</html>
+</html>
