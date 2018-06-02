@@ -96,12 +96,6 @@
 	<!--BODY-->
 	<body style='background-color:#9ECCFF;'>
 		<?php
-			if(isset($_SESSION['user'])==FALSE || isset($_SESSION['fam'])==FALSE){
-				header('Location: ../../index.php');
-			}
-			
-			require '../_navbar.php';
-
 			//elimina famiglia
 			if(isset($_POST['delete_f'])){
 				$sql = "DELETE FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
@@ -129,6 +123,13 @@
 				}
 			}
 			
+			//se non sono settate exit o delete_f, controllo se l'accesso alla pagina non è fatto da una sessione
+			if(isset($_SESSION['user'])==FALSE || isset($_SESSION['fam'])==FALSE){
+				header('Location: ../../index.php');
+			}
+			
+			require '../_navbar.php';
+
 			//stampa informazioni
 			$sql = "SELECT * FROM famiglia WHERE codice_fam='".$_SESSION['fam']."'";
 			$result = $conn->query($sql);
