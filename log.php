@@ -22,6 +22,10 @@
 	</head>
 	<body class="w-100 h-100 d-flex justify-content-center">
 		<?php
+			if(isset($_SESSION['user']) && isset($_SESSION['fam'])){
+				header('Location: ./page/menu_fam.php');
+			}
+			
 			//effettua login
 			if(isset($_REQUEST['login'])){
 				//controllo se email e password sono vuoti

@@ -65,6 +65,10 @@
 	</script>
 	<body class="w-100 h-100 d-flex justify-content-center">
 		<?php
+			if(isset($_SESSION['user']) && isset($_SESSION['fam'])){
+				header('Location: ./page/menu_fam.php');
+			}
+			
 			//effettua registrazione
 			if(isset($_REQUEST['regemail'])){
 				//Se uno dei campi non è compilato
@@ -209,4 +213,4 @@
 			}
 		?>
 	</body>
-</html>
+</html>
