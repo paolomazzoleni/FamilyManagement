@@ -124,6 +124,10 @@
 	<!--BODY-->
 	<body>
 		<?php
+			if(isset($_SESSION['user'])==FALSE || isset($_SESSION['fam'])==FALSE){
+				header('Location: ../../index.php');
+			}
+			
 			require '../_navbar.php';
 
 			$sql = "SELECT * FROM spesgen WHERE codice_fam='".$_SESSION['fam']."'";

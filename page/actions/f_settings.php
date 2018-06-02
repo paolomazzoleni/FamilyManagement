@@ -96,6 +96,10 @@
 	<!--BODY-->
 	<body style='background-color:#9ECCFF;'>
 		<?php
+			if(isset($_SESSION['user'])==FALSE || isset($_SESSION['fam'])==FALSE){
+				header('Location: ../../index.php');
+			}
+			
 			require '../_navbar.php';
 
 			//elimina famiglia

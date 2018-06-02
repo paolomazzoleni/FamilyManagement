@@ -48,6 +48,12 @@
 	</script>
 	<body>
 		<?php
+			if(isset($_SESSION['user'])==FALSE || isset($_SESSION['fam'])==FALSE){
+				header('Location: ../../index.php');
+			}
+			
+			require '../_navbar.php';
+			
 			//se è richiesto cambio password
 			if(isset($_POST['o_password'])){
 				$sql = "SELECT * FROM utente WHERE email='".$_SESSION['user']."'";
@@ -86,9 +92,6 @@
 				}
 			}
 		  
-			//stampa menù
-			require '../_navbar.php';
-			
 			echo  "
 				<div class='w-100 h-100 d-flex justify-content-center'>
 					<div class='align-self-center text-center'>
