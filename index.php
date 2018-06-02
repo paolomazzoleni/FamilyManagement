@@ -52,6 +52,10 @@
 					}
 				}
 			}
+			//se non è richiesto logout e non sono settati i cookie, controllo per ultime le sessioni
+			if(isset($_SESSION['user']) && isset($_SESSION['fam'])){
+				header('Location: ./page/menu_fam.php');
+			}
 		?>
     
 		<div class="w-100 h-100 d-flex justify-content-center" style="padding:10px;">
