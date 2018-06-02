@@ -22,6 +22,13 @@
     </style>
 	<body>
 		<?php
+			if(isset($_SESSION['user'])==FALSE){
+				header('Location: ../index.php');
+			}
+			else if(isset($_SESSION['user'])&&isset($_SESSION['fam'])){
+				header('Location: ./menu_fam.php');
+			}
+			
 			//join a famiglia tramite codice
 			if(isset($_REQUEST['join'])){
 				$sql = "SELECT * FROM famiglia WHERE codice_fam = '".$_REQUEST['codice_fam']."'";
