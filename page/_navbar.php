@@ -23,14 +23,14 @@
 	if($_SESSION['curpage']=='home'){
 		echo "
 			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/menu_fam.php' style='line-height: 50px;'>Home</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/menu_fam.php' style='line-height:50px;'>Home</a>
 			</li>
 		";
 	}
 	else{
 		echo "
 			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/menu_fam.php' style='line-height: 50px;'>Home</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/menu_fam.php' style='line-height:50px;'>Home</a>
 			</li>
 		";
 	}
@@ -38,14 +38,14 @@
 	if($_SESSION['curpage']=='calendario'){
 		echo "
 			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/calendar.php' style='line-height: 50px;'>Calendario</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/actions/calendar.php' style='line-height:50px;'>Calendario</a>
 			</li>
 		";
 	}
 	else{
 		echo "
 			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/calendar.php' style='line-height: 50px;'>Calendario</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/actions/calendar.php' style='line-height:50px;'>Calendario</a>
 			</li>
 		";
 	}
@@ -53,14 +53,14 @@
 	if($_SESSION['curpage']=='spsgen'){
 		echo "
 			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/spesgeneral.php' style='line-height: 50px;'>Spese generali</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/actions/spesgeneral.php' style='line-height:50px;'>Spese generali</a>
 			</li>
 		";
 	}
 	else{
 		echo "
 			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/spesgeneral.php' style='line-height: 50px;'>Spese generali</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/actions/spesgeneral.php' style='line-height:50px;'>Spese generali</a>
 			</li>
 		";
 	}
@@ -68,26 +68,26 @@
 	if($_SESSION['curpage']=='lstsps'){
 		echo "
 			<li class='li-nv nav-item active mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/listaspesa.php' style='line-height: 50px;'>Liste spesa</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/actions/listaspesa.php' style='line-height:50px;'>Liste spesa</a>
 			</li></ul>
 		";
 	}
 	else{
 		echo "
 			<li class='li-nv nav-item mr-1 ml-1 d-flex flex-column justify-content-center'>
-				<a class='nav-link' align='center' href='http://familymanagement.altervista.org/page/actions/listaspesa.php' style='line-height: 50px;'>Liste spesa</a>
+				<a class='nav-link' align='center' href='https://familymanagement.altervista.org/page/actions/listaspesa.php' style='line-height:50px;'>Liste spesa</a>
 			</li></ul>
 		";
 	}
 	//bottoni fine navbar
 	echo "
-				<form class='form-inline mt-2 my-lg-0' action='http://familymanagement.altervista.org/page/actions/f_settings.php'>
+				<form class='form-inline mt-2 my-lg-0' action='https://familymanagement.altervista.org/page/actions/f_settings.php'>
 					<button class='btn btn-secondary btn-md btn-block my-sm-0 mt-2 mr-1 ml-1' type='submit'>Impostazioni familiari</button>
 				</form>
-				<form class='form-inline my-lg-0' action='http://familymanagement.altervista.org/page/actions/p_settings.php'>
+				<form class='form-inline my-lg-0' action='https://familymanagement.altervista.org/page/actions/p_settings.php'>
 					<button class='btn btn-secondary btn-md btn-block my-sm-0 mr-1 ml-1' type='submit'>Impostazioni personali</button>
 				</form>
-				<form class='form-inline  my-lg-0' action='http://familymanagement.altervista.org/' method='post'>
+				<form class='form-inline  my-lg-0' action='https://familymanagement.altervista.org/' method='post'>
 					<button class='btn btn-dark btn-md btn-block my-sm-0 mr-1 ml-1' type='submit' name='logout'>Logout</button>
 				</form>
 			</div>
